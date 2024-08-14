@@ -1,7 +1,8 @@
 const testDiv = document.getElementById("test-div");
 
 testDiv.innerHTML = 
-`<!-- Treatment -->
+`
+<!-- Treatment -->
 <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-4">
   <!-- R0 - Title - Treatment -->
   <div class="col-sm-12">
@@ -55,7 +56,7 @@ testDiv.innerHTML =
       <!-- MR3&4 - Primary Select (Header & Input) -->
       <!-- Primary Select Header -->
       <div class="col-sm-12">
-        <h5 class="border-bottom">Primary</h5>
+        <h6 class="border-bottom pt-3">Primary</h6>
       </div>
 
       <!-- Primary Select Input -->
@@ -216,7 +217,7 @@ testDiv.innerHTML =
       <!-- MR3&4 - Neck Select (Header & Input)-->
       <!-- Neck Select Header -->
       <div class="col-sm-12">
-        <h5 class="border-bottom">Neck Dissection</h5>
+        <h6 class="border-bottom pt-3">Neck Dissection</h6>
       </div>
 
       <!-- Neck Select Input -->
@@ -669,7 +670,7 @@ testDiv.innerHTML =
       <!-- MR3&4 - Recon Select (Header & Input) -->
       <!-- Recon Select Header  -->
       <div class="col-sm-12">
-        <h5 class="border-bottom">Reconstruction</h5>
+        <h6 class="border-bottom pt-3">Reconstruction</h6>
       </div>
 
       <!-- Recon Select Input -->
@@ -681,18 +682,11 @@ testDiv.innerHTML =
       </div>
 
       <!-----------------  DR7 - Notes Accordion------------------------->
-      <div class="col-sm-12 accordion mt-2">
+      <div class="col-sm-12">
         <!-- Notes Accordion Header Btn -->
-        <h5 class="border-bottom accordion-header">
-          <button
-            class="accordion-button collapsed h5"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#flush-collapseTwo"
-          >
-            Additional Notes
-          </button>
-        </h5>
+        <h6 class="border-bottom pt-3" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo">
+          Add Notes +
+        </h6>
 
         <!-- Collapsible Notes inputs -->
         <div class="row gx-1 gy-2 collapse" id="flush-collapseTwo">
@@ -717,7 +711,7 @@ testDiv.innerHTML =
           <div class="col-sm-6">
             <div class="form-floating">
               <textarea
-                id="PostopNotes"
+                id="PostopNotes" 
                 class="form-control"
                 style="height: 10vh"
                 placeholder="Describe the patients compliants here"
@@ -742,6 +736,7 @@ testDiv.innerHTML =
     </div>
   </div>
 </div>
+
 `
 
 function ButtonEnabler(input, btn) {
