@@ -1,0 +1,256 @@
+<!-- Primary Info -->
+<div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-4">
+  <!-- R0 - Title - Primary Info -->
+  <div class="col-sm-12">
+    <h4 id="scrollspyHeading1" class="text-center border-bottom pb-2">
+      Primary Info
+    </h4>
+  </div>
+
+  <!-- Primary Info Always Show Rows D=Desktop, M=Mobile -->
+  <!-- DR1 - Pt Name, Age, Sex-->
+  <!-- MR1 - Pt Name -->
+  <div class="col-sm-6">
+    <div class="form-floating">
+      <input
+        type="text"
+        class="form-control"
+        id="patientName"
+        placeholder="Please enter name"
+        required
+        onchange="ButtonEnabler('patientName','PIMoreDetailsBtn')"
+      />
+      <label for="patientName">Patient Name*</label>
+    </div>
+  </div>
+
+  <!-- MR2 - Age, Sex  -->
+  <div class="col-sm-6">
+    <div class="row gx-1">
+      <!-- Age -->
+      <div class="col-4">
+        <div class="form-floating">
+          <input
+            type="number"
+            class="form-control"
+            id="age"
+            placeholder="0"
+            required
+          />
+          <label for="age">Age*</label>
+        </div>
+      </div>
+
+      <!-- Gender -->
+      <div class="col-8">
+        <div class="form-floating">
+          <select class="form-control" id="gender" required>
+            <option value="">Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+          <label for="gender">Gender*</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DR2 - Contact, Email, More Details -->
+  <!-- MR3 - Contact -->
+  <div class="col-sm-5">
+    <div class="form-floating">
+      <input
+        type="number"
+        class="form-control"
+        id="ContactNumber"
+        pattern="[0-9]{10}"
+        placeholder="+91##########"
+        required
+      />
+      <label for="ContactNumber">Contact Number*</label>
+      <div class="invalid-feedback">Please enter a Contact Number</div>
+    </div>
+  </div>
+
+  <!--MR4 - Email, More Details  -->
+  <div class="col-sm-7">
+    <div class="row gx-1 justify-content-center">
+      <!-- Email -->
+      <div class="col-6">
+        <div class="form-floating">
+          <input
+            type="email"
+            class="form-control"
+            id="EmailID"
+            placeholder="example@abc.com"
+          />
+          <label for="EmailID">Email ID</label>
+          <div class="invalid-feedback">Please enter a valid email id</div>
+        </div>
+      </div>
+
+      <!-- More Details -->
+      <div class="col-6 align-self-center">
+        <div class="d-grid col-10 mx-auto">
+          <button
+            type="button"
+            id="PIMoreDetailsBtn"
+            class="btn btn-sm btn-primary"
+            data-bs-toggle="collapse"
+            data-bs-target="#PIExpanded"
+            disabled
+          >
+            Add More Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Info Collapsed Rows -->
+  <div class="collapse col-sm-12" id="PIExpanded">
+    <div class="row gx-1 gy-2">
+      <!-- DR3 - Local Address 1,2 -->
+      <!-- MR5 - Address Line 1 -->
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="AddLine1"
+            placeholder="Address Line 1"
+          />
+          <label for="AddLine1">Address Line 1</label>
+        </div>
+      </div>
+
+      <!-- MR6 - Address Line 2 -->
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="AddLine2"
+            placeholder="Address Line 2"
+          />
+          <label for="AddLine1">Address Line 2</label>
+        </div>
+      </div>
+
+      <!-- DR4 - Country,State,City,Pincode -->
+      <!-- MR7 - Country, State -->
+      <div class="col-sm-6">
+        <div class="row gx-1">
+          
+          <!-- Country -->
+          <div class="col-6">
+            <div class="form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="Country"
+                placeholder="Country"
+              />
+              <label for="Country">Country</label>
+            </div>
+          </div>
+
+          <!-- State -->
+          <div class="col-6">
+            <div class="form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="State"
+                placeholder="State"
+              />
+              <label for="State">State</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MR8 - City,Pincode -->
+      <div class="col-sm-6">
+        <div class="row gx-1">
+          
+          <!-- City -->
+          <div class="col-6">
+            <div class="form-floating">
+              <input
+                type="text"
+                class="form-control"
+                id="City"
+                placeholder="City"
+              />
+              <label for="City">City</label>
+            </div>
+          </div>
+
+          <!-- Pincode -->
+          <div class="col-6">
+            <div class="form-floating">
+              <input
+                type="number"
+                class="form-control"
+                id="Pincode"
+                placeholder="Pincode"
+              />
+              <label for="Pincode">Pincode</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DR5 - Relative Name, Relation, Number -->
+      <!-- MR9 - Relative Name, Relation -->
+      <div class="col-sm-8">
+        <div class="input-group">
+          <span class="input-group-text bg-body-secondary" for="RelativeName">Relative Name</span>
+          <input type="text" class="form-control" id="RelativeName">
+          <span class="input-group-text bg-body-secondary" for="Relation">Relation</span>
+          <input type="text" class="form-control" id="Relation">
+        </div>
+      </div>
+
+      <!-- MR10 -->
+      <div class="col-sm-4">
+        <div class="input-group">
+          <span class="input-group-text bg-body-secondary" for="RelativeNumber">Relative's Contact Number</span>
+          <input type="number" class="form-control" id="RelativeNumber">
+        </div>
+      </div>
+
+      <!-- DR6 - Referred By, Any other Info -->
+      <!-- MR11 - Referred By -->
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="Referredby"
+            placeholder="Referred by"
+          />
+          <label for="Referredby">Referred by</label>
+        </div>
+      </div>
+
+      <!-- MR12 - Any Other Info -->
+      <div class="col-sm-6">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="AnyOtherInfo"
+            placeholder="Any Other Info"
+          />
+          <label for="AnyOtherInfo">Any Other Info</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- End of Set 1 - Primary Info -->
+</div>

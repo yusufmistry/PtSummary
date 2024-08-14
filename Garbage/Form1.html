@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Data Form 1</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #f8f9fa;
+      }
+      .container {
+        margin-top: 50px;
+      }
+      .form-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="form-container">
+            <h2 class="text-center">Primary Info</h2>
+            <form id="patientForm">
+              <div class="form-group">
+                <label for="patientName">Patient Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="patientName"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" class="form-control" id="age" required />
+              </div>
+              <div class="form-group">
+                <label for="gender">Gender</label>
+                <select class="form-control" id="gender" required>
+                  <option value="">Select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="HospitalName">Hospital Name</label>
+                <input type="number" class="form-control" id="HospitalName" />
+              </div>
+              <div class="form-group col-md-4">
+                <label for="IPDNo">IPD No.</label>
+                <input type="number" class="form-control" id="IPDNo" />
+              </div>
+              <div class="form-group">
+                <label for="OPDNo">OPD No.</label>
+                <input type="number" class="form-control" id="OPDNo" />
+              </div>
+              <div class="form-group">
+                <label for="cancerType">Cancer Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cancerType"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="diagnosisDate">Date of Diagnosis</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="diagnosisDate"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="contactNumber">Contact Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="contactNumber"
+                  pattern="[0-9]{10}"
+                  required
+                />
+              </div>
+              <div class="form-outline">
+                <label class="form-label" for="Complaints">Complaints</label>
+                <textarea
+                  class="form-control"
+                  id="Complaints"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+              <div class="form-outline">
+                <label class="form-label" for="OnExam">On Examination</label>
+                <textarea class="form-control" id="OnExam" style="height: 100px;" required></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block">
+                Submit
+              </button>
+            </form>
+            <div id="alert" class="alert mt-3" style="display: none"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("patientForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var patientName = document.getElementById("patientName").value;
+          var age = document.getElementById("age").value;
+          var gender = document.getElementById("gender").value;
+          var cancerType = document.getElementById("cancerType").value;
+          var diagnosisDate = document.getElementById("diagnosisDate").value;
+          var contactNumber = document.getElementById("contactNumber").value;
+
+          if (
+            patientName &&
+            age &&
+            gender &&
+            cancerType &&
+            diagnosisDate &&
+            contactNumber
+          ) {
+            var alert = document.getElementById("alert");
+            alert.className = "alert alert-success";
+            alert.textContent = "Patient data submitted successfully!";
+            alert.style.display = "block";
+          } else {
+            var alert = document.getElementById("alert");
+            alert.className = "alert alert-danger";
+            alert.textContent = "Please fill in all the fields correctly.";
+            alert.style.display = "block";
+          }
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

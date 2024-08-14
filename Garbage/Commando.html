@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- Font Awesome CDN -->
+    <script
+      src="https://kit.fontawesome.com/61e8514ddf.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Tagify -->
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- Override CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!-- Surgery Details - Commando -->
+
+    <div class="row mb-4">
+      <div class="form-group col-6">
+        <label for="SxDate">Surgery Date</label>
+        <input type="date" class="form-control" id="SxDate" required />
+      </div>
+      <div class="form-group col-6">
+        <label for="SxPlace">Surgery Place</label>
+        <input type="text" class="form-control" id="SxPlace" />
+      </div>
+      <!-- Primary Tumour Details -->
+      <!-- Type -->
+      <div class="form-floating col-sm-4">
+        <select class="form-control" id="SxType" required>
+          <option value="">Select</option>
+          <option value="Wide Excision">Wide Excision</option>
+          <option value="Composite Resection">Composite Resection</option>
+        </select>
+        <label class="ms-2" for="gender">Surgery Type*</label>
+      </div>
+    </div>
+
+    <!-- Main Side -->
+    Right, Left, Central, Bilateral
+
+    <!-- Main Site -->
+    Can be only 1 [Buccal Mucosa, RMT, Lower GBS, Upper GBS, Upper Alveolus,
+    Lower Alveolus, Palate, FOM, Margin Tongue, Tongue Dorsum, BOT, Tonsil,
+    Upper Lip, Lower Lip]
+
+    <!-- Incisions (optional) -->
+    [Midline Split, Angle of Mouth Lip Split, Intra-Oral, Single Transverse,
+    Single Transverse with Vertical Extn, McAfee's, Schobinger's, Modified
+    Schobingers, Apron]
+
+    <!-- Additional Sites -->
+     <div class="row mb-4">
+        <div class="col-6 form-group">
+            <label for="AdditionalSites">Additional Sites</label>
+            <input id="AdditionalSites" class="form-control" placeholder='Start Typing'>
+        </div>
+     </div>
+    
+    [Buccal Mucosa, RMT, LGBS, UGBS, Upper Alveolus, Lower Alveolus, Palate,
+    FOM, Margin Tongue, Tongue Dorsum, BOT, Tonsil, Upper Lip, Lower Lip,]
+    [Large Skin, Skin, Small Skin] [Minimal Marginal Mandibulectomy, Marginal
+    Mandibulectomy, C-shaped Marginal, Segmental Mandibulectomy, Posterior
+    Segmental Madibulectomy, Segmental Mandibulectomy across Midline, Central
+    Segmental Mandibulectomy, Hemi-Mandibulectomy, Extended Hemi-Mandibulectomy,
+    Subtotal Mandibulectomy, Total Mandibulectomy] [Upper Alveolectomy,
+    Infra-structure Maxillectomy, Partial Maxillectomy, Central Maxillectomy,
+    Hemi-Maxillectomy, Hemimaxillectomy with IO Plate, Hemimaxillectomy with
+    Orbital Contents] [Entire Massater, Medial Pterygoid, Pterygoid Plates, Low
+    ITF Clearance, Compartmental ITF Clearance, High ITF Clearance, Orbital
+    Exentration] [Others]
+    <!-- Neck Details -->
+    Main SIDE [Right, Left] (if BL add Neck) TYPE [1A, 1B, 2A, 2B, 3, 4, 5A, 5B,
+    Supra-Omohyoid Neck Dissection, Extended Supra-Omohyoid Neck Dissection,
+    Modified Radical Neck Dissection Type 3, Modified Radical Neck Dissection
+    Type 2, Modified Radical Neck Dissection Type 1, SCM, Spinal Accessory,
+    Internal Jugular Vein, Submandiblar Gland, Skin, Neck Exploration, Neck
+    Re-Exploration] [Other]
+
+    <!-- Recon Details -->
+
+    <!-- Intra-op Details -->
+
+    <!-- Post-op Details till discharge -->
+     <!-- CheckBoxes -->
+     <p class="mb-0" style="font-size: 0.9rem;"><b>Structures Removed</b></p>
+     <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="SCM"
+          value="SCM"
+        />
+        <label class="form-check-label" for="inlineCheckbox1"
+          >SCM</label
+        >
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="SAN"
+          value="SAN"
+        />
+        <label class="form-check-label" for="SAN">SAN</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="IJV"
+          value="IJV"
+        />
+        <label class="form-check-label" for="IJV">IJV</label>
+      </div>
+    <!-- HPE -->
+
+    <!-- Main.js Script -->
+    <script src="./js/main.js"></script>
+    <!-- Bootstrap Script -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

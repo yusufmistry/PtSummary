@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TNM Classification Calculator</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5">
+        TNM Classification Calculator for Oral Cavity Cancers
+      </h1>
+      <form class="needs-validation" novalidate>
+        <label>TsizeAP</label>
+        <input type="number" id="TsizeAP" />
+        <label>TsizeTrans</label>
+        <input type="number" id="TsizeTrans" />
+        <label>TsizeVert</label>
+        <input type="number" id="TsizeVert" />
+        <label>TsizeDOI</label>
+        <input type="number" id="TsizeDOI" />
+        <label>BoneInv</label>
+        <select id="BoneInv">
+          <option value=""></option>
+          <option value="Absent">Absent</option>
+          <option value="Present">Present</option>
+          <option value="Superficial Cortical">Superficial Cortical</option>
+          <option value="Deep Intramedullary">Deep Intramedullary</option>
+        </select>
+        <!-- Same Neck -->
+        <label>RPositNodes</label>
+        <input type="number" id="RPositNodes" value=""/>
+        <label>RNodeSize</label>
+        <input type="number" id="RNodeSize" />
+        <br>
+        <label>RECS</label>
+        <select id="RECS" >
+            <option value="">Select</option>
+            <option value="Absent">Absent</option>
+            <option value="Present">Present</option>
+          </select>
+          <br>
+        <!-- Opposite Neck -->
+        <label>LPositNodes</label>
+        <input type="number" id="LPositNodes" value=""/>
+        <label>LNodeSize</label>
+        <input type="number" id="LNodeSize" />
+        <br>
+        <label>LECS</label>
+        <select id="LECS">
+            <option value="">Select</option>
+            <option value="Absent">Absent</option>
+            <option value="Present">Present</option>
+          </select>
+          <!-- Result -->
+           <br>
+          <label>pT</label>
+          <input type="text" id="Tstage"/>
+          <br>
+          <label>pN</label>
+        <input type="text" id="Nstage" />
+          <input type="text" required>
+          <div id="dataMissing"></div>
+
+        <button class="btn btn-primary" onclick="CalcpTNM()">
+          Calculate TNM Classification
+        </button>
+      </form>
+    </div>
+    <script src="./tnmlogic2.js"></script>
+  </body>
+</html>

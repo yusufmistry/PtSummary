@@ -1,0 +1,147 @@
+<!-- First Visit -->
+<div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-4">
+  <!-- R0 - Title - First Visit -->
+  <div class="col-sm-12">
+    <h4 id="scrollspyHeading2" class="text-center border-bottom pb-2">
+      First Visit
+    </h4>
+  </div>
+
+  <!-- DR1 - Visit Date, Place, Reg No., Add More Details Btn -->
+  <!-- MR1 - Visit Date, Place -->
+  <div class="col-sm-6">
+    <div class="row gx-1">
+      <!-- Visit Date -->
+      <div class="col-5">
+        <div class="form-floating">
+          <input
+            type="date"
+            class="form-control"
+            id="FirstVistDate"
+            placeholder="Date"
+            onchange="ButtonEnabler('FirstVistDate','FVMoreDetailsBtn')"
+          />
+          <label for="FirstVistDate">1st Visit Date</label>
+        </div>
+      </div>
+
+      <!-- Visit Place -->
+      <div class="col-7">
+        <div class="form-floating">
+          <input
+            type="text"
+            class="form-control"
+            id="HospitalName"
+            placeholder="Name"
+          />
+          <label for="HospitalName">Hospital Name</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MR2 - Reg No., Add More Details Btn -->
+  <div class="col-sm-6">
+    <div class="row gx-1">
+      <!-- Reg No. -->
+      <div class="col-7">
+        <div class="form-floating">
+          <input
+            type="number"
+            class="form-control"
+            id="IPDNo"
+            placeholder="0"
+          />
+          <label for="IPDNo">IPD No.</label>
+        </div>
+      </div>
+
+      <!-- Add Details Btn -->
+      <div class="col-5 align-self-center">
+        <div class="d-grid col-10 mx-auto">
+          <button
+            type="button"
+            id="FVMoreDetailsBtn"
+            class="btn btn-sm btn-primary"
+            data-bs-toggle="collapse"
+            data-bs-target="#FVExpanded"
+            disabled
+          >
+            Add Details
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- First Visit Collapsed Rows -->
+  <div class="collapse col-sm-12" id="FVExpanded">
+    <div class="row gx-1 gy-2">
+      <!-- DR2 - Chief Complaints -->
+      <!-- MR3&4 - Chief Complaints -->
+      <div class="col-sm-12">
+        <div class="form-floating">
+          <textarea
+            id="Complaints"
+            class="form-control"
+            style="height: 15vh"
+            placeholder="Describe the patients compliants here"
+            required
+          ></textarea>
+          <label for="Complaints">Chief Complaints*</label>
+          <div class="form-text">
+            Format: <i>Complaint -> Site -> Duration</i> <br />
+            Example:
+            <i
+              >Pain in the right side of the face since 2 weeks and swelling
+              since 1 week and halitosis.</i
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- DR3 - On Examination -->
+      <!-- MR5&6 - On Examination -->
+      <div class="col-sm-12">
+        <div class="form-floating">
+          <textarea
+            id="OnExam"
+            class="form-control"
+            style="height: 25vh"
+            placeholder="Describe the examination findings here"
+          ></textarea>
+          <label for="OnExam">On Examination</label>
+          <div class="form-text">
+            Example:
+            <i
+              >2x2cm ulcer seen in the right buccal mucosa and
+              a single hard right submandibular node palpable</i
+            >
+          </div>
+        </div>
+      </div>
+
+      <!-- DR4 - Medical History -->
+      <!-- MR7&8 - Medical History -->
+       <div class="col-sm-12">
+        <div class="form-floating">
+            <textarea
+              id="MedicalHistory"
+              class="form-control"
+              style="height: 10vh"
+              placeholder="Relevant Medical History"
+            ></textarea>
+            <label for="MedicalHistory">Relevant Medical History, if any</label>
+            <div class="form-text">
+              Eg:
+              <i
+                >Well controlled hypertension since 4 yrs / On Ecosprin 75mg for IHD since 2 years</i
+              >
+            </div>
+          <!-- </div> -->
+       </div>
+
+    </div>
+  </div>
+</div>
+<!-- End of Set 2 - First Visit Always Show Rows -->

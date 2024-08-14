@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Summary Maker App</title>
+    <!-- Font Awesome CDN -->
+    <script
+      src="https://kit.fontawesome.com/61e8514ddf.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Tagify -->
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <!-- Override CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Background CSS -->
+    <link rel="stylesheet" href="./css/backgroud.css" />
+  </head>
+
+  <body class="mx-auto p-3" style="max-width: 800px">
+    <div class="video-background">
+      <video autoplay loop muted>
+        <source
+          src="./media/istockphoto-1474922414-640_adpp_is.mp4"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+      <div class="overlay"></div>
+      <!-- Semi-transparent layer -->
+    </div>
+    <!-- Header with Scrollspy -->
+    <header class="bg-light">
+      <h2 class="text-center m-3 p-2">
+        <i class="fa-regular fa-lg fa-rectangle-list"></i> Summary Maker App
+      </h2>
+    </header>
+    <!-- End of Header -->
+
+    <!-- NavBar -->
+    <nav id="navbar-example2" class="navbar sticky-top bg-light px-3 mb-3">
+      <a class="navbar-brand" href="#">Patient Information</a>
+      <ul class="nav">
+        <li class="nav-item nav-pills">
+          <a class="nav-link" href="#scrollspyHeading1">Primary Info</a>
+        </li>
+        <li class="nav-item nav-pills">
+          <a class="nav-link" href="#scrollspyHeading2">HOPI</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            data-bs-toggle="dropdown"
+            href="#"
+            role="button"
+            aria-expanded="false"
+            >Treatment</a
+          >
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="#scrollspyHeading3"
+                >Primary Resection</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="#scrollspyHeading4"
+                >Neck Dissection</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item" href="#scrollspyHeading5"
+                >Reconstruction</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <!-- Endo of NavBar -->
+
+    <div
+      data-bs-spy="scroll"
+      data-bs-target="#navbar-example2"
+      data-bs-root-margin="0px 0px -40%"
+      data-bs-smooth-scroll="true"
+      class="scrollspy-example bg-body-tertiary p-2"
+      tabindex="0"
+    >
+      <!-- Primary Info -->
+      <hr />
+      <h4 id="scrollspyHeading1" class="text-center">Primary Info</h4>
+      <hr />
+      <form id="primaryInfo" class="needs-validation" novalidate>
+        <!-- 1st Row -->
+        <div class="row mb-4">
+          <div class="form-floating col-sm-6">
+            <input
+              type="text"
+              class="form-control"
+              id="patientName"
+              placeholder="name@example.com"
+              required
+            />
+            <label class="ms-2" for="patientName">Patient Name*</label>
+          </div>
+          <div class="form-floating col-sm-2">
+            <input
+              type="number"
+              class="form-control"
+              id="age"
+              placeholder="0"
+              required
+            />
+            <label class="ms-2" for="age">Age*</label>
+          </div>
+          <div class="form-floating col-sm-4">
+            <select class="form-control" id="gender" required>
+              <option value="">Select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            <label class="ms-2" for="gender">Gender*</label>
+          </div>
+        </div>
+
+        <!-- 2nd Row -->
+        <div class="row mb-3">
+          <div class="form-floating col-sm-6">
+            <input
+              type="number"
+              class="form-control"
+              id="ContactNumber"
+              pattern="[0-9]{10}"
+              placeholder="+91##########"
+              required
+            />
+            <label for="ContactNumber">Contact Number*</label>
+            <div class="invalid-feedback">Please enter a Contact Number</div>
+          </div>
+          <div class="form-floating col-sm-6">
+            <input
+              type="email"
+              class="form-control"
+              id="EmailID"
+              placeholder="example@abc.com"
+            />
+            <label class="ms-2" for="EmailID">Email ID</label>
+            <div class="invalid-feedback">Please enter a valid email id</div>
+          </div>
+        </div>
+
+        <!-- 3rd Row -->
+        <div class="row mb-4">
+          <div class="form-floating col-sm-3">
+            <input
+              type="text"
+              class="form-control"
+              id="HospitalName"
+              placeholder="Name"
+            />
+            <label class="ms-2" for="HospitalName">Hospital Name</label>
+          </div>
+          <div class="form-floating col-sm-3">
+            <input
+              type="number"
+              class="form-control"
+              id="IPDNo"
+              placeholder="0"
+            />
+            <label class="ms-2" for="IPDNo">IPD No.</label>
+          </div>
+          <div class="form-floating col-sm-3">
+            <input
+              type="number"
+              class="form-control"
+              id="OPDNo"
+              placeholder="0"
+            />
+            <label class="ms-2" for="OPDNo">OPD No.</label>
+          </div>
+          <div class="form-floating col-sm-3">
+            <input
+              type="date"
+              class="form-control"
+              id="FirstVistDate"
+              placeholder="Datw"
+            />
+            <label class="ms-2" for="FirstVistDate">1st Visit Date</label>
+          </div>
+        </div>
+
+        <!-- 4th Row -->
+        <div class="row mb-4">
+          <div class="col-sm-12 form-floating">
+            <textarea
+              id="Complaints"
+              class="form-control"
+              style="height: 100px"
+              placeholder="Describe the patients compliants here"
+              required
+            ></textarea>
+            <label class="ms-2" for="Complaints">Chief Complaints*</label>
+            <div class="form-text">
+              Example:
+              <i
+                >Pain in the right side of the face since 2 weeks and swelling
+                since 1 week and halitosis.</i
+              >
+              Do not use the words "Pt complains of..."
+            </div>
+          </div>
+        </div>
+
+        <!-- 5th Row -->
+        <div class="row mb-4">
+          <div class="col-sm-12 form-floating">
+            <textarea
+              id="OnExam"
+              class="form-control"
+              style="height: 200px"
+              placeholder="Describe the most relevant findigs here"
+              required
+            ></textarea>
+            <label class="ms-2" for="Complaints">On Examination*</label>
+            <div class="form-text">
+              Example: <br />
+              <i>
+                - 2x2cm ulcer seen in the right buccal mucosa. <br />
+                - Single hard right submandibular node palpable</i
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- HOPI and Investigations -->
+        <hr />
+        <h4 id="scrollspyHeading3" class="text-center">
+          HOPI and Investigations
+        </h4>
+        <hr />
+
+        <!-- 1st Row -->
+        <div class="row mb-4">
+          <div class="col-sm-12 form-floating">
+            <textarea
+              id="HOPI"
+              class="form-control"
+              style="height: 200px"
+              placeholder="History of presenting illness"
+            ></textarea>
+            <label class="ms-2" for="HOPI"
+              >History of Presenting Illness, if any</label
+            >
+          </div>
+        </div>
+
+        <!-- 2nd Row -->
+        <div id="accordion">
+          <div class="row mb-4">
+            <!-- Button 1 -->
+            <div class="d-grid col-4">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+              >
+                Add Histopath
+              </button>
+            </div>
+            <!-- Button 2 -->
+            <div class="d-grid col-4">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+              >
+                Add Imaging
+              </button>
+            </div>
+            <!-- Button 3 -->
+            <div class="d-grid col-4">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+              >
+                Add Others
+              </button>
+            </div>
+            <!-- Collapsible Forms -->
+            <!-- HP Form -->
+            <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
+              <div class="row mt-2 border">
+                <div class="form-group col-4">
+                  <label for="BxType">Biopsy Type</label>
+                  <select class="form-control" id="BxType">
+                    <option value="">Select</option>
+                    <option value="Punch Biopsy">Punch Biopsy</option>
+                    <option value="Incisional Biopsy">Incisional Biopsy</option>
+                    <option value="Tru Cut Biopsy">Tru Cut Biopsy</option>
+                    <option value="FNAC/Cytology">FNAC/Cytology</option>
+                  </select>
+                </div>
+                <div class="form-group col-4">
+                  <label for="BxSite">Site</label>
+                  <input class="form-control" type="text" id="BxSite" />
+                </div>
+                <div class="form-group col-4">
+                  <label for="BxDate">Date</label>
+                  <input class="form-control" type="date" id="BxDate" />
+                </div>
+                <div class="form-group col-12 mb-2">
+                  <label for="BxFindings">Findings</label>
+                  <textarea
+                    class="form-control"
+                    id="BxFindings"
+                    style="height: 50px"
+                  ></textarea>
+                </div>
+                <div class="form-group d-grid col-10 mx-auto mb-2">
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    onclick="addInvestigation(`Bx`)"
+                  >
+                    Save Histopath
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Imaging Form -->
+            <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
+              <div class="row mt-2 border">
+                <div class="form-group col-4">
+                  <label for="ImgType">Imaging Type</label>
+                  <select class="form-control" id="ImgType">
+                    <option value="">Select</option>
+                    <option value="CT Plain">CT Plain</option>
+                    <option value="MRI Plain">MRI Plain</option>
+                    <option value="CT with Contrast">CT with Contrast</option>
+                    <option value="MRI with Contrast">MRI with Contrast</option>
+                    <option value="PET-CT">PET-CT</option>
+                    <option value="USG">USG</option>
+                    <option value="Xray">Xray</option>
+                  </select>
+                </div>
+                <div class="form-group col-4">
+                  <label for="ImgSite">Site</label>
+                  <select class="form-control" id="ImgSite">
+                    <option value="">Select</option>
+                    <option value="Brain">Brain</option>
+                    <option value="Face & Neck">Face & Neck</option>
+                    <option value="Chest">Chest</option>
+                    <option value="Abdomen">Abdomen</option>
+                    <option value="Whole Body">Whole Body</option>
+                    <option value="Lower Limb">Lower Limb</option>
+                    <option value="Upper Limb">Upper Limb</option>
+                  </select>
+                </div>
+                <div class="form-group col-4">
+                  <label for="ImgDate">Date</label>
+                  <input class="form-control" type="date" id="ImgDate" />
+                </div>
+                <div class="form-group col-12 mb-2">
+                  <label for="ImgFindings">Findings</label>
+                  <textarea
+                    class="form-control"
+                    id="ImgFindings"
+                    style="height: 50px"
+                  ></textarea>
+                </div>
+                <div class="form-group d-grid col-10 mx-auto mb-2">
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    onclick="addInvestigation(`Img`)"
+                  >
+                    Save Imaging
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Others Form -->
+            <div
+              id="collapseThree"
+              class="collapse"
+              data-bs-parent="#accordion"
+            >
+              <div class="row mt-2 border">
+                <div class="form-group col-4">
+                  <label for="TestType">Test Name</label>
+                  <input type="text" class="form-control" id="TestType" />
+                </div>
+                <div class="form-group col-4">
+                  <label for="TestSite">Site</label>
+                  <input class="form-control" type="text" id="TestSite" />
+                </div>
+                <div class="form-group col-4">
+                  <label for="TestDate">Date</label>
+                  <input class="form-control" type="date" id="TestDate" />
+                </div>
+                <div class="form-group col-12 mb-2">
+                  <label for="TestFindings">Findings</label>
+                  <textarea
+                    class="form-control"
+                    id="TestFindings"
+                    style="height: 50px"
+                  ></textarea>
+                </div>
+                <div class="form-group d-grid col-10 mx-auto mb-2">
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    onclick="addInvestigation(`Test`)"
+                  >
+                    Save Other Test
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- End of Collapsible Forms -->
+          </div>
+        </div>
+        <!-- End of 2nd Row with hidden forms -->
+
+        <!-- Investigation Table -->
+        <h5 class="mt-3">Investigations</h5>
+        <table class="table table-sm table-bordered mb-5">
+          <thead>
+            <tr class="text-center">
+              <th scope="col" width="15%">Type</th>
+              <th scope="col" width="15%">Site</th>
+              <th scope="col" width="15%">Date</th>
+              <th scope="col" width="50%">Findings</th>
+              <th scope="col" width="5%"></th>
+            </tr>
+          </thead>
+          <tbody id="InvTable" style="font-size: smaller"></tbody>
+        </table>
+
+        <!-- 4th Row -->
+        <div class="row mb-4">
+          <div class="col-sm-12 form-floating">
+            <textarea
+              id="MedicalHistory"
+              class="form-control"
+              style="height: 200px"
+              placeholder="Medical History"
+            ></textarea>
+            <label class="ms-2" for="HOPI"
+              >Medical History, if any</label
+            >
+          </div>
+          <div class="form-text">
+            <i>Eg. "Well controlled hypertension since 4 yrs" / "On Ecosprin 75mg for IHD since 2 years" etc</i>
+          </div>
+        </div>
+
+        <!-- Treatment -->
+
+        <hr />
+        <h4 class="text-center">Treatment Given</h4>
+        <hr />
+
+        <!-- 1st Row -->
+        <!-- Surgery Details - Commando -->
+        <div class="row mb-2">
+          <div class="form-floating col-md-3 col-6 mb-2">
+            <input type="date" class="form-control" id="SxDate" required />
+            <label class="ms-2" for="SxDate">Surgery Date*</label>
+          </div>
+          <div class="form-floating col-md-3 col-6 mb-2">
+            <input
+              type="text"
+              class="form-control"
+              id="SxPlace"
+              placeholder="Hospital Name"
+            />
+            <label class="ms-2" for="SxPlace">Surgery Place</label>
+          </div>
+        </div>
+
+        <!-- 2nd Row -->
+        <!-- Primary Tumour Details -->
+        <div class="row border p-2" >
+          <h6 id="scrollspyHeading3">Primary Resection</h6>
+          <!-- Surgery Type -->
+          <div class="form-group col-12" >
+            <label for="SxType">Surgery Type</label>
+            <select class="form-control" id="SxType" onchange="PrimaryEnabler()">
+              <option value="">Not Addressed</option>
+              <option value="Wide Excision">Wide Excision</option>
+              <option value="Composite Resection">Composite Resection</option>
+              <option value="Others">Composite Resection</option>
+            </select>
+          </div>
+          <div id="PrimaryTumourDetails" style="display: none;">
+            <!-- Main Side -->
+          <div class="form-group col-6 mb-2">
+            <label for="SxSide">Side</label>
+            <input
+              type="text"
+              class="form-control"
+              id="SxSide"
+              placeholder="Select"
+              style="font-size: smaller"
+             
+            />
+          </div>
+          <!-- Main Site -->
+          <div class="form-group col-6 mb-2">
+            <label class="ms-2" for="SxSite">Primary Site</label>
+            <input
+              type="text"
+              class="form-control"
+              id="SxSite"
+              placeholder="Select"
+              style="font-size: smaller"
+             
+            />
+          </div>
+          <!-- Incisions -->
+          <div class="form-group col-md-6">
+            <label class="ms-2" for="Incisions">Incisions (optional)</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Incisions"
+              placeholder="Type to Search"
+              
+            />
+          </div>
+          <!-- Additional Sites -->
+          <div class="form-group col-md-6">
+            <label class="ms-2" for="AdditionalSitesMucosal"
+              >Additional Sites - Mucosal</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="AdditionalSitesMucosal"
+              placeholder="Type to Search"
+              
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label class="ms-2" for="AdditionalSitesMandible"
+              >Additional Sites - Mandible</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="AdditionalSitesMandible"
+              placeholder="Type to Search"
+             
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label class="ms-2" for="AdditionalSitesMaxilla"
+              >Additional Sites - Maxilla</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="AdditionalSitesMaxilla"
+              placeholder="Type to Search"
+              
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label class="ms-2" for="AdditionalSitesOther"
+              >Additional Sites - Skin/Other Structures</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="AdditionalSitesOther"
+              placeholder="Type to Search"
+              
+            />
+          </div>
+          <!-- Additional Procedures -->
+          <div class="form-group col-md-6">
+            <label class="ms-2" for="AdditionalPro"
+              >Additional Procedures</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="AdditionalPro"
+              placeholder="Type to Search"
+            />
+          </div>
+          <div class="form-text">
+            The above boxes can be left empty if not required
+          </div>
+          </div>
+        </div>
+
+        <!-- 3rd Row -->
+        <!-- Neck Dissection Details -->
+        <div class="row border p-2 border">
+          <h6 id="scrollspyHeading4">Neck Dissection</h6>
+          <!-- Right Side -->
+          <div class="col-12">
+            <p class="text-center border">
+              <b>Same Side Neck</b><br />
+              <span class="form-text">
+                <i style="font-size: 0.7rem"
+                  >In case of Central Disease: Right Neck</i
+                ></span
+              >
+            </p>
+            <!-- Extent -->
+            <div class="form-floating col-12">
+              <select
+                class="form-control"
+                id="RNeckExtent"
+                onchange="NeckDissectionFunction('R')"
+              >
+                <option value="">Not Addressed</option>
+                <option value="Supra-Omohyoid Neck Dissection">
+                  Supra-Omohyoid Neck Dissection
+                </option>
+                <option value="Extended Supra-Omohyoid Neck Dissection">
+                  Extended Supra-Omohyoid Neck Dissection
+                </option>
+                <option value="Modified Radical Neck Dissection Type 3">
+                  Modified Radical Neck Dissection Type 3
+                </option>
+                <option value="Modified Radical Neck Dissection Type 2">
+                  Modified Radical Neck Dissection Type 2
+                </option>
+                <option value="Modified Radical Neck Dissection Type 1">
+                  Modified Radical Neck Dissection Type 1
+                </option>
+                <option value="Radical Neck Dissection">
+                  Radical Neck Dissection
+                </option>
+                <option value="Neck Exploration">Neck Exploration</option>
+                <option value="Neck Re-Exploration">Neck Re-Exploration</option>
+                <option value="Single Nodal Level">Single Nodal Level</option>
+                <option value="Multiple Nodal Levels">
+                  Multiple Nodal Levels
+                </option>
+                <option value="Other">Other</option>
+              </select>
+              <input
+                type="text"
+                id="RHiddenNeck"
+                class="form-control"
+                placeholder="Enter Details"
+                hidden
+              />
+              <label for="RNeckExtent">Extent</label>
+            </div>
+            <p class="mb-0" style="font-size: 0.9rem">
+              <b>Structures Removed</b>
+            </p>
+            <!-- CheckBoxes -->
+            <div id="RNeckCheckBoxes" class="form-text"></div>
+          </div>
+
+          <!-- Left Side -->
+          <div class="col-12">
+            <p class="text-center border"><b>Contralateral Neck</b></p>
+            <!-- Extent -->
+            <div class="form-floating col-12">
+              <select
+                class="form-control"
+                id="LNeckExtent"
+                onchange="NeckDissectionFunction('L')"
+              >
+                <option value="">Not Addressed</option>
+                <option value="Supra-Omohyoid Neck Dissection">
+                  Supra-Omohyoid Neck Dissection
+                </option>
+                <option value="Extended Supra-Omohyoid Neck Dissection">
+                  Extended Supra-Omohyoid Neck Dissection
+                </option>
+                <option value="Modified Radical Neck Dissection Type 3">
+                  Modified Radical Neck Dissection Type 3
+                </option>
+                <option value="Modified Radical Neck Dissection Type 2">
+                  Modified Radical Neck Dissection Type 2
+                </option>
+                <option value="Modified Radical Neck Dissection Type 1">
+                  Modified Radical Neck Dissection Type 1
+                </option>
+                <option value="Radical Neck Dissection">
+                  Radical Neck Dissection
+                </option>
+                <option value="Neck Exploration">Neck Exploration</option>
+                <option value="Neck Re-Exploration">Neck Re-Exploration</option>
+                <option value="Single Nodal Level">Single Nodal Level</option>
+                <option value="Multiple Nodal Levels">
+                  Multiple Nodal Levels
+                </option>
+                <option value="Other">Other</option>
+              </select>
+              <input
+                type="text"
+                id="LHiddenNeck"
+                class="form-control"
+                placeholder="Enter Details"
+                hidden
+              />
+              <label for="LNeckExtent">Extent</label>
+            </div>
+            <!-- Other structures -->
+            <p class="mb-0" style="font-size: 0.9rem">
+              <b>Structures Removed</b>
+            </p>
+            <!-- CheckBoxes -->
+            <div id="LNeckCheckBoxes" class="form-text"></div>
+          </div>
+          <div class="form-text">
+            It is desireable to mark all structures removed. However, if type of
+            neck dissection is defined then only additional stuctures removed
+            may be marked. <br />
+            <i style="font-size: 0.7rem"
+              >SCM: Sternocleido Mastoid Muscle, SAN: Spinal Accessory Nerve,
+              IJV:Internal Jugular Vein, SG: Submandibular Gland, HGN:
+              Hypoglossal Nerve, I-IV: Lymph Nodal Levels</i
+            >
+          </div>
+        </div>
+
+        <!-- 4th Row -->
+        <!-- Reconstruction -->
+        <div class="row border p-2 border p-2 mb-4">
+          <h6 id="scrollspyHeading5">Reconstruction Details</h6>
+          <div class="form-group col-12">
+            <label class="ms-2" for="Recon">Recostruction</label>
+            <input
+              type="text"
+              class="form-control"
+              id="Recon"
+              placeholder="Add Recon"
+            />
+          </div>
+        </div>
+
+        <!-- 5th Row -->
+        <!-- Intra-op and Post-op Notes if any -->
+        <div class="row mb-2">
+          <div class="col-md-4 form-floating">
+            <textarea
+              id="IntraopNotes"
+              class="form-control"
+              placeholder="Intra-operative Notes, if any"
+              style="height: 100px"
+            ></textarea>
+            <label class="ms-2" for="IntraopNotes"
+              >Intra-operative Notes, if any</label
+            >
+            <div class="form-text">
+              Intra-operative details such as Frozen Section, Complications, or
+              other noteworthy events may be mentioned here
+              <hr />
+            </div>
+          </div>
+
+          <div class="col-md-4 form-floating">
+            <textarea
+              id="PostopNotes"
+              class="form-control"
+              placeholder="Post-operative Notes, if any"
+              style="height: 100px"
+            ></textarea>
+            <label class="ms-2" for="PostopNotes"
+              >Post-operative Notes, if any</label
+            >
+            <div class="form-text">
+              Post-operative complications, Haematoma, Re-exploration or other
+              noteworthy events may be mentioned here
+              <hr />
+            </div>
+          </div>
+
+          <div class="col-md-4 col-6 form-group">
+            <label for="DischargeDate">Discharge Date</label>
+            <input type="date" id="DischargeDate" class="form-control" />
+          </div>
+        </div>
+
+        <!-- HISTOPATHOLOGY -->
+        <hr />
+        <h4 id="scrollspyHeading6" class="text-center">Histopathology</h4>
+        <hr />
+        <!-- 1st Row -->
+        <div class="row g-2 mb-2">
+          <div class="col-md-4 mb-2">
+            <div class="input-group">
+              <span class="input-group-text bg-body-secondary" for="Histology"
+                >Histology</span
+              >
+              <select id="Histology" class="form-control">
+                <option value="">Select</option>
+                <option value="Well Differentiated SCC">WDSCC</option>
+                <option value="Moderately Differentiated SCC">MDSCC</option>
+                <option value="Poorly Differentiated SCC">PDSCC</option>
+                <option value="Carcinoma in-situ">Carcinoma in-situ</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="input-group">
+              <span class="input-group-text bg-body-secondary">Size</span>
+              <input
+                type="text"
+                pattern="\d{1,2}"
+                id="TsizeAP"
+                class="form-control"
+                placeholder="AP"
+              />
+              <span class="input-group-text">x</span>
+              <input
+                type="text"
+                pattern="\d{1,2}"
+                id="TsizeTrans"
+                class="form-control"
+                placeholder="T"
+              />
+              <span class="input-group-text">x</span>
+              <input
+                type="text"
+                pattern="\d{1,2}"
+                id="TsizeVert"
+                class="form-control"
+                placeholder="V"
+              />
+              <span class="input-group-text bg-body-secondary">DOI</span>
+              <input
+                type="text"
+                pattern="\d{1,2}"
+                id="TsizeDOI"
+                class="form-control"
+                placeholder=""
+              />
+            </div>
+          </div>
+          <div class="form-text">
+            Please input all values in millimeters (mm) only
+          </div>
+        </div>
+
+        <!-- 2nd Row -->
+        <div class="row g-2 mb-2">
+          <div class="col-md-5 mb-2">
+            <div class="input-group">
+              <span
+                class="input-group-text bg-body-secondary"
+                for="ClosestMargin"
+                >Closest Margin</span
+              >
+              <input
+                type="text"
+                id="ClosestMargin"
+                class="form-control"
+                placeholder=""
+              />
+              <span
+                class="input-group-text bg-body-secondary"
+                for="MarginDistance"
+                >Distance</span
+              >
+              <input
+                type="text"
+                pattern="\d{1,2}"
+                id="MarginDistance"
+                class="form-control"
+                placeholder="mm"
+              />
+            </div>
+          </div>
+
+          <div class="col-md-7">
+            <div class="input-group">
+              <span class="input-group-text bg-body-secondary" for="PNI"
+                >PNI</span
+              >
+              <select type="text" id="PNI" class="form-control">
+                <option value="">Select</option>
+                <option value="Absent">Absent</option>
+                <option value="Present">Present</option>
+                <option value="Unifocal Intratumoral">
+                  Unifocal Intratumoral
+                </option>
+                <option value="Unifocal Extratumoral">
+                  Unifocal Extratumoral
+                </option>
+                <option value="Multifocal Intratumoral">
+                  Multifocal Intratumoral
+                </option>
+                <option value="Multifocal Extratumoral">
+                  Multifocal Extratumoral
+                </option>
+              </select>
+              <span class="input-group-text bg-body-secondary" for="LVI"
+                >LVI</span
+              >
+              <select
+                type="text"
+                id="LVI"
+                list="PNIDatalist"
+                class="form-control"
+              >
+                <option value="">Select</option>
+                <option value="Absent">Absent</option>
+                <option value="Present">Present</option>
+                <option value="Unifocal Intratumoral">
+                  Unifocal Intratumoral
+                </option>
+                <option value="Unifocal Extratumoral">
+                  Unifocal Extratumoral
+                </option>
+                <option value="Multifocal Intratumoral">
+                  Multifocal Intratumoral
+                </option>
+                <option value="Multifocal Extratumoral">
+                  Multifocal Extratumoral
+                </option>
+              </select>
+              <span class="input-group-text bg-body-secondary" for="WPOI"
+                >WPOI</span
+              >
+              <select id="WPOI" class="form-control">
+                <option value="">Select</option>
+                <option value="I">I</option>
+                <option value="II">II</option>
+                <option value="III">III</option>
+                <option value="IV">IV</option>
+                <option value="I-IV">I-IV</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3rd Row -->
+        <div class="row mb-4">
+          <div class="form-text">
+            Involvement of Structures. Select "Absent" if invasion is not
+            present to record it
+          </div>
+          <div class="col-md-12">
+            <div class="input-group">
+              <span class="input-group-text bg-body-secondary" for="BoneInv"
+                >Bone</span
+              >
+              <select id="BoneInv" class="form-control">
+                <option value=""></option>
+                <option value="Absent">Absent</option>
+                <option value="Present">Present</option>
+                <option value="Superficial Cortical">
+                  Superficial Cortical
+                </option>
+                <option value="Deep Intramedullary">Deep Intramedullary</option>
+              </select>
+              <span class="input-group-text bg-body-secondary" for="SkinInv"
+                >Skin</span
+              >
+              <select id="SkinInv" class="form-control">
+                <option value=""></option>
+                <option value="Absent">Absent</option>
+                <option value="Absent">Present</option>
+                <option value="Subdermal">Subdermal</option>
+                <option value="Grossly involved">Grossly Involved</option>
+              </select>
+              <span class="input-group-text bg-body-secondary" for="MuscleInv"
+                >Muscle</span
+              >
+              <select id="MuscleInv" class="form-control">
+                <option value=""></option>
+                <option value="Absent">Absent</option>
+                <option value="Present">Present</option>
+                <option value="Present">Superficial</option>
+                <option value="Present">Intrinsic</option>
+                <option value="Present">Extrinsic</option>
+                <option value="Present">Deep</option>
+              </select>
+            </div>
+            <div class="form-text" style="font-size: 0.7rem">
+              <i
+                >Note: Superficial = Buccinator, Orbicularis etc. Deep =
+                Masticator Space muscles</i
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- 4th row -->
+        <!-- Neck Details -->
+        <div class="row mb-2 p-2 border">
+          <!-- Right Neck -->
+          <div id="RNeckHP" class="col-12" style="display: none">
+            <p class="text-center border"><b>Same Side Neck</b></p>
+            <!-- Nodal Yeild -->
+            <div class="col-12">
+              <div class="input-group">
+                <span
+                  class="input-group-text bg-body-secondary"
+                  for="RNodalYeild"
+                  >Nodal Yeild</span
+                >
+                <input
+                  type="text"
+                  pattern="\d{1,2}"
+                  id="RNodalYeild"
+                  class="form-control"
+                  disabled
+                />
+                <span
+                  class="input-group-text bg-body-secondary"
+                  for="RPositNodes"
+                  >+ive Nodes</span
+                >
+                <input
+                  type="text"
+                  pattern="\d{1,2}"
+                  id="RPositNodes"
+                  class="form-control"
+                  onchange="NodeEnabler('R')"
+                  disabled
+                />
+              </div>
+            </div>
+            <!-- Nodes Involved -->
+            <div id="RInvolvedNodes">
+              <!-- Nodal Levels Involved -->
+              <div class="col-12 mb-2">
+                <div class="form-check form-check-inline col-1">
+                  <input
+                    type="checkbox"
+                    id="RHP1a"
+                    value="RIA"
+                    class="form-check-input"
+                    disabled
+                  />
+                  <label for="RHP1a">IA</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                  <input
+                    type="checkbox"
+                    id="RHP1b"
+                    value="RIB"
+                    class="form-check-input"
+                    disabled
+                  />
+                  <label for="RHP1b">IB</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                  <input
+                    type="checkbox"
+                    id="RHP2a"
+                    value="RIIA"
+                    class="form-check-input"
+                    disabled
+                  />
+                  <label for="RHP2a">IIA</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                  <input
+                    type="checkbox"
+                    id="RHP2b"
+                    value="RIIB"
+                    class="form-check-input"
+                    disabled
+                  />
+                  <label for="RHP2b">IIB</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                  <input
+                    type="checkbox"
+                    id="RHP3"
+                    value="RIII"
+                    class="form-check-input"
+                    disabled
+                  />
+                  <label for="RHP3">III</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                  <input
+                    type="checkbox"
+                    id="RHP4"
+                    value="RIV"
+                    class="form-check-input"
+                    disabled
+                  />
+                  <label for="RHP4">IV</label>
+                </div>
+                <div class="form-check form-check-inline col-1">
+                  <input
+                    type="checkbox"
+                    id="RHP5"
+                    value="RV"
+                    class="form-check-input"
+                    disabled
+                  />
+                  <label for="RHP5">V</label>
+                </div>
+              </div>
+              <!-- Details of Largest Node Involved -->
+              <div class="col-12">
+                <div class="form-text" style="font-size: 0.7rem">
+                  Enter details of the <i>Largest</i> involved node
+                </div>
+                <div class="input-group">
+                  <span
+                    class="input-group-text text-wrap bg-body-secondary"
+                    for="RNodeSize"
+                    >Size Node</span
+                  >
+                  <input
+                    type="text"
+                    pattern="\d{1,2}"
+                    id="RNodeSize"
+                    class="form-control"
+                    disabled
+                  />
+                  <span
+                    class="input-group-text text-wrap bg-body-secondary"
+                    for="RMetSize"
+                    >Size Met</span
+                  >
+                  <input
+                    type="text"
+                    pattern="\d{1,2}"
+                    id="RMetSize"
+                    class="form-control"
+                    disabled
+                  />
+                </div>
+              </div>
+              <!-- ECS -->
+              <div class="col-12">
+                <div class="input-group">
+                  <span class="input-group-text bg-body-secondary" for="RECS"
+                    >ECS</span
+                  >
+                  <select id="RECS" class="form-control" disabled>
+                    <option value="">Select</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Present">Present</option>
+                  </select>
+
+                  <span
+                    class="input-group-text bg-body-secondary"
+                    for="RECSDistance"
+                    >Distance</span
+                  >
+                  <input
+                    type="text"
+                    pattern="\d{1,2}"
+                    id="RECSDistance"
+                    class="form-control"
+                    placeholder="mm"
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Left Neck -->
+          <div id="LNeckHP" class="col-12" style="display: none">
+            <p class="text-center border"><b>Contralateral Neck</b></p>
+            <div class="col-12">
+              <!-- Nodal Yeild -->
+              <div class="col-12">
+                <div class="input-group">
+                  <span
+                    class="input-group-text bg-body-secondary"
+                    for="LNodalYeild"
+                    >Nodal Yeild</span
+                  >
+                  <input
+                    type="text"
+                    pattern="\d{1,2}"
+                    id="LNodalYeild"
+                    class="form-control"
+                    disabled
+                  />
+                  <span
+                    class="input-group-text bg-body-secondary"
+                    for="LPositNodes"
+                    >+ive Nodes</span
+                  >
+                  <input
+                    type="text"
+                    pattern="\d{1,2}"
+                    id="LPositNodes"
+                    class="form-control"
+                    onchange="NodeEnabler('L')"
+                    disabled
+                  />
+                </div>
+              </div>
+              <!-- Nodes Involved -->
+              <div id="LInvolvedNodes">
+                <!-- Nodal Levels Involved -->
+                <div class="col-12" id="">
+                  <div class="form-check form-check-inline col-1">
+                    <input
+                      type="checkbox"
+                      id="LHP1a"
+                      value="LIA"
+                      class="form-check-input"
+                      disabled
+                    />
+                    <label for="LHP1a">IA</label>
+                  </div>
+                  <div class="form-check form-check-inline col-1">
+                    <input
+                      type="checkbox"
+                      id="LHP1b"
+                      value="LIB"
+                      class="form-check-input"
+                      disabled
+                    />
+                    <label for="LHP1b">IB</label>
+                  </div>
+                  <div class="form-check form-check-inline col-1">
+                    <input
+                      type="checkbox"
+                      id="LHP2a"
+                      value="LIIA"
+                      class="form-check-input"
+                      disabled
+                    />
+                    <label for="LHP2a">IIA</label>
+                  </div>
+                  <div class="form-check form-check-inline col-1">
+                    <input
+                      type="checkbox"
+                      id="LHP2b"
+                      value="LIIB"
+                      class="form-check-input"
+                      disabled
+                    />
+                    <label for="LHP2b">IIB</label>
+                  </div>
+                  <div class="form-check form-check-inline col-1">
+                    <input
+                      type="checkbox"
+                      id="LHP3"
+                      value="LIII"
+                      class="form-check-input"
+                      disabled
+                    />
+                    <label for="LHP3">III</label>
+                  </div>
+                  <div class="form-check form-check-inline col-1">
+                    <input
+                      type="checkbox"
+                      id="LHP4"
+                      value="LIV"
+                      class="form-check-input"
+                      disabled
+                    />
+                    <label for="LHP4">IV</label>
+                  </div>
+                  <div class="form-check form-check-inline col-1">
+                    <input
+                      type="checkbox"
+                      id="LHP5"
+                      value="LV"
+                      class="form-check-input"
+                      disabled
+                    />
+                    <label for="LHP5">V</label>
+                  </div>
+                </div>
+                <!-- Details of Largest Node Involved -->
+                <div class="col-12">
+                  <div class="form-text" style="font-size: 0.7rem">
+                    Enter details of the <i>Largest</i> involved node
+                  </div>
+                  <div class="input-group">
+                    <span
+                      class="input-group-text text-wrap bg-body-secondary"
+                      for="LNodeSize"
+                      >Size Node</span
+                    >
+                    <input
+                      type="text"
+                      pattern="\d{1,2}"
+                      id="LNodeSize"
+                      class="form-control"
+                      disabled
+                    />
+                    <span
+                      class="input-group-text text-wrap bg-body-secondary"
+                      for="LMetSize"
+                      >Size Met</span
+                    >
+                    <input
+                      type="text"
+                      pattern="\d{1,2}"
+                      id="LMetSize"
+                      class="form-control"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <!-- ECS -->
+                <div class="col-12">
+                  <div class="input-group">
+                    <span class="input-group-text bg-body-secondary" for="LECS"
+                      >ECS</span
+                    >
+                    <select id="LECS" class="form-control" disabled>
+                      <option value="">Select</option>
+                      <option value="Absent">Absent</option>
+                      <option value="Present">Present</option>
+                    </select>
+
+                    <span
+                      class="input-group-text bg-body-secondary"
+                      for="LECSDistance"
+                      >Distance</span
+                    >
+                    <input
+                      type="text"
+                      pattern="\d{1,2}"
+                      id="LECSDistance"
+                      class="form-control"
+                      placeholder="mm"
+                      disabled
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-2 p-2">
+          <div class="form-group col-12">
+            <label for="Staging">TNM Staging</label>
+            <div class="input-group">
+              <span class="input-group-text bg-body-secondary">p</span>
+              <span class="input-group-text bg-body-secondary">T</span>
+              <input
+                class="form-control"
+                type="text"
+                name="Tstage"
+                id="Tstage"
+                value=""
+              />
+              <span class="input-group-text bg-body-secondary">N</span>
+              <input
+                class="form-control"
+                type="text"
+                name="Nstage"
+                id="Nstage"
+                value=""
+              />
+            </div>
+            <div class="form-text">According to AJCC 8th Edition</div>
+          </div>
+          <div class="col-12">
+            <button class="btn btn-primary" onclick="CalcpTNM()">
+              Auto Calculate
+            </button>
+          </div>
+        </div>
+
+       <!-- Subsequent Follow-up -->
+
+       <hr />
+       <h4 id="scrollspyHeading7" class="text-center">Subsequent Follow-up</h4>
+       <hr />
+
+        <!-- 1st Row -->
+        <div class="row mb-4">
+          <div class="col-sm-12 form-floating">
+            <textarea
+              id="Subsequent"
+              class="form-control"
+              style="height: 200px"
+              placeholder="Subsequent"
+            ></textarea>
+            <label class="ms-2" for="Subsequent"
+              >Subsequent Advice and Follow-up</label
+            >
+          </div>
+        </div>
+
+        <!-- Generate Summary -->
+        <div class="d-grid col-10 mx-auto">
+          <div
+            class="form-text text-danger text-center"
+            id="Submitbutton"
+          ></div>
+          <button class="btn btn-primary mb-2" onclick="genSummary()">Generate Summary</button>
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- SUMMARY -->
+
+    <div id="summary" class="container p-3 bg-light border">
+      <h5 class="text-center"><u>CASE SUMMARY</u></h5>
+
+      <p class="mb-4">
+          <b>Patient Name: </b><span class="patientName"></span><br>
+          <b>Age: </b><span class="age"></span>/<span class="gender"></span><br>
+          <b><span class="HospitalName"></span> IPD/OPD No.: </b><span class="IPDNo"></span>/<span class="OPDNo"></span><br>
+      </p>
+      <div id="PtInfoSu">
+          <p class="mb-2">
+              <span class="genderspan 0"></span> <span class="repeatName"></span> was first seen by us on <span class="FirstVistDate"></span>. <span class="genderspan 1"></span> had a complaint of <span class="Complaints"></span>
+          </p>
+          <p class="mb-2">
+              On examination there was <span class="OnExam"></span>. <br>
+              <span id="InvSummarySpan"></span> 
+          </p>
+          <div id="MedHistorySummary"></div>
+          <p>
+            <span class="genderspan 1"></span> was admitted in <span class="SxPlace"></span> and on <span class="SxDate"></span> <span class="genderspan 3"></span> underwent <b><span class="SxDetails"></span></b> 
+          </p>
+      </div>
+      
+  </div>
+
+    <!-- Main.js Script -->
+    <script src="./js/main.js"></script>
+
+    <!-- Bootstrap Script -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

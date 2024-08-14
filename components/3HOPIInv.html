@@ -1,0 +1,119 @@
+<!-- Hopi & Investgations -->
+<div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-4">
+  <!-- R0 - Title - Hopi & Investgations -->
+  <div class="col-sm-12">
+    <h4 id="scrollspyHeading1" class="text-center border-bottom pb-2">
+      HOPI & Investigations
+    </h4>
+  </div>
+
+  <!-- HOPI Always Show -->
+  <!-- DR1 - HOPI -->
+  <!-- MR1&2 - HOPI -->
+  <div class="col-sm-12">
+    <div class="form-floating">
+      <textarea
+        id="HOPI"
+        class="form-control"
+        placeholder="History of presenting illness"
+      ></textarea>
+      <label for="HOPI">History of Presenting Illness, if any</label>
+      <div class="form-text">
+        History of previous surgery, any other treatment / chemotherapy relevant
+        to the chief complaint.
+      </div>
+    </div>
+  </div>
+
+  <!-- DR1 - Add Inv Accordion -->
+  <!-- MR3 - Add Inv Accordion -->
+  <div class="col-sm-12">
+    <div class="accordion accordion-flush" id="InvAccordion">
+      <!-- Inv Header Btn -->
+      <h2 class="accordion-header">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#flush-collapseOne"
+        >
+          Add Investgations
+        </button>
+      </h2>
+
+      <!-- Collapsible Investiagtion Form -->
+      <div
+        id="flush-collapseOne"
+        class="accordion-collapse collapse"
+        data-bs-parent="#InvAccordion"
+      >
+        <div class="accordion-body">
+          <div class="row gx-1 gy-2">
+            <!-- Inv Date -->
+            <div class="col-4">
+              <div class="form-group">
+                <label for="InvDate">Date</label>
+                <input class="form-control" type="date" id="InvDate" />
+              </div>
+            </div>
+
+            <!-- Inv Type -->
+            <div class="col-4">
+              <div class="form-group">
+                <label for="InvType">Type*</label>
+                <input id="InvType" type="text" class="form-control">
+              </div>
+            </div>
+
+            <!-- Inv Site/Area -->
+            <div class="col-4">
+              <div class="form-group">
+                <label for="InvSite">Site/Area</label>
+                <input id="InvSite" type="text" class="form-control" />
+              </div>
+            </div>
+
+            <!-- Inv Findings -->
+            <div class="col-8">
+              <div class="form-group">
+                <label for="InvFindings">Findings*</label>
+                <textarea id="InvFindings" class="form-control" placeholder="Example: 2x2cm heterogenously enhancing lesion over right buccal mucosa / Squamous Cell Carcinoma"></textarea>
+              </div>
+            </div>
+
+            <!-- Add Inv Btn -->
+            <div class="col-4 justify-content-center align-self-end">
+              <div class="d-grid col-8 mx-auto">
+                <button
+                  type="button"
+                  id="addInvestigationBtn"
+                  class="btn btn-sm btn-primary"
+                  onclick="addInvestigation()"
+                >
+                  Add Investigation
+                </button>
+              </div>
+            </div>
+
+            <!-- Investigation Table -->
+            <div class="col-12">
+              <h5 class="mt-3">Investigations</h5>
+              <table class="table table-sm table-bordered">
+                <thead>
+                  <tr class="text-center">
+                    <th scope="col" width="15%">Type</th>
+                    <th scope="col" width="15%">Site</th>
+                    <th scope="col" width="15%">Date</th>
+                    <th scope="col" width="50%">Findings</th>
+                    <th scope="col" width="5%"></th>
+                  </tr>
+                </thead>
+                <tbody id="InvTable" style="font-size: smaller"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
