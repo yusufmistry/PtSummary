@@ -20,13 +20,54 @@
   );
 })();
 
-/////////////////////////// Button Enabler Function //////////////////////
-function ButtonEnabler(input, btn) {
-  const checkInput = document.getElementById(input).value;
+/////////////////////////// Content Enabler Function //////////////////////
+function ContentEnabler(inputId, contentdivID, btnId) {
+  const checkInput = document.getElementById(inputId).value;
+  const Btn = document.getElementById(btnId);
+  const ContentDiv = document.getElementById(contentdivID);
+  const bsCollapse = new bootstrap.Collapse(ContentDiv, {
+    toggle: false,
+  });
+
   if (checkInput) {
-    document.getElementById(btn).disabled = false;
+    if (Btn) {
+      Btn.disabled = false;
+    }
+
+    AllInputs = ContentDiv.querySelectorAll("input");
+    AllSelects = ContentDiv.querySelectorAll("select");
+    AllTextareas = ContentDiv.querySelectorAll("textarea");
+
+    if (AllInputs[0]) {
+      AllInputs.forEach((input) => (input.disabled = false));
+    }
+
+    if (AllTextareas[0]) {
+      AllTextareas.forEach((textarea) => (textarea.disabled = false));
+    }
+
+    if (AllSelects[0]) {
+      AllSelects.forEach((select) => (select.disabled = false));
+    }
+
+    bsCollapse.show();
   } else {
-    document.getElementById(btn).disabled = true;
+    if (Btn) {
+      Btn.disabled = true;
+    }
+    bsCollapse.hide();
+
+    if (AllInputs[0]) {
+      AllInputs.forEach((input) => (input.disabled = true));
+    }
+
+    if (AllTextareas[0]) {
+      AllTextareas.forEach((textarea) => (textarea.disabled = true));
+    }
+
+    if (AllSelects[0]) {
+      AllSelects.forEach((select) => (select.disabled = true));
+    }
   }
 }
 
@@ -69,39 +110,25 @@ function addInvestigation() {
     tableBody.appendChild(row);
 
     // Reset Form //
-    type.value = ""
-    site.value = ""
+    type.value = "";
+    site.value = "";
     date.value = "";
     findings.value = "";
   }
 }
 
-//////////////////////////// Datalists ///////////////////////////////////
-const InvArray = [
-  "Biopsy",
-  "Incisional Biopsy",
-  "Excisional Biopsy",
-  "FNAC",
-  "CT Scan",
-  "CT Plain",
-  "CT with Contrast",
-];
-
 //////////////////////////// Generating Datalists Function ///////////////
 function populateDatalist(listname, optionsArray) {
   const datalist = document.getElementById(listname);
-  console.log(listname)
-  console.log(optionsArray)
-  console.log(datalist)
   optionsArray.forEach((optionValue) => {
-    console.log(optionValue)
     const option = document.createElement("option");
     option.value = optionValue;
     datalist.appendChild(option);
   });
 }
 
-populateDatalist('inv-type', InvArray)
+populateDatalist("inv-type", InvTypeArray);
+populateDatalist("inv-site", InvSiteArray);
 
 ////////////////////////// Lazy Load Background Videos ///////////////////
 window.onload = function () {
@@ -110,7 +137,7 @@ window.onload = function () {
   const source = video.querySelector("source");
 
   // Set the video source and start loading it
-  source.src = "bgvideos/red leaves.mp4";
+  source.src = "bgvideos/aurora.mp4";
   video.load();
 
   // Show the video once it's ready to play
