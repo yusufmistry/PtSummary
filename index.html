@@ -641,7 +641,12 @@
                   <!-- Inv Date -->
                   <div class="col-4">
                     <div class="form-floating">
-                      <input class="form-control" type="date" id="InvDate" placeholder="Date"/>
+                      <input
+                        class="form-control"
+                        type="date"
+                        id="InvDate"
+                        placeholder="Date"
+                      />
                       <label for="InvDate">Inv Date</label>
                     </div>
                   </div>
@@ -664,7 +669,13 @@
                   <!-- Inv Site/Area -->
                   <div class="col-4">
                     <div class="form-floating">
-                      <input id="InvSite" type="text" class="form-control" placeholder="Site" list="inv-site"/>
+                      <input
+                        id="InvSite"
+                        type="text"
+                        class="form-control"
+                        placeholder="Site"
+                        list="inv-site"
+                      />
                       <label for="InvSite">Site/Area</label>
                       <datalist id="inv-site"></datalist>
                     </div>
@@ -677,7 +688,7 @@
                         id="InvFindings"
                         class="form-control"
                         placeholder="Findings or Report"
-                        style="height: 10vh;"
+                        style="height: 10vh"
                       ></textarea>
                       <label for="InvFindings">Findings*</label>
                     </div>
@@ -784,7 +795,7 @@
                 <select
                   class="form-control"
                   id="SxType"
-                  onchange="ContentEnabler('SxType', 'PrimaryTumourDetails')"
+                  onchange="PrimaryEnabler()"
                 >
                   <option value="">Not Addressed</option>
                   <option value="Wide Excision">Wide Excision</option>
@@ -797,8 +808,8 @@
             </div>
 
             <!---- DR3-6 Primary Collapsible Rows Enabled on onchange ---->
-            <div class="col-sm-12 collapse bg-body-secondary" id="PrimaryTumourDetails">
-              <div class="row gx-1 gy-2 border p-3 rounded-3">
+            <div class="col-sm-12 collapse" id="PrimaryTumourDetails">
+              <div class="row gx-1 gy-2 border p-3 rounded-3 bg-body-secondary">
                 <!-- DR3 - Main Site, Side, Incision -->
                 <!-- MR5 - Main Site, Side -->
                 <div class="col-sm-6">
@@ -964,15 +975,15 @@
             </div>
 
             <!-- 1. DR3-4 Neck Dissection Collapsible Rows Same Neck on onchange  -->
-            <div class="col-sm-12 collapse bg-body-secondary" id="SameNeckDetails">
-              <div class="row gx-1 gy-2 border p-3 rounded-3">
+            <div class="col-sm-12 collapse" id="SameNeckDetails">
+              <div class="row gx-1 gy-2 border p-3 rounded-3 bg-body-secondary">
                 <!-------- Same Neck Details -------->
                 <!-- Same Neck Details -->
                 <!-- DR3 - Same Neck Header & Extent -->
                 <!-- MR5&6 - Same Neck Header & Extent -->
                 <div class="col-sm-12">
                   <!-- Same Neck Header -->
-                  <p class="text-center border">
+                  <p class="text-center border border-secondary">
                     <b>Same Side Neck</b><br />
                     <span class="form-text">
                       <i style="font-size: 0.7rem"
@@ -982,51 +993,9 @@
                   </p>
 
                   <!-- Extent -->
-                  <div class="form-floating">
-                    <select
-                      class="form-control"
-                      id="RNeckExtent"
-                      onchange="NeckDissectionFunction('R')"
-                    >
-                      <option value="">Select</option>
-                      <option value="Supra-Omohyoid Neck Dissection">
-                        Supra-Omohyoid Neck Dissection
-                      </option>
-                      <option value="Extended Supra-Omohyoid Neck Dissection">
-                        Extended Supra-Omohyoid Neck Dissection
-                      </option>
-                      <option value="Modified Radical Neck Dissection Type 3">
-                        Modified Radical Neck Dissection Type 3
-                      </option>
-                      <option value="Modified Radical Neck Dissection Type 2">
-                        Modified Radical Neck Dissection Type 2
-                      </option>
-                      <option value="Modified Radical Neck Dissection Type 1">
-                        Modified Radical Neck Dissection Type 1
-                      </option>
-                      <option value="Radical Neck Dissection">
-                        Radical Neck Dissection
-                      </option>
-                      <option value="Neck Exploration">Neck Exploration</option>
-                      <option value="Neck Re-Exploration">
-                        Neck Re-Exploration
-                      </option>
-                      <option value="Single Nodal Level">
-                        Single Nodal Level
-                      </option>
-                      <option value="Multiple Nodal Levels">
-                        Multiple Nodal Levels
-                      </option>
-                      <option value="Other">Other</option>
-                    </select>
-                    <input
-                      type="text"
-                      id="RHiddenNeck"
-                      class="form-control"
-                      placeholder="Enter Details"
-                      hidden
-                    />
+                  <div class="form-group">
                     <label for="RNeckExtent">Extent</label>
+                    <input class="form-control" id="RNeckExtent" required />
                   </div>
                 </div>
 
@@ -1044,7 +1013,6 @@
                         type="checkbox"
                         value="IA"
                         id="RIA"
-                        disabled=""
                       /><label>IA</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1053,7 +1021,6 @@
                         type="checkbox"
                         value="IB"
                         id="RIB"
-                        disabled=""
                       /><label>IB</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1062,7 +1029,6 @@
                         type="checkbox"
                         value="IIA"
                         id="RIIA"
-                        disabled=""
                       /><label>IIA</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1071,7 +1037,6 @@
                         type="checkbox"
                         value="IIB"
                         id="RIIB"
-                        disabled=""
                       /><label>IIB</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1080,7 +1045,6 @@
                         type="checkbox"
                         value="III"
                         id="RIII"
-                        disabled=""
                       /><label>III</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1089,7 +1053,6 @@
                         type="checkbox"
                         value="IV"
                         id="RIV"
-                        disabled=""
                       /><label>IV</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1098,7 +1061,6 @@
                         type="checkbox"
                         value="VA"
                         id="RVA"
-                        disabled=""
                       /><label>VA</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1107,7 +1069,6 @@
                         type="checkbox"
                         value="VB"
                         id="RVB"
-                        disabled=""
                       /><label>VB</label>
                     </div>
                   </div>
@@ -1126,7 +1087,6 @@
                         type="checkbox"
                         value="SCM"
                         id="RSCM"
-                        disabled=""
                       /><label>SCM</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1135,7 +1095,6 @@
                         type="checkbox"
                         value="SAN"
                         id="RSAN"
-                        disabled=""
                       /><label>SAN</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1144,7 +1103,6 @@
                         type="checkbox"
                         value="IJV"
                         id="RIJV"
-                        disabled=""
                       /><label>IJV</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1153,7 +1111,6 @@
                         type="checkbox"
                         value="SG"
                         id="RSG"
-                        disabled=""
                       /><label>SG</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1162,7 +1119,6 @@
                         type="checkbox"
                         value="Skin"
                         id="RSkin"
-                        disabled=""
                       /><label>Skin</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1171,7 +1127,6 @@
                         type="checkbox"
                         value="HGN"
                         id="RHGN"
-                        disabled=""
                       /><label>HGN</label>
                     </div>
                   </div>
@@ -1180,15 +1135,15 @@
             </div>
 
             <!-- 2. DR3-4 Neck Dissection Collapsible Rows Opposite Neck on onchange  -->
-            <div class="col-sm-12" id="OppositeNeckDetails" hidden>
-              <div class="row gx-1 gy-2 border p-3 rounded-3">
+            <div class="col-sm-12 collapse" id="OppositeNeckDetails">
+              <div class="row gx-1 gy-2 border p-3 rounded-3 bg-body-secondary">
                 <!-------- Opposite Neck Details -------->
                 <!-- Opposite Neck Details -->
                 <!-- DR3 - Opposite Neck Header & Extent -->
                 <!-- MR5&6 - Opposite Neck Header & Extent -->
                 <div class="col-sm-12">
-                  <!-- Same Neck Header -->
-                  <p class="text-center border">
+                  <!-- Opposite Neck Header -->
+                  <p class="text-center border border-secondary">
                     <b>Opposite Side Neck</b><br />
                     <span class="form-text">
                       <i style="font-size: 0.7rem"
@@ -1198,51 +1153,9 @@
                   </p>
 
                   <!-- Extent -->
-                  <div class="form-floating">
-                    <select
-                      class="form-control"
-                      id="LNeckExtent"
-                      onchange="NeckDissectionFunction('L')"
-                    >
-                      <option value="">Select</option>
-                      <option value="Supra-Omohyoid Neck Dissection">
-                        Supra-Omohyoid Neck Dissection
-                      </option>
-                      <option value="Extended Supra-Omohyoid Neck Dissection">
-                        Extended Supra-Omohyoid Neck Dissection
-                      </option>
-                      <option value="Modified Radical Neck Dissection Type 3">
-                        Modified Radical Neck Dissection Type 3
-                      </option>
-                      <option value="Modified Radical Neck Dissection Type 2">
-                        Modified Radical Neck Dissection Type 2
-                      </option>
-                      <option value="Modified Radical Neck Dissection Type 1">
-                        Modified Radical Neck Dissection Type 1
-                      </option>
-                      <option value="Radical Neck Dissection">
-                        Radical Neck Dissection
-                      </option>
-                      <option value="Neck Exploration">Neck Exploration</option>
-                      <option value="Neck Re-Exploration">
-                        Neck Re-Exploration
-                      </option>
-                      <option value="Single Nodal Level">
-                        Single Nodal Level
-                      </option>
-                      <option value="Multiple Nodal Levels">
-                        Multiple Nodal Levels
-                      </option>
-                      <option value="Other">Other</option>
-                    </select>
-                    <input
-                      type="text"
-                      id="LHiddenNeck"
-                      class="form-control"
-                      placeholder="Enter Details"
-                      hidden
-                    />
+                  <div class="form-group">
                     <label for="LNeckExtent">Extent</label>
+                    <input class="form-control" id="LNeckExtent" required />
                   </div>
                 </div>
 
@@ -1260,7 +1173,6 @@
                         type="checkbox"
                         value="IA"
                         id="LIA"
-                        disabled=""
                       /><label>IA</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1269,7 +1181,6 @@
                         type="checkbox"
                         value="IB"
                         id="LIB"
-                        disabled=""
                       /><label>IB</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1278,7 +1189,6 @@
                         type="checkbox"
                         value="IIA"
                         id="LIIA"
-                        disabled=""
                       /><label>IIA</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1287,7 +1197,6 @@
                         type="checkbox"
                         value="IIB"
                         id="LIIB"
-                        disabled=""
                       /><label>IIB</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1296,7 +1205,6 @@
                         type="checkbox"
                         value="III"
                         id="LIII"
-                        disabled=""
                       /><label>III</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1305,7 +1213,6 @@
                         type="checkbox"
                         value="IV"
                         id="LIV"
-                        disabled=""
                       /><label>IV</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1314,7 +1221,6 @@
                         type="checkbox"
                         value="VA"
                         id="LVA"
-                        disabled=""
                       /><label>VA</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1323,7 +1229,6 @@
                         type="checkbox"
                         value="VB"
                         id="LVB"
-                        disabled=""
                       /><label>VB</label>
                     </div>
                   </div>
@@ -1342,7 +1247,6 @@
                         type="checkbox"
                         value="SCM"
                         id="LSCM"
-                        disabled=""
                       /><label>SCM</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1351,7 +1255,6 @@
                         type="checkbox"
                         value="SAN"
                         id="LSAN"
-                        disabled=""
                       /><label>SAN</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1360,7 +1263,6 @@
                         type="checkbox"
                         value="IJV"
                         id="LIJV"
-                        disabled=""
                       /><label>IJV</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1369,7 +1271,6 @@
                         type="checkbox"
                         value="SG"
                         id="LSG"
-                        disabled=""
                       /><label>SG</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1378,7 +1279,6 @@
                         type="checkbox"
                         value="Skin"
                         id="LSkin"
-                        disabled=""
                       /><label>Skin</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1387,7 +1287,6 @@
                         type="checkbox"
                         value="Parotid"
                         id="LParotid"
-                        disabled=""
                       /><label>Parotid</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -1396,7 +1295,6 @@
                         type="checkbox"
                         value="HGN"
                         id="LHGN"
-                        disabled=""
                       /><label>HGN</label>
                     </div>
                   </div>
@@ -1417,7 +1315,7 @@
             <div class="col-sm-12">
               <div class="form-group">
                 <label for="ReconType">Reconstruction Details</label>
-                <input class="form-control" id="ReconType" />
+                <input class="form-control" id="ReconType" placeholder="Type to Enter" />
               </div>
             </div>
 
@@ -1498,8 +1396,8 @@
         </div>
 
         <!-- All Collapsible opened on inputs from Sx ---------->
-        <!----------- 1. DR1-3 - Primary Histopath hidden --------------->
-        <div class="col-sm-12" id="PrimayHP">
+        <!----------- 1. DR1-3 - Primary Histopath --------------->
+        <div class="col-sm-12 collapse" id="PrimaryHP">
           <!-- Disclaimer -->
           <div class="row gx-1 gy-1 p-1 border">
             <p class="text-center mb-1"><b>Primary Tumour HP</b></p>
@@ -1756,8 +1654,8 @@
           </div>
         </div>
 
-        <!--- 2. DR1-3 - RNeck Histopath hidden ---->
-        <div class="col-sm-12" id="RNeckHP">
+        <!--- 2. DR1-3 - RNeck Histopath ---->
+        <div class="col-sm-12 collapse" id="RNeckHP">
           <div class="row gx-1 gy-1 p-1 border">
             <p class="text-center mb-1"><b>Same Side Neck HP</b></p>
 
@@ -1778,7 +1676,6 @@
                       pattern="\d{1,2}"
                       id="RNodalYeild"
                       class="form-control"
-                      disabled
                     />
                     <span
                       class="input-group-text bg-body-secondary"
@@ -1790,14 +1687,13 @@
                       pattern="\d{1,2}"
                       id="RPositNodes"
                       class="form-control"
-                      onchange="NodeEnabler('R')"
-                      disabled
+                      onchange="NodeHPEnabler('R')"
                     />
                   </div>
                 </div>
 
                 <!-- RNodes Involved Check Boxes -->
-                <div class="col-12">
+                <div class="col-12" id="RInvolvedNodes">
                   <div>
                     <div class="form-check form-check-inline col-1">
                       <input
@@ -1875,7 +1771,7 @@
             </div>
 
             <!-- MR2 - RSizeNode,RSizeMet,RECS,RDistance -->
-            <div class="col-sm-6">
+            <div class="col-sm-6" id="RPositNodeDetails">
               <div class="row gx-1 gy-1">
                 <!-- RSizeNode,RSizeMet -->
                 <div class="col-12">
@@ -1944,8 +1840,8 @@
           </div>
         </div>
 
-        <!--- 3. DR1-3 - LNeck Histopath hidden ---->
-        <div class="col-sm-12" id="LNeckHP">
+        <!--- 3. DR1-3 - LNeck Histopath ---->
+        <div class="col-sm-12 collapse" id="LNeckHP">
           <div class="row gx-1 gy-1 p-1 border">
             <p class="text-center mb-1"><b>Contralateral Neck HP</b></p>
 
@@ -1966,7 +1862,6 @@
                       pattern="\d{1,2}"
                       id="LNodalYeild"
                       class="form-control"
-                      disabled
                     />
                     <span
                       class="input-group-text bg-body-secondary"
@@ -1978,14 +1873,13 @@
                       pattern="\d{1,2}"
                       id="LPositNodes"
                       class="form-control"
-                      onchange="NodeEnabler('L')"
-                      disabled
+                      onchange="NodeHPEnabler('L')"
                     />
                   </div>
                 </div>
 
                 <!-- LNodes Involved Check Boxes -->
-                <div class="col-12">
+                <div class="col-12" id="LInvolvedNodes">
                   <div>
                     <div class="form-check form-check-inline col-1">
                       <input
@@ -2063,7 +1957,7 @@
             </div>
 
             <!-- MR2 - LSizeNode,LSizeMet,LECS,LDistance -->
-            <div class="col-sm-6">
+            <div class="col-sm-6" id="LPositNodeDetails">
               <div class="row gx-1 gy-1">
                 <!-- LSizeNode,LSizeMet -->
                 <div class="col-12">
@@ -2166,6 +2060,7 @@
             <button class="btn btn-primary" onclick="CalcpTNM()">
               Auto Calculate TNM
             </button>
+            <div class="text-warning-emphasis" id="dataMissing" style="display: none;"></div>
           </div>
         </div>
       </div>
@@ -2220,11 +2115,13 @@
 
     <!-------------------------------------------------Scripts & CDN ------------------------------------------->
     <!-- Datalists.js -->
-     <script src="js/datalists.js"></script>
+    <script src="js/datalists.js"></script>
     <!-- Tagifys.js -->
-     <script src="js/tagifys.js"></script>
+    <script src="js/tagifys.js"></script>
     <!-- Main.js Script -->
     <script src="js/main.js"></script>
+    <!-- TNM Logic.js -->
+     <script src="js/tnmlogic.js"></script>
 
     <!-- Bootstrap Script -->
     <script

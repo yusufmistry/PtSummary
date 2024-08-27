@@ -71,6 +71,123 @@ function ContentEnabler(inputId, contentdivID, btnId) {
   }
 }
 
+///////////////////////////// Primary Enabler Function ///////////////////
+function PrimaryEnabler (){
+  const SxType = document.getElementById("SxType")
+  const PrimaryTumourDetails = document.getElementById("PrimaryTumourDetails")
+  const PrimaryHP = document.getElementById("PrimaryHP")
+  const bsCollapse = new bootstrap.Collapse(PrimaryTumourDetails, {
+    toggle: false,
+  });
+  const bsCollapseHP = new bootstrap.Collapse(PrimaryHP, {
+    toggle: false,
+  });
+
+  if (SxType.value){
+    bsCollapse.show()
+    bsCollapseHP.show()
+  } else {
+    bsCollapse.hide()
+    bsCollapseHP.hide()
+  }
+}
+
+///////////////////////////// Neck Enabler Function //////////////////////
+function NeckEnabler(){
+  const NeckType = document.getElementById("NeckType")
+  const SameNeckDetails = document.getElementById("SameNeckDetails")
+  const OppositeNeckDetails = document.getElementById("OppositeNeckDetails")
+  const RNeckHP = document.getElementById("RNeckHP")
+  const LNeckHP = document.getElementById("LNeckHP")
+  const bsCollapseR = new bootstrap.Collapse(SameNeckDetails, {
+    toggle: false,
+  });
+  const bsCollapseL = new bootstrap.Collapse(OppositeNeckDetails, {
+    toggle: false,
+  });
+  const bsCollapseHPR = new bootstrap.Collapse(RNeckHP, {
+    toggle: false,
+  });
+  const bsCollapseHPL = new bootstrap.Collapse(LNeckHP, {
+    toggle: false,
+  });
+  
+
+  if(NeckType.value === "Ipsilateral"){
+    bsCollapseR.show()
+    bsCollapseL.hide()
+    bsCollapseHPR.show()
+    bsCollapseHPL.hide()
+  }
+  
+  if(NeckType.value === "Bilateral"){
+    bsCollapseR.show()
+    bsCollapseL.show()
+    bsCollapseHPR.show()
+    bsCollapseHPL.show()
+  }
+
+  if(NeckType.value === "Contralateral"){
+    bsCollapseR.hide()
+    bsCollapseL.show()
+    bsCollapseHPR.hide()
+    bsCollapseHPL.show()
+  }
+
+  if(NeckType.value === ""){
+    bsCollapseR.hide()
+    bsCollapseL.hide()
+    bsCollapseHPR.hide()
+    bsCollapseHPL.hide()
+  }
+
+}
+
+//////////////////////////// Node HP Enabler Function ////////////////////
+function NodeHPEnabler(side) {
+  const PositNode = document.getElementById(`${side}PositNodes`);
+  const InvolvedNodes = document.getElementById(`${side}InvolvedNodes`);
+  const PositNodeDetails = document.getElementById(`${side}PositNodeDetails`);
+  const InvolvedNodesInput = InvolvedNodes.querySelectorAll("input");
+  const InvolvedNodesSelect = InvolvedNodes.querySelectorAll("select");
+  const PositNodeDetailsInput = PositNodeDetails.querySelectorAll("input");
+  const PositNodeDetailsSelect = PositNodeDetails.querySelectorAll("select");
+
+  if (PositNode.value && PositNode.value != 0) {
+    InvolvedNodesInput.forEach((input) => {
+      input.disabled = false;
+    });
+    InvolvedNodesSelect.forEach((select) => {
+      select.disabled = false;
+    });
+    PositNodeDetailsInput.forEach((input) => {
+      input.disabled = false;
+    });
+    PositNodeDetailsSelect.forEach((select) => {
+      select.disabled = false;
+    });
+  } else {
+    InvolvedNodesInput.forEach((input) => {
+      input.disabled = true;
+      input.checked = false;
+      input.value = "";
+    });
+    InvolvedNodesSelect.forEach((select) => {
+      select.disabled = true;
+      select.value = "";
+    });
+    PositNodeDetailsInput.forEach((input) => {
+      input.disabled = true;
+      input.checked = false;
+      input.value = "";
+    });
+    PositNodeDetailsSelect.forEach((select) => {
+      select.disabled = true;
+      select.value = "";
+    });
+  }
+}
+
 //////////////////////////// Add Investigation Function //////////////////
 function addInvestigation() {
   const date = document.getElementById("InvDate");
