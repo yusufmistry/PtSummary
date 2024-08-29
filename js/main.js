@@ -13,7 +13,7 @@
       }
       form.classList.add("was-validated");
 
-      document.getElementById("Submitbutton").textContent =
+      document.getElementById("IncompleteDataWarn").textContent =
         "Some essential data is missing or incorrect";
     },
     false

@@ -22,6 +22,9 @@
       type="text/css"
     />
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
     <!-- Override CSS -->
     <link rel="stylesheet" href="./css/style.css" />
   </head>
@@ -452,9 +455,9 @@
                 <input
                   type="date"
                   class="form-control"
-                  id="FirstVistDate"
+                  id="FirstVisitDate"
                   placeholder="Date"
-                  onchange="ContentEnabler('FirstVistDate','FVExpanded','FVMoreDetailsBtn')"
+                  onchange="ContentEnabler('FirstVisitDate','FVExpanded','FVMoreDetailsBtn')"
                   required
                 />
                 <label for="FirstVistDate">1st Visit Date*</label>
@@ -1006,7 +1009,7 @@
                     <b>Nodes Removed</b>
                   </p>
                   <!-- Node CheckBoxes -->
-                  <div class="form-text">
+                  <div class="form-text" id="RNeckCheckBoxes">
                     <div class="form-check form-check-inline">
                       <input
                         class="form-check-input"
@@ -1080,7 +1083,7 @@
                     <b>Structures Removed</b>
                   </p>
                   <!-- Structure CheckBoxes -->
-                  <div class="form-text">
+                  <div class="form-text" id="RNeckStructureBoxes">
                     <div class="form-check form-check-inline">
                       <input
                         class="form-check-input"
@@ -1166,7 +1169,7 @@
                     <b>Nodes Removed</b>
                   </p>
                   <!-- Node CheckBoxes -->
-                  <div class="form-text">
+                  <div class="form-text" id="LNeckCheckBoxes">
                     <div class="form-check form-check-inline">
                       <input
                         class="form-check-input"
@@ -1240,7 +1243,7 @@
                     <b>Structures Removed</b>
                   </p>
                   <!-- Structure CheckBoxes -->
-                  <div class="form-text">
+                  <div class="form-text" id="LNeckStructureBoxes">
                     <div class="form-check form-check-inline">
                       <input
                         class="form-check-input"
@@ -1315,7 +1318,11 @@
             <div class="col-sm-12">
               <div class="form-group">
                 <label for="ReconType">Reconstruction Details</label>
-                <input class="form-control" id="ReconType" placeholder="Type to Enter" />
+                <input
+                  class="form-control"
+                  id="ReconType"
+                  placeholder="Type to Enter"
+                />
               </div>
             </div>
 
@@ -1548,12 +1555,7 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label for="LVI">LVI</label>
-                    <select
-                      type="text"
-                      id="LVI"
-                      list="PNIDatalist"
-                      class="form-control"
-                    >
+                    <select type="text" id="LVI" class="form-control">
                       <option value="">Select</option>
                       <option value="Absent">Absent</option>
                       <option value="Present">Present</option>
@@ -2057,10 +2059,14 @@
         <!-- MR14 - Calc Btn -->
         <div class="col-sm-6 align-self-center">
           <div class="d-grid col-10 mx-auto">
-            <button class="btn btn-primary" onclick="CalcpTNM()">
+            <button type="button" class="btn btn-primary" onclick="CalcpTNM()">
               Auto Calculate TNM
             </button>
-            <div class="text-warning-emphasis" id="dataMissing" style="display: none;"></div>
+            <div
+              class="text-warning-emphasis"
+              id="dataMissing"
+              style="display: none"
+            ></div>
           </div>
         </div>
       </div>
@@ -2087,7 +2093,7 @@
       </div>
 
       <!-------------- VII. Generate Summary & Save Btn ----------->
-      <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-4">
+      <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2">
         <!-- R0 - Title - Subsequent Follow-up -->
         <div class="col-sm-12">
           <h4 id="scrollspyHeading11" class="text-center border-bottom pb-2">
@@ -2099,12 +2105,17 @@
         <div class="d-grid col-10 mx-auto">
           <div
             class="form-text text-danger text-center"
-            id="Submitbutton"
+            id="IncompleteDataWarn"
           ></div>
-          <button class="btn btn-primary mb-2" onclick="genSummary()">
+          <button
+            type="button"
+            id="genSummaryBtn"
+            class="btn btn-primary mb-2"
+            onclick="genSummary()"
+          >
             Generate Summary
           </button>
-          <button class="btn btn-success" type="submit">
+          <button class="btn btn-success" type="submit" id="SubmitBtn">
             Save to Database
           </button>
         </div>
@@ -2112,6 +2123,53 @@
     </form>
 
     <!--------------------------------------------------- Summary --------------------------------------------->
+    <div
+      class="row border bg-light px-3 pb-4 gx-1 gy-2 mb-4"
+      style="display: none"
+      id="SummaryDiv"
+    >
+      <!-- R0 - Title - Summary -->
+      <div class="col-sm-12">
+        <h4 id="scrollspyHeading12" class="text-center border-bottom pb-2">
+          Summary
+        </h4>
+      </div>
+
+      <div class="col-sm-12">
+        <div class="container p-3 bg-white border" style="font-size: 14px; font-family: 'Times New Roman', Times, serif;" id="SummaryContent">
+          <h5 class="text-center"><u>CASE SUMMARY</u></h5>
+
+          <!-- Not enough info Div -->
+          <div id="not-enough-info" class="text-center text-danger">
+            There is not enough data to make a summary
+          </div>
+
+          <!-- 1. Primary Info Summary Div -->
+          <div id="primaryInfoSummaryDiv" class="mb-3"></div>
+
+          <!-- 2. First Visit Summary Div -->
+          <div id="FVSummaryDiv" class="mb-2"></div>
+
+          <!-- 3a. HOPI Div -->
+          <div id="HOPISummaryDiv"></div>
+
+          <!-- 3b. Inv Div -->
+          <div id="InvSummaryDiv"></div>
+
+          <!-- 4. Treatment Summary Div -->
+          <div id="TreatmentSummaryDiv"></div>
+
+          <!-- 5. Histopath Summary Div -->
+          <div id="HistopathSummaryDiv"></div>
+
+          <!-- 6. Subsequent Adv Summary Div -->
+          <div id="SubsequentSummaryDiv"></div>
+
+          <!-- 7. Contact Info and Signature Summary Div -->
+          <div id="SignSummaryDiv"></div>
+        </div>
+      </div>
+    </div>
 
     <!-------------------------------------------------Scripts & CDN ------------------------------------------->
     <!-- Datalists.js -->
@@ -2121,7 +2179,9 @@
     <!-- Main.js Script -->
     <script src="js/main.js"></script>
     <!-- TNM Logic.js -->
-     <script src="js/tnmlogic.js"></script>
+    <script src="js/tnmlogic.js"></script>
+    <!-- Summary Script -->
+    <script src="js/summary.js"></script>
 
     <!-- Bootstrap Script -->
     <script
