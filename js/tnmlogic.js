@@ -42,7 +42,7 @@ function CalcpTNM() {
       //Going Reverse as it is easier
   
       if (boneInv === "Deep Intramedullary" || boneInv === "Present") {
-        pT.value = "T4a";
+        pT.value = "4a";
       } else if (
         boneInv === "" ||
         boneInv === "Absent" ||
@@ -50,23 +50,23 @@ function CalcpTNM() {
       ) {
         if (DOI > 10) {
           if (largestDiameter <= 40) {
-            pT.value = "T3";
+            pT.value = "3";
           } else if (largestDiameter > 40) {
-            pT.value = "T4a";
+            pT.value = "4a";
           }
         } else if (DOI > 5 && DOI <= 10) {
           if (largestDiameter <= 40) {
-            pT.value = "T2";
+            pT.value = "2";
           } else if (largestDiameter > 40) {
             pT.value = "T3";
           }
         } else if (DOI <= 5) {
           if (largestDiameter <= 20) {
-            pT.value = "T1";
+            pT.value = "1";
           } else if (largestDiameter <= 40) {
-            pT.value = "T2";
+            pT.value = "2";
           } else if (largestDiameter > 40) {
-            pT.value = "T3";
+            pT.value = "3";
           }
         }
       }

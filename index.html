@@ -743,30 +743,36 @@
           </h4>
         </div>
 
-        <!-- DR1 - Treatment Type, Date, Place -->
-        <!-- MR1 - Treatment Type -->
-        <div class="col-sm-6">
-          <div class="form-floating">
-            <select class="form-control" id="RxType" disabled>
-              <option value="Surgery">Surgery</option>
-            </select>
-            <label for="RxType">Treatment Type*</label>
-          </div>
-        </div>
-
-        <!-- MR2 - Date, Place -->
+        <!-- DR1 - Treatment Type, Date, Place, Show/Hide Btn -->
+        <!-- MR1 - Treatment Type, Rx Date -->
         <div class="col-sm-6">
           <div class="row gx-1">
-            <!-- Date -->
-            <div class="col-6">
+            <!-- Treatment Type -->
+             <div class="col-6">
               <div class="form-floating">
-                <input type="date" class="form-control" id="RxDate" />
-                <label for="RxDate">Rx Date*</label>
+                <select class="form-control" id="RxType" disabled>
+                  <option value="Surgery">Surgery</option>
+                </select>
+                <label for="RxType">Treatment Type*</label>
               </div>
-            </div>
+             </div>
 
+             <!-- Rx Date -->
+              <div class="col-6">
+                <div class="form-floating">
+                  <input type="date" class="form-control" id="RxDate" onchange="ContentEnabler('RxDate','RxExpanded', 'RxMoreDetailsBtn')"/>
+                  <label for="RxDate">Rx Date*</label>
+                </div>
+              </div>
+          </div>
+          
+        </div>
+
+        <!-- MR2 - Place, Show/Hide Details Btn -->
+        <div class="col-sm-6">
+          <div class="row gx-1">
             <!-- Place -->
-            <div class="col-6">
+            <div class="col-7">
               <div class="form-floating">
                 <input
                   type="text"
@@ -777,12 +783,27 @@
                 <label for="RxPlace">Place</label>
               </div>
             </div>
+
+            <!-- Show/hide details Btn -->
+            <div class="col-5">
+              <div class="d-grid col-10 mx-auto">
+                <button
+                  type="button"
+                  id="RxMoreDetailsBtn"
+                  class="btn btn-sm btn-primary"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#RxExpanded"
+                disabled
+                >
+                  Show/Hide Details
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Treatment Collapsible Rows (Currently Always show as Rx always Surgery)-->
-        <!-- hidden  -->
-        <div class="col-sm-12" id="RxExpanded">
+        <div class="col-sm-12 collapse" id="RxExpanded">
           <div class="row gx-1 gy-2">
             <!---------- 1. DR2 - Primary Select ---------->
             <!-- MR3&4 - Primary Select (Header & Input) -->
@@ -1009,7 +1030,7 @@
                     <b>Nodes Removed</b>
                   </p>
                   <!-- Node CheckBoxes -->
-                  <div class="form-text" id="RNeckCheckBoxes">
+                  <div class="form-text" id="RNeckLNBoxes">
                     <div class="form-check form-check-inline">
                       <input
                         class="form-check-input"
@@ -1169,7 +1190,7 @@
                     <b>Nodes Removed</b>
                   </p>
                   <!-- Node CheckBoxes -->
-                  <div class="form-text" id="LNeckCheckBoxes">
+                  <div class="form-text" id="LNeckLNBoxes">
                     <div class="form-check form-check-inline">
                       <input
                         class="form-check-input"
@@ -2151,22 +2172,22 @@
           <div id="FVSummaryDiv" class="mb-2"></div>
 
           <!-- 3a. HOPI Div -->
-          <div id="HOPISummaryDiv"></div>
+          <div id="HOPISummaryDiv" class="mb-2"></div>
 
           <!-- 3b. Inv Div -->
-          <div id="InvSummaryDiv"></div>
+          <div id="InvSummaryDiv" class="mb-2"></div>
 
           <!-- 4. Treatment Summary Div -->
-          <div id="TreatmentSummaryDiv"></div>
+          <div id="TreatmentSummaryDiv" class="mb-2"></div>
 
           <!-- 5. Histopath Summary Div -->
-          <div id="HistopathSummaryDiv"></div>
+          <div id="HistopathSummaryDiv" class="mb-2"></div>
 
           <!-- 6. Subsequent Adv Summary Div -->
-          <div id="SubsequentSummaryDiv"></div>
+          <div id="SubsequentSummaryDiv" class="mb-4"></div>
 
           <!-- 7. Contact Info and Signature Summary Div -->
-          <div id="SignSummaryDiv"></div>
+          <div id="SignSummaryDiv" class="text-end"></div>
         </div>
       </div>
     </div>
