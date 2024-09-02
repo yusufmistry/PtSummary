@@ -234,7 +234,7 @@ function genSummary() {
     //FV Div
     FVSummaryDiv.html(`
       ${Mr} ${patientName}, was first seen by us on ${FirstVisitDate}. ${He} had complaint of ${Complaints} <br>
-      On examination, there was a ${OnExam}. `);
+      On examination, there was ${OnExam}. `);
     if (MedicalHistory) {
       FVSummaryDiv.append(`${He} has ${MedicalHistory}`);
     }
@@ -243,7 +243,7 @@ function genSummary() {
 
     if (HOPI) {
       HOPISummaryDiv.html(`
-        Previously, ${he} has undergone <b>${HOPI}.</b>
+        Previously, ${he} has undergone <b>${HOPI}</b>
         `);
     }
 
@@ -362,7 +362,7 @@ function genSummary() {
         (IntraopNotes ? "Intra-operatively, " + IntraopNotes + ". ": "") +
         (PostopNotes
           ? "Post-operatively, " + PostopNotes
-          : His + "post-operative phase was uneventful. ") +
+          : His + " post-operative phase was uneventful. ") +
         (DischargeDate ? He + " was discharged on " + DischargeDate : "");
     } else if (!SxType && NeckType) {
       TreatmentSummaryDiv[0].innerHTML =
@@ -406,7 +406,7 @@ function genSummary() {
               : "") +
             (LNeckExtent.value[0]
               ? " + Left " +
-                RNeckExtent.value[0].value +
+                LNeckExtent.value[0].value +
                 (LNeckLNRemovedStr
                   ? " (Lymph Nodes: " + LNeckLNRemovedStr + ")"
                   : "") +
@@ -416,9 +416,9 @@ function genSummary() {
               : "")
           : "");
       ".</b> " +
-        (IntraopNotes ? IntraopNotes : "") +
+        (IntraopNotes ? "Intra-operatively, " + IntraopNotes : "") +
         (PostopNotes
-          ? PostopNotes
+          ? "In the post-operative phase " + PostopNotes
           : His + " post-operative phase was uneventful. ") +
         (DischargeDate ? He + " was discharged on " + DischargeDate : "");
     } else {
@@ -426,35 +426,29 @@ function genSummary() {
     }
 
     // Histopath Div
-    if (Histology && SxType) {
+    if (Histology || RPositNodes || LPositNodes) {
       HistopathSummaryDiv[0].innerHTML =
         His +
-        " final HPE report showed <b>" +
-        Histology +
-        "</b>" +
-        " of the" +
-        (SxSide.value[0] ? " " + SxSide.value[0].value : "") + //Side
-        (SxSite.value[0] ? " " + SxSite.value[0].value : "") + //Prmary Site
-        " (Size: <b>" +
-        TsizeAP +
-        (TsizeTrans ? "x" + TsizeTrans : "") +
-        (TsizeVert ? "x" + TsizeVert : "") +
-        "mm. " +
-        (TsizeDOI ? "DOI: " + TsizeDOI + "mm " : "") +
-        "</b>). " +
-        (PNI ? "PNI was <b>" + PNI + ".</b> " : "") +
-        (LVI ? "LVI was <b>" + LVI + ".</b> " : "") +
-        (WPOI ? "WPOI was " + WPOI + ". " : "") +
+        " final HPE report showed " +
+        (Histology ? "<b>" + Histology + "</b>" : "") +
+        (SxSide.value[0] ? " of the <b>" + SxSide.value[0].value + "</b>" : "") + 
+        (SxSite.value[0] ? " <b>" + SxSite.value[0].value + "</b>. " : "") + 
+        (TsizeAP ? ("[Size: <b>" + TsizeAP + (TsizeTrans ? "x" + TsizeTrans : "") + (TsizeVert ? "x" + TsizeVert : "") + "mm</b>]. ") : "") +
+        (TsizeDOI ? "[DOI: <b>" + TsizeDOI + "mm</b>] " : "") +
+        (PNI ? (PNI === "Absent" ? "PNI was absent" : "PNI was <b>" + PNI + ".</b> ") : "") +
+        (LVI ? (LVI === "Absent" ? "LVI was absent" : "LVI was <b>" + LVI + ".</b> ") : "") +
+        (WPOI ? "WPOI was <b>" + WPOI + "</b>. " : "") +
         (ClosestMargin ? "The closest margin was <b>" + ClosestMargin + "</b>" : "") +
         (MarginDistance ? " which was <b>" + MarginDistance + "mm</b>. " : "") +
-        (BoneInv ? "Bone invasion was <b>" + BoneInv + ".</b> " : "") +
-        (MuscleInv ? "Muscle was <b>" + MuscleInv + ".</b> " : "") +
-        (SkinInv ? "Skin invasion was " + SkinInv + ". " : "") +
+        (BoneInv ? (BoneInv === "Absent" ? "There was no bone invasion. " : "Bone invasion was <b>" + BoneInv + ".</b> ") : "") +
+        (MuscleInv ? (MuscleInv === "Absent" ? "There was no muscle invasion. " : "Muscle invasion was <b>" + MuscleInv + ".</b> ") : "") +
+        (SkinInv ? (SkinInv === "Absent" ? "There was no skin invasion. " : "Skin invasion was <b>" + SkinInv + ".</b> ") : "") + "<br>"
+        //Neck HP //
         (RPositNodes
           ? "<b>" +
             RPositNodes +
             (RNodalYeild ? "/" + RNodalYeild : "") +
-            "</b> nodes were positive for metastasis in the <b>" +
+            "</b> nodes were positive for metastasis in the<b>" +
             (NeckType === "Ipsilateral" ? " " + SxSide.value[0].value : "") +
             (RNeckExtent.value[0]
               ? " " + RNeckExtent.value[0].value + " </b>specimen. "
@@ -478,7 +472,7 @@ function genSummary() {
             LPositNodes +
             (LNodalYeild ? "/" + LNodalYeild : "") +
             "</b> nodes were positive for metastasis in the " +
-            (NeckType === "Contralateral" ? " Contralateral" : "") +
+            (NeckType === "Contralateral" ? (SxSide.value[0].value === "Right" ? "Left " : "Right ") : "") +
             (NeckType === "Bilateral" ? " Left" : "") +
             (LNeckExtent.value[0]
               ? " " + LNeckExtent.value[0].value + " specimen. "
@@ -495,61 +489,13 @@ function genSummary() {
               ? "[Distance(ECS): <b>" + LECSDistance + "</b>]. "
               : "")
           : "") +
-        (Tstage ? "<b>(p" + Tstage + "N" + Nstage + ")</b>. " : "");
-    } else if (!SxType && NeckType) {
-      HistopathSummaryDiv[0].innerHTML =
-        His +
-        " final HPE report showed <b>" +
-        (RPositNodes
-          ? "<b>" +
-            RPositNodes +
-            (RNodalYeild ? "/" + RNodalYeild : "") +
-            "</b> nodes were positive for metastasis in the " +
-            (NeckType === "Ipsilateral" ? " Right" : "") +
-            (RNeckExtent.value[0]
-              ? " " + RNeckExtent.value[0].value + " specimen. "
-              : "") +
-            (RInvolvedNodes
-              ? " [Involved Level: <b>" + RInvolvedNodes + "</b>]. "
-              : "") +
-            (RNodeSize
-              ? "[Size of largest node: <b>" + RNodeSize + "</b>]. "
-              : "") +
-            (RMetSize
-              ? "[Size of metastasis: <b>" + RMetSize + "</b>]. "
-              : "") +
-            (RECS ? "[ECS: <b>" + RECS + "</b>]. " : "") +
-            (RECSDistance
-              ? "[Distance(ECS): <b>" + RECSDistance + "</b>]. "
-              : "")
-          : "") +
-        (LPositNodes
-          ? "<b>" +
-            LPositNodes +
-            (LNodalYeild ? "/" + LNodalYeild : "") +
-            "</b> nodes were positive for metastasis in the " +
-            (NeckType === "Contralateral" ? " Left" : "") +
-            (NeckType === "Bilateral" ? " Left" : "") +
-            (LNeckExtent.value[0]
-              ? " " + LNeckExtent.value[0].value + " specimen. "
-              : "") +
-            (LInvolvedNodes
-              ? " [Involved Level: <b>" + LInvolvedNodes + "</b>]. "
-              : "") +
-            (LNodeSize
-              ? "[Size of largest node: <b>" + LNodeSize + "</b>]. "
-              : "") +
-            (LMetSize ? "[Size of metastasis: " + LMetSize + "</b>]. " : "") +
-            (LECS ? "[ECS: <b>" + LECS + "</b>]. " : "") +
-            (LECSDistance
-              ? "[Distance(ECS): <b>" + LECSDistance + "</b>]. "
-              : "")
-          : "") +
-        (Tstage ? "<b>(p" + Tstage + "N" + Nstage + ")</b>. " : "");
+        (Tstage ? "<b>(pT" + Tstage + "N" + Nstage + ")</b>. " : "");
+    } else {
+      HistopathSummaryDiv[0].innerHTML = ""
     }
 
     // Subsequent Div
-    SubsequentSummaryDiv[0].innerHTML = Subsequent ? + He + " is advised <b>" + Subsequent + "</b>": He + " is advised physiotherapy and regular follow up at this clinic." + `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.`
+    SubsequentSummaryDiv[0].innerHTML = Subsequent ? He + " is advised <b>" + Subsequent + "</b>": He + " is" + (Subsequent ? " also" : "") + " advised physiotherapy and regular follow up at this clinic." + `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.`
 
     // Sign Div
     SignSummaryDiv[0].innerHTML = "<b>Dr. Yusuf A Mistry (MDS, FHNO) <br> Head and Neck Cancer Surgeon <br> Saifee Hospital <br> 8425029477 </b> <br> <a href='yusufmistry@ymail.com'>yusufmistry@ymail.com</a>"

@@ -1,18 +1,18 @@
 //////////////////////////// Datalists ///////////////////////////////////
 const InvTypeArray = [
   "Biopsy",
+  "Punch Biopsy",
   "Incisional Biopsy",
   "Excisional Biopsy",
+  "CT with Contrast",
+  "MRI with Contrast",
   "FNAC",
   "CT Scan",
   "CT Plain",
-  "CT with Contrast",
-  "MRI",
-  "MRI with Contrast",
+  "MRI Plain",
   "PET-CT",
   "USG",
   "USG Guided Trucut Biopsy",
-  "Punch Biopsy",
 ];
 
 const InvSiteArray = [
@@ -48,7 +48,6 @@ const PrimarySideArray = ["Right", "Left", "Central", "Bilateral"];
 const IncisionsArray = [
   "Midline Split",
   "Angle of Mouth Lip Split",
-  "Intra-Oral",
   "Single Transverse",
   "Single Transverse with Vertical Extn",
   "McFee's",
@@ -109,7 +108,12 @@ const AdditionalSitesDeeperArray = [
   "Orbital Exentration",
 ];
 
-const AdditionalSitesSkinArray = ["External Skin", "Large Skin", "Small Skin"];
+const AdditionalSitesSkinArray = [
+  "External Skin",
+  "Large Skin",
+  "Small Skin",
+  "Skin",
+];
 
 const AdditionalProArray = [
   "Tracheostomy",
@@ -119,30 +123,47 @@ const AdditionalProArray = [
 ];
 
 const NeckExentArray = [
-"Supra-Omohyoid Neck Dissection",
-"Extended Supra-Omohyoid Neck Dissection",
-"Modified Radical Neck Dissection Type 3",
-"Modified Radical Neck Dissection Type 2",
-"Modified Radical Neck Dissection Type 1",
-"Radical Neck Dissection",
-"Neck Exploration",
-"Neck Re-Exploration",
-"Single Nodal Level",
-"Multiple Nodal Levels"
-]
+  "Supra-Omohyoid Neck Dissection",
+  "Extended Supra-Omohyoid Neck Dissection",
+  "Modified Radical Neck Dissection Type 3",
+  "Modified Radical Neck Dissection Type 2",
+  "Modified Radical Neck Dissection Type 1",
+  "Radical Neck Dissection",
+  "Neck Exploration",
+  "Neck Re-Exploration",
+  "Single Nodal Level",
+  "Multiple Nodal Levels",
+];
 
 const ReconArray = [
   "Primary Closure",
   "Nasolabial Flap",
-  "PMMC",
-  "FRAFF",
-  "ALT",
-  "FFOCF",
-  "Bipaddle PMMC",
-  "Bipaddle FRAFF",
-  "Bipaddle ALT",
+  "Pectoralis Major Myocutaneous Flap",
+  "Bi-Padddle Pectoralis Major Myocutaneous Flap",
+  "Free Radial Artery Forearm Flap",
+  "Free Antero-lateral Thigh Flap",
+  "Free Fibula Osteo-cutaneous Flap",
+  "Bi-paddle Free Radial Artery Forearm Flap",
+  "Bi=-addle Antero-lateral Thigh Flap",
   "Submental Flap",
   "Forehead Flap",
-  "Cantilever Free Fibula",
+  "Cantilever Free Fibula Osteo-cutaneous Flap",
   "Tongue Flap",
+  "Temporalis Muscle Flap",
+  "Obturator",
+  "Vascularized Buccal Fat Pad",
+  "Local Rotation Flap",
+  "Abbey-Estlander Flap",
+  "Karapandzic Flap",
+  "Deltopectoral Flap",
+  "Palmaris Longus Tendon",
+];
+
+const PNILVIArray = [
+  "Absent",
+  "Present",
+  "Present (Unifocal Intra-tumoral)",
+  "Present (Multifocal Intra-tumoral)",
+  "Present (Unifocal Extra-tumoral)",
+  "Present (Multifocal Extra-tumoral)",
 ];

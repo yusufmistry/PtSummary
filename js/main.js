@@ -73,74 +73,102 @@ function ContentEnabler(inputId, contentdivID, btnId) {
 
 ///////////////////////////// Primary Enabler Function ///////////////////
 function PrimaryEnabler (){
-  const SxType = document.getElementById("SxType")
+  const SxType = document.getElementById("SxType").value
+  const NeckType = document.getElementById("NeckType").value
   const PrimaryTumourDetails = document.getElementById("PrimaryTumourDetails")
-  const PrimaryHP = document.getElementById("PrimaryHP")
-  const bsCollapse = new bootstrap.Collapse(PrimaryTumourDetails, {
-    toggle: false,
-  });
-  const bsCollapseHP = new bootstrap.Collapse(PrimaryHP, {
-    toggle: false,
-  });
-
-  if (SxType.value){
-    bsCollapse.show()
-    bsCollapseHP.show()
-  } else {
-    bsCollapse.hide()
-    bsCollapseHP.hide()
-  }
-}
-
-///////////////////////////// Neck Enabler Function //////////////////////
-function NeckEnabler(){
-  const NeckType = document.getElementById("NeckType")
   const SameNeckDetails = document.getElementById("SameNeckDetails")
   const OppositeNeckDetails = document.getElementById("OppositeNeckDetails")
+
+  const HistopathRow = document.getElementById("HistopathRow")
+  const PrimaryHP = document.getElementById("PrimaryHP")
   const RNeckHP = document.getElementById("RNeckHP")
   const LNeckHP = document.getElementById("LNeckHP")
-  const bsCollapseR = new bootstrap.Collapse(SameNeckDetails, {
+  const TNM = document.getElementById("TNM")
+  
+  const bsCollapsePrimary = new bootstrap.Collapse(PrimaryTumourDetails, {
     toggle: false,
   });
-  const bsCollapseL = new bootstrap.Collapse(OppositeNeckDetails, {
+  const bsCollapseSameNeck = new bootstrap.Collapse(SameNeckDetails, {
     toggle: false,
   });
-  const bsCollapseHPR = new bootstrap.Collapse(RNeckHP, {
+  const bsCollapseOppositeNeck = new bootstrap.Collapse(OppositeNeckDetails, {
     toggle: false,
   });
-  const bsCollapseHPL = new bootstrap.Collapse(LNeckHP, {
+
+
+  const bsCollapseHistopathRow = new bootstrap.Collapse(HistopathRow, {
+    toggle: false,
+  });
+  const bsCollapseTNM = new bootstrap.Collapse(TNM, {
+    toggle: false,
+  });
+  const bsCollapsePrimaryHP = new bootstrap.Collapse(PrimaryHP, {
+    toggle: false,
+  });
+  const bsCollapseHPRNeck = new bootstrap.Collapse(RNeckHP, {
+    toggle: false,
+  });
+  const bsCollapseHPLNeck = new bootstrap.Collapse(LNeckHP, {
     toggle: false,
   });
   
 
-  if(NeckType.value === "Ipsilateral"){
-    bsCollapseR.show()
-    bsCollapseL.hide()
-    bsCollapseHPR.show()
-    bsCollapseHPL.hide()
-  }
-  
-  if(NeckType.value === "Bilateral"){
-    bsCollapseR.show()
-    bsCollapseL.show()
-    bsCollapseHPR.show()
-    bsCollapseHPL.show()
+  if (!SxType && !NeckType){
+    bsCollapsePrimary.hide()
+    bsCollapseSameNeck.hide()
+    bsCollapseOppositeNeck.hide()
+    bsCollapsePrimaryHP.hide()
+    bsCollapseHPRNeck.hide()
+    bsCollapseHPLNeck.hide()
+    bsCollapseTNM.hide()
+    bsCollapseHistopathRow.hide()
   }
 
-  if(NeckType.value === "Contralateral"){
-    bsCollapseR.hide()
-    bsCollapseL.show()
-    bsCollapseHPR.hide()
-    bsCollapseHPL.show()
+  if (SxType){
+    bsCollapsePrimary.show()
+    bsCollapsePrimaryHP.show()
+    bsCollapseTNM.show()
+    bsCollapseHistopathRow.show()
   }
 
-  if(NeckType.value === ""){
-    bsCollapseR.hide()
-    bsCollapseL.hide()
-    bsCollapseHPR.hide()
-    bsCollapseHPL.hide()
+  if(!SxType){
+    bsCollapsePrimary.hide()
+    bsCollapsePrimaryHP.hide()
   }
 
+  if(NeckType === "Ipsilateral"){
+    bsCollapseSameNeck.show()
+    bsCollapseOppositeNeck.hide()
+    bsCollapseHPRNeck.show()
+    bsCollapseHPLNeck.hide()
+    bsCollapseTNM.show()
+    bsCollapseHistopathRow.show()
+  }
+
+  if(NeckType === "Contralateral"){
+    bsCollapseSameNeck.hide()
+    bsCollapseOppositeNeck.show()
+    bsCollapseHPRNeck.hide()
+    bsCollapseHPLNeck.show()
+    bsCollapseTNM.show()
+    bsCollapseHistopathRow.show()
+  }
+
+  if(NeckType === "Bilateral"){
+    bsCollapseSameNeck.show()
+    bsCollapseOppositeNeck.show()
+    bsCollapseHPRNeck.show()
+    bsCollapseHPLNeck.show()
+    bsCollapseTNM.show()
+    bsCollapseHistopathRow.show()
+  }
+
+  if(!NeckType){
+    bsCollapseSameNeck.hide()
+    bsCollapseOppositeNeck.hide()
+    bsCollapseHPRNeck.hide()
+    bsCollapseHPLNeck.hide()
+  }
 }
 
 //////////////////////////// Node HP Enabler Function ////////////////////
@@ -246,6 +274,7 @@ function populateDatalist(listname, optionsArray) {
 
 populateDatalist("inv-type", InvTypeArray);
 populateDatalist("inv-site", InvSiteArray);
+populateDatalist("PNILVIlist", PNILVIArray);
 
 ////////////////////////// Lazy Load Background Videos ///////////////////
 window.onload = function () {

@@ -530,7 +530,7 @@
                 ></textarea>
                 <label for="Complaints">Chief Complaints*</label>
                 <div class="form-text">
-                  Format: <i>Complaint -> Site -> Duration</i> <br />
+                  <i>He/She had a complaint of...</i> <br />
                   Example:
                   <i
                     >Pain in the right side of the face since 2 weeks and
@@ -554,10 +554,11 @@
                 ></textarea>
                 <label for="OnExam">On Examination*</label>
                 <div class="form-text">
+                  <i>On examination there was...</i><br />
                   Example:
                   <i
-                    >2x2cm ulcer seen in the right buccal mucosa and a single
-                    hard right submandibular node palpable</i
+                    >a 2x2cm ulcer seen in the right buccal mucosa and a single
+                    hard right submandibular node palpable.</i
                   >
                 </div>
               </div>
@@ -578,10 +579,11 @@
                   >Relevant Medical History, if any</label
                 >
                 <div class="form-text">
+                  <i>He/She has...</i> <br />
                   Eg:
                   <i
-                    >Well controlled hypertension since 4 yrs / On Ecosprin 75mg
-                    for IHD since 2 years</i
+                    >Well controlled hypertension since 4 yrs. / On Ecosprin
+                    75mg for IHD since 2 years.</i
                   >
                 </div>
               </div>
@@ -611,8 +613,12 @@
             ></textarea>
             <label for="HOPI">History of Presenting Illness, if any</label>
             <div class="form-text">
-              History of previous surgery, any other treatment / chemotherapy
-              relevant to the chief complaint.
+              <i>Previously, he/she has undergone...</i><br />
+              Example:
+              <i
+                >3 cycles NACT (TPF) completed on 28/8/24. / Wide excision of R
+                buccal mucosa on 12/12/23.</i
+              >
             </div>
           </div>
         </div>
@@ -694,6 +700,15 @@
                         style="height: 10vh"
                       ></textarea>
                       <label for="InvFindings">Findings*</label>
+                      <div class="form-text">
+                        <i>Findings showed...</i><br />
+                        Example:
+                        <i
+                          >Moderately Diff Squamous Cell Carcinoma. / a
+                          3.5x2.1cm heterogenously enhancing lesion in the right
+                          lower GBS.</i
+                        >
+                      </div>
                     </div>
                   </div>
 
@@ -748,24 +763,28 @@
         <div class="col-sm-6">
           <div class="row gx-1">
             <!-- Treatment Type -->
-             <div class="col-6">
+            <div class="col-6">
               <div class="form-floating">
                 <select class="form-control" id="RxType" disabled>
                   <option value="Surgery">Surgery</option>
                 </select>
                 <label for="RxType">Treatment Type*</label>
               </div>
-             </div>
+            </div>
 
-             <!-- Rx Date -->
-              <div class="col-6">
-                <div class="form-floating">
-                  <input type="date" class="form-control" id="RxDate" onchange="ContentEnabler('RxDate','RxExpanded', 'RxMoreDetailsBtn')"/>
-                  <label for="RxDate">Rx Date*</label>
-                </div>
+            <!-- Rx Date -->
+            <div class="col-6">
+              <div class="form-floating">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="RxDate"
+                  onchange="ContentEnabler('RxDate','RxExpanded', 'RxMoreDetailsBtn')"
+                />
+                <label for="RxDate">Rx Date*</label>
               </div>
+            </div>
           </div>
-          
         </div>
 
         <!-- MR2 - Place, Show/Hide Details Btn -->
@@ -793,7 +812,7 @@
                   class="btn btn-sm btn-primary"
                   data-bs-toggle="collapse"
                   data-bs-target="#RxExpanded"
-                disabled
+                  disabled
                 >
                   Show/Hide Details
                 </button>
@@ -988,7 +1007,7 @@
                 <select
                   class="form-control"
                   id="NeckType"
-                  onchange="NeckEnabler()"
+                  onchange="PrimaryEnabler()"
                 >
                   <option value="">Not Addressed</option>
                   <option value="Ipsilateral">Ipsilateral</option>
@@ -1373,10 +1392,14 @@
                     <label for="IntraopNotes"
                       >Intra-operative Notes, if any</label
                     >
-                    <div class="form-text" style="font-size: 0.7rem">
-                      Intra-operative details such as Frozen Section,
-                      Complications, or other noteworthy events may be mentioned
-                      here
+                    <div class="form-text">
+                      <i>Intra-operatively,...</i><br />
+                      Example:
+                      <i
+                        >all margins were free on frozen section. / patient
+                        developed bradycardia which was managed
+                        conseravtively.</i
+                      >
                     </div>
                   </div>
                 </div>
@@ -1394,9 +1417,14 @@
                     <label for="PostopNotes"
                       >Post-operative Notes, if any</label
                     >
-                    <div class="form-text" style="font-size: 0.7rem">
-                      Post-operative complications, Haematoma, Re-exploration or
-                      other noteworthy events may be mentioned here
+                    <div class="form-text">
+                      <i>In the post-operative phase...</i><br />
+                      Example:
+                      <i
+                        >patient developed a neck haematoma on POD1 and
+                        underwent re-exploration for the same</i
+                      ><br />
+                      <i>(Leave blank if uneventful)</i>
                     </div>
                   </div>
                 </div>
@@ -1415,7 +1443,7 @@
       </div>
 
       <!-------------- V. Histopathology -------------------------->
-      <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-3">
+      <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-3 collapse" id="HistopathRow">
         <!-- R0 - Title - Histopathology -->
         <div class="col-sm-12">
           <h4 id="scrollspyHeading9" class="text-center border-bottom pb-2">
@@ -1518,13 +1546,14 @@
                       type="text"
                       id="ClosestMargin"
                       class="form-control"
-                      placeholder="Select"
+                      placeholder="Type to Search "
                     />
                     <datalist id="margins">
                       <option value="Anterior">Anterior</option>
                       <option value="Posterior">Posterior</option>
                       <option value="Medial">Medial</option>
                       <option value="Lateral">Lateral</option>
+                      <option value="Base">Base</option>
                     </datalist>
                   </div>
                 </div>
@@ -1552,23 +1581,14 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label for="PNI">PNI</label>
-                    <select type="text" id="PNI" class="form-control">
-                      <option value="">Select</option>
-                      <option value="Absent">Absent</option>
-                      <option value="Present">Present</option>
-                      <option value="Unifocal Intratumoral">
-                        Unifocal Intratumoral
-                      </option>
-                      <option value="Unifocal Extratumoral">
-                        Unifocal Extratumoral
-                      </option>
-                      <option value="Multifocal Intratumoral">
-                        Multifocal Intratumoral
-                      </option>
-                      <option value="Multifocal Extratumoral">
-                        Multifocal Extratumoral
-                      </option>
-                    </select>
+                    <input
+                      type="text"
+                      id="PNI"
+                      class="form-control"
+                      placeholder="Select"
+                      list="PNILVIlist"
+                    />
+                    <datalist id="PNILVIlist"></datalist>
                   </div>
                 </div>
 
@@ -1576,23 +1596,13 @@
                 <div class="col-4">
                   <div class="form-group">
                     <label for="LVI">LVI</label>
-                    <select type="text" id="LVI" class="form-control">
-                      <option value="">Select</option>
-                      <option value="Absent">Absent</option>
-                      <option value="Present">Present</option>
-                      <option value="Unifocal Intratumoral">
-                        Unifocal Intratumoral
-                      </option>
-                      <option value="Unifocal Extratumoral">
-                        Unifocal Extratumoral
-                      </option>
-                      <option value="Multifocal Intratumoral">
-                        Multifocal Intratumoral
-                      </option>
-                      <option value="Multifocal Extratumoral">
-                        Multifocal Extratumoral
-                      </option>
-                    </select>
+                    <input
+                      type="text"
+                      id="LVI"
+                      class="form-control"
+                      placeholder="Select"
+                      list="PNILVIlist"
+                    />
                   </div>
                 </div>
 
@@ -2050,44 +2060,53 @@
         </div>
 
         <!-- DR7 - TNM, Calc Btn -->
-        <!-- MR13 - TNM -->
-        <div class="col-sm-6">
-          <div class="form-group">
-            <label for="Staging">TNM Staging</label>
-            <div class="input-group">
-              <span class="input-group-text bg-body-secondary">p</span>
-              <span class="input-group-text bg-body-secondary">T</span>
-              <input
-                class="form-control"
-                type="text"
-                name="Tstage"
-                id="Tstage"
-                value=""
-              />
-              <span class="input-group-text bg-body-secondary">N</span>
-              <input
-                class="form-control"
-                type="text"
-                name="Nstage"
-                id="Nstage"
-                value=""
-              />
+        <!-- MR13&14 - TNM, Calc Btn -->
+        <div class="col-sm-12 collapse" id="TNM">
+          <div class="row gx-1 gy-2">
+            <!-- MR13 - TNM -->
+            <div class="col-6">
+              <div class="form-group">
+                <label for="Staging">TNM Staging</label>
+                <div class="input-group">
+                  <span class="input-group-text bg-body-secondary">p</span>
+                  <span class="input-group-text bg-body-secondary">T</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="Tstage"
+                    id="Tstage"
+                    value=""
+                  />
+                  <span class="input-group-text bg-body-secondary">N</span>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="Nstage"
+                    id="Nstage"
+                    value=""
+                  />
+                </div>
+                <div class="form-text">According to AJCC 8th Edition</div>
+              </div>
             </div>
-            <div class="form-text">According to AJCC 8th Edition</div>
-          </div>
-        </div>
 
-        <!-- MR14 - Calc Btn -->
-        <div class="col-sm-6 align-self-center">
-          <div class="d-grid col-10 mx-auto">
-            <button type="button" class="btn btn-primary" onclick="CalcpTNM()">
-              Auto Calculate TNM
-            </button>
-            <div
-              class="text-warning-emphasis"
-              id="dataMissing"
-              style="display: none"
-            ></div>
+            <!-- MR14 - Calc Btn -->
+            <div class="col-6 align-self-center">
+              <div class="d-grid col-10 mx-auto">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="CalcpTNM()"
+                >
+                  Auto Calculate TNM
+                </button>
+                <div
+                  class="text-warning-emphasis"
+                  id="dataMissing"
+                  style="display: none"
+                ></div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -2110,6 +2129,15 @@
             placeholder="Subsequent"
           ></textarea>
           <label for="Subsequent">Subsequent Advice and Follow-up</label>
+          <div class="form-text">
+            <i>He/She is advised...</i><br />
+            Example:
+            <i
+              >Adjuvant Radiotherapy/Chemotherapy and referred to
+              Radiation/Medical Oncologist for the same</i
+            ><br />
+            <i>(Leave blank if no adjuvant/special instructions)</i>
+          </div>
         </div>
       </div>
 
@@ -2157,7 +2185,11 @@
       </div>
 
       <div class="col-sm-12">
-        <div class="container p-3 bg-white border" style="font-size: 14px; font-family: 'Times New Roman', Times, serif;" id="SummaryContent">
+        <div
+          class="container p-3 bg-white border"
+          style="font-size: 14px; font-family: 'Times New Roman', Times, serif"
+          id="SummaryContent"
+        >
           <h5 class="text-center"><u>CASE SUMMARY</u></h5>
 
           <!-- Not enough info Div -->

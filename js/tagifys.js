@@ -98,7 +98,7 @@ const AddlDeeperTagify = new Tagify(
       maxItems: 15,
       classname: "tags-look",
       enabled: 0,
-      closeOnSelect: false,
+      closeOnSelect: true,
     },
   }
 );
@@ -114,7 +114,7 @@ const AddlSkinTagify = new Tagify(
       maxItems: 15,
       classname: "tags-look",
       enabled: 0,
-      closeOnSelect: false,
+      closeOnSelect: true,
     },
   }
 );
