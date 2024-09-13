@@ -393,7 +393,7 @@ function GetPatientList() {
   //if statement used so that the list is Only populated once
   if (PatientNameList.innerText === "") {
     axios
-      .get("https://ptsummary-8945f270453f.herokuapp.com//patientlist")
+      .get("https://ptsummary-8945f270453f.herokuapp.com/patientlist")
       .then((response) => {
         const PatientList = response.data;
         PatientList.forEach((patient) => {
