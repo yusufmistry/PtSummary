@@ -49,5 +49,5 @@ mongoose.connect('mongodb+srv://yamboygenius:Binduk%40123@cluster0.j5u1mcp.mongo
 
 
 
-const PORT = 5000
+const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server running sucessfully on PORT ${PORT}`))
