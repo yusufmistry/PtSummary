@@ -100,7 +100,7 @@
 
         // 4. Pushing the checkboxes into UserInputObj
 
-        axios.post("http://localhost:3000", UserInputsObj);
+        axios.post("https://ptsummary-8945f270453f.herokuapp.com/", UserInputsObj);
 
         const SavedSucessToast = bootstrap.Toast.getOrCreateInstance(
           document.getElementById("SavedSuccessToast")
@@ -389,12 +389,11 @@ window.onload = function () {
 ////////////////////////// Load Patient List ///////////////////
 function GetPatientList() {
   const PatientNameList = document.getElementById("PatientNameList");
-  baseUrl = process.env.baseURL || "http://localhost:5000"
 
   //if statement used so that the list is Only populated once
   if (PatientNameList.innerText === "") {
     axios
-      .get(`${baseUrl}/patientlist`)
+      .get("https://ptsummary-8945f270453f.herokuapp.com//patientlist")
       .then((response) => {
         const PatientList = response.data;
         PatientList.forEach((patient) => {
