@@ -389,11 +389,12 @@ window.onload = function () {
 ////////////////////////// Load Patient List ///////////////////
 function GetPatientList() {
   const PatientNameList = document.getElementById("PatientNameList");
+  baseUrl = process.env.baseURL || "http://localhost:5000"
 
   //if statement used so that the list is Only populated once
   if (PatientNameList.innerText === "") {
     axios
-      .get("http://localhost:3000/patientlist")
+      .get(`${baseUrl}/patientlist`)
       .then((response) => {
         const PatientList = response.data;
         PatientList.forEach((patient) => {
