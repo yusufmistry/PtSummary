@@ -1,170 +1,34 @@
 // /////////////////////// Validation Function (BS 5.3)////////////////////
-(function validateForm() {
-  "use strict";
-
+function validateForm() {
   const form = document.getElementById("primaryInfo");
 
-  form.addEventListener(
-    "submit",
-    (event) => {
-      if (!form.checkValidity()) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
+  if (!form.checkValidity()) {
+    form.classList.add("was-validated");
+    FailedToastMsg = document.getElementById("FailedToastMsg").innerText = "Some essential data is missing"
+    bootstrap.Toast.getOrCreateInstance(document.getElementById("SavedFailToast")).show() 
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    SaveToDB();
+  }
+}
+///////////////////////////// First Visit Enabler/////////////////////////
+function FirstVisitEnabler(){
+  const FVExpanded = document.getElementById("FVExpanded")
+  const bsCollapseFVExpanded = new bootstrap.Collapse(FVExpanded, {
+    toggle: false,
+  });
+  bsCollapseFVExpanded.show();
+}
 
-      console.log("submit button clicked");
+///////////////////////////// Rx Enabler /////////////////////////////////
+function RxEnabler() {
+  const RxExpanded = document.getElementById("RxExpanded");
 
-      form.classList.add("was-validated");
-
-      const SavedFailToast = bootstrap.Toast.getOrCreateInstance(
-        document.getElementById("SavedFailToast")
-      );
-      SavedFailToast.show();
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
-
-      if (form.checkValidity()) {
-        event.preventDefault();
-        console.log("submit button clicked and form is validated");
-
-        const AllInputList = document
-          .getElementById("primaryInfo")
-          .querySelectorAll("input");
-        const AllSelectList = document
-          .getElementById("primaryInfo")
-          .querySelectorAll("select");
-        const AllTextareaList = document
-          .getElementById("primaryInfo")
-          .querySelectorAll("textarea");
-
-        const AllUserInputsList = [
-          ...AllInputList,
-          ...AllSelectList,
-          ...AllTextareaList,
-        ];
-
-        // 0. Create a UserInputObject which will conatin details of all inputs
-        const UserInputsObj = {};
-
-        // 1. Pushing all traditional inputs into the UserInputObj
-        AllUserInputsList.forEach(
-          (userinput) => (UserInputsObj[userinput.id] = userinput.value)
-        );
-
-        // 2. Pushing the InvTable into te UserInputObj
-
-        const InvTableRows = document.getElementById("InvTable").innerHTML;
-
-        UserInputsObj["InvTableRows"] = InvTableRows;
-
-        console.log(UserInputsObj);
-
-        // 3. Pushing the Tagifys into UserInputObj
-
-        UserInputsObj.SxSite = SxSiteTagify.value[0]
-          ? SxSiteTagify.value[0].value
-          : "";
-        UserInputsObj.SxSide = SxSideTagify.value[0]
-          ? SxSideTagify.value[0].value
-          : "";
-        UserInputsObj.Incisions = IncisionsTagify.value[0]
-          ? IncisionsTagify.value[0].value
-          : "";
-        UserInputsObj.AdditionalSitesMucosal = AddlMucosalTagify.value.map(
-          (obj) => obj.value
-        );
-        UserInputsObj.AdditionalSitesMandible = AddlMandibleTagify.value.map(
-          (obj) => obj.value
-        );
-        UserInputsObj.AdditionalSitesMaxilla = AddlMaxillaTagify.value.map(
-          (obj) => obj.value
-        );
-        UserInputsObj.AdditionalSitesDeeper = AddlDeeperTagify.value.map(
-          (obj) => obj.value
-        );
-        UserInputsObj.AdditionalSitesSkin = AddlSkinTagify.value.map(
-          (obj) => obj.value
-        );
-        UserInputsObj.AdditionalPro = AddlProTagify.value.map(
-          (obj) => obj.value
-        );
-        UserInputsObj.RNeckExtent = RNeckExtentTagify.value[0]
-          ? RNeckExtentTagify.value[0].value
-          : "";
-        UserInputsObj.LNeckExtent = LNeckExtentTagify.value[0]
-          ? LNeckExtentTagify.value[0].value
-          : "";
-        UserInputsObj.ReconType = ReconTypeTagify.value[0]
-          ? ReconTypeTagify.value[0].value
-          : "";
-
-        // 4. Pushing the checkboxes into UserInputObj
-
-        axios.post("https://ptsummary-8945f270453f.herokuapp.com/", UserInputsObj);
-
-        const SavedSucessToast = bootstrap.Toast.getOrCreateInstance(
-          document.getElementById("SavedSuccessToast")
-        );
-        SavedSucessToast.show();
-
-        form.classList.remove("was-validated");
-        form.reset();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    },
-    false
-  );
-})();
-
-/////////////////////////// Content Enabler Function //////////////////////
-function ContentEnabler(inputId, contentdivID, btnId) {
-  const checkInput = document.getElementById(inputId).value;
-  const Btn = document.getElementById(btnId);
-  const ContentDiv = document.getElementById(contentdivID);
-  const bsCollapse = new bootstrap.Collapse(ContentDiv, {
+  const bsCollapseRxExpanded = new bootstrap.Collapse(RxExpanded, {
     toggle: false,
   });
 
-  if (checkInput) {
-    if (Btn) {
-      Btn.disabled = false;
-    }
-
-    AllInputs = ContentDiv.querySelectorAll("input");
-    AllSelects = ContentDiv.querySelectorAll("select");
-    AllTextareas = ContentDiv.querySelectorAll("textarea");
-
-    if (AllInputs[0]) {
-      AllInputs.forEach((input) => (input.disabled = false));
-    }
-
-    if (AllTextareas[0]) {
-      AllTextareas.forEach((textarea) => (textarea.disabled = false));
-    }
-
-    if (AllSelects[0]) {
-      AllSelects.forEach((select) => (select.disabled = false));
-    }
-
-    bsCollapse.show();
-  } else {
-    if (Btn) {
-      Btn.disabled = true;
-    }
-    bsCollapse.hide();
-
-    if (AllInputs[0]) {
-      AllInputs.forEach((input) => (input.disabled = true));
-    }
-
-    if (AllTextareas[0]) {
-      AllTextareas.forEach((textarea) => (textarea.disabled = true));
-    }
-
-    if (AllSelects[0]) {
-      AllSelects.forEach((select) => (select.disabled = true));
-    }
-  }
+  bsCollapseRxExpanded.show();
 }
 
 ///////////////////////////// Primary Enabler Function ///////////////////
@@ -172,96 +36,325 @@ function PrimaryEnabler() {
   const SxType = document.getElementById("SxType").value;
   const NeckType = document.getElementById("NeckType").value;
   const PrimaryTumourDetails = document.getElementById("PrimaryTumourDetails");
-  const SameNeckDetails = document.getElementById("SameNeckDetails");
-  const OppositeNeckDetails = document.getElementById("OppositeNeckDetails");
+  const PrimaryTumourDetailsBtn = document.getElementById(
+    "PrimaryTumourDetailsBtn"
+  );
+  const bsCollapsePrimary = new bootstrap.Collapse(PrimaryTumourDetails, {
+    toggle: false,
+  });
 
+  const PDTSiteSide = document.getElementById("PDTSiteSide");
+  const PDTInc = document.getElementById("PDTInc");
+  const PDTAddlHead = document.getElementById("PDTAddlHead");
+  const PDTAddlMuc = document.getElementById("PDTAddlMuc");
+  const PDTAddlMan = document.getElementById("PDTAddlMan");
+  const PDTAddlMax = document.getElementById("PDTAddlMax");
+  const PDTAddlDeep = document.getElementById("PDTAddlDeep");
+  const PDTAddlSkin = document.getElementById("PDTAddlSkin");
+  const PDTAddlPro = document.getElementById("PDTAddlPro");
+  //Arrays made for each input that needs to be shown
+  const AllinputArray = [
+    PDTSiteSide,
+    PDTInc,
+    PDTAddlHead,
+    PDTAddlMuc,
+    PDTAddlMan,
+    PDTAddlMax,
+    PDTAddlDeep,
+    PDTAddlSkin,
+    PDTAddlPro,
+  ];
+  const WideExcArr = [PDTSiteSide, PDTInc, PDTAddlHead, PDTAddlMuc, PDTAddlPro];
+  const CompResArr = [
+    PDTSiteSide,
+    PDTInc,
+    PDTAddlHead,
+    PDTAddlMuc,
+    PDTAddlMan,
+    PDTAddlMax,
+    PDTAddlDeep,
+    PDTAddlSkin,
+    PDTAddlPro,
+  ];
+  const OtherArr = [];
+
+  // Histopath Part
   const HistopathRow = document.getElementById("HistopathRow");
   const PrimaryHP = document.getElementById("PrimaryHP");
+  const TNM = document.getElementById("TNM");
+
+  //Resetting all tags everytime onchange()
+  SxSiteTagify.removeAllTags();
+  SxSideTagify.removeAllTags();
+  IncisionsTagify.removeAllTags();
+  AddlMucosalTagify.removeAllTags();
+  AddlMandibleTagify.removeAllTags();
+  AddlMaxillaTagify.removeAllTags();
+  AddlDeeperTagify.removeAllTags();
+  AddlSkinTagify.removeAllTags();
+  AddlProTagify.removeAllTags();
+  //Hide All inputs first evertime onchage()
+  AllinputArray.forEach((col) => (col.hidden = true));
+  PrimaryTumourDetailsBtn.disabled = false;
+  PrimaryTumourDetails.hidden = false;
+  //Hiding HP everytime onchange()
+  HistopathRow.hidden = true;
+  PrimaryHP.hidden = true;
+  TNM.hidden = true;
+
+  if (SxType === "Wide Excision") {
+    WideExcArr.forEach((col) => (col.hidden = false));
+    bsCollapsePrimary.show();
+    HistopathRow.hidden = false;
+    PrimaryHP.hidden = false;
+    TNM.hidden = false;
+  }
+
+  if (SxType === "Composite Resection") {
+    CompResArr.forEach((col) => (col.hidden = false));
+    bsCollapsePrimary.show();
+    HistopathRow.hidden = false;
+    PrimaryHP.hidden = false;
+    TNM.hidden = false;
+  }
+
+  //We need the HP to persist if Neck dissection done
+  if (NeckType) {
+    HistopathRow.hidden = false;
+    TNM.hidden = false;
+  }
+}
+
+function PrimaryEnablerNoReset() {
+  const SxType = document.getElementById("SxType").value;
+  const NeckType = document.getElementById("NeckType").value;
+  const PrimaryTumourDetails = document.getElementById("PrimaryTumourDetails");
+  const PrimaryTumourDetailsBtn = document.getElementById(
+    "PrimaryTumourDetailsBtn"
+  );
+  const bsCollapsePrimary = new bootstrap.Collapse(PrimaryTumourDetails, {
+    toggle: false,
+  });
+
+  const PDTSiteSide = document.getElementById("PDTSiteSide");
+  const PDTInc = document.getElementById("PDTInc");
+  const PDTAddlHead = document.getElementById("PDTAddlHead");
+  const PDTAddlMuc = document.getElementById("PDTAddlMuc");
+  const PDTAddlMan = document.getElementById("PDTAddlMan");
+  const PDTAddlMax = document.getElementById("PDTAddlMax");
+  const PDTAddlDeep = document.getElementById("PDTAddlDeep");
+  const PDTAddlSkin = document.getElementById("PDTAddlSkin");
+  const PDTAddlPro = document.getElementById("PDTAddlPro");
+  //Arrays made for each input that needs to be shown
+  const AllinputArray = [
+    PDTSiteSide,
+    PDTInc,
+    PDTAddlHead,
+    PDTAddlMuc,
+    PDTAddlMan,
+    PDTAddlMax,
+    PDTAddlDeep,
+    PDTAddlSkin,
+    PDTAddlPro,
+  ];
+  const WideExcArr = [PDTSiteSide, PDTInc, PDTAddlHead, PDTAddlMuc, PDTAddlPro];
+  const CompResArr = [
+    PDTSiteSide,
+    PDTInc,
+    PDTAddlHead,
+    PDTAddlMuc,
+    PDTAddlMan,
+    PDTAddlMax,
+    PDTAddlDeep,
+    PDTAddlSkin,
+    PDTAddlPro,
+  ];
+  const OtherArr = [];
+
+  // Histopath Part
+  const HistopathRow = document.getElementById("HistopathRow");
+  const PrimaryHP = document.getElementById("PrimaryHP");
+  const TNM = document.getElementById("TNM");
+
+  //Hide All inputs first evertime onchage()
+  AllinputArray.forEach((col) => (col.hidden = true));
+  PrimaryTumourDetailsBtn.disabled = false;
+  PrimaryTumourDetails.hidden = false;
+  //Hiding HP everytime onchange()
+  HistopathRow.hidden = true;
+  PrimaryHP.hidden = true;
+  TNM.hidden = true;
+
+  if (SxType === "Wide Excision") {
+    WideExcArr.forEach((col) => (col.hidden = false));
+    bsCollapsePrimary.show();
+    HistopathRow.hidden = false;
+    PrimaryHP.hidden = false;
+    TNM.hidden = false;
+  }
+
+  if (SxType === "Composite Resection") {
+    CompResArr.forEach((col) => (col.hidden = false));
+    bsCollapsePrimary.show();
+    HistopathRow.hidden = false;
+    PrimaryHP.hidden = false;
+    TNM.hidden = false;
+  }
+
+  //We need the HP to persist if Neck dissection done
+  if (NeckType) {
+    HistopathRow.hidden = false;
+    TNM.hidden = false;
+  }
+}
+
+///////////////////////////// Neck Enabler Function /////////////////////
+function NeckEnabler() {
+  const NeckType = document.getElementById("NeckType").value;
+  const SxType = document.getElementById("SxType").value;
+  const NeckDetails = document.getElementById("NeckDetails");
+  const NeckDetailsBtn = document.getElementById("NeckDetailsBtn");
+  const bsCollapseNeck = new bootstrap.Collapse(NeckDetails, {
+    toggle: false,
+  });
+
+  const SameNeckDetails = document.getElementById("SameNeckDetails");
+  const OppositeNeckDetails = document.getElementById("OppositeNeckDetails");
+  const RNeckLNBoxes = document
+    .getElementById("RNeckLNBoxes")
+    .querySelectorAll("input");
+  const RNeckStructureBoxes = document
+    .getElementById("RNeckStructureBoxes")
+    .querySelectorAll("input");
+  const LNeckLNBoxes = document
+    .getElementById("LNeckLNBoxes")
+    .querySelectorAll("input");
+  const LNeckStructureBoxes = document
+    .getElementById("LNeckStructureBoxes")
+    .querySelectorAll("input");
+
+  const HistopathRow = document.getElementById("HistopathRow");
   const RNeckHP = document.getElementById("RNeckHP");
   const LNeckHP = document.getElementById("LNeckHP");
   const TNM = document.getElementById("TNM");
 
-  const bsCollapsePrimary = new bootstrap.Collapse(PrimaryTumourDetails, {
-    toggle: false,
-  });
-  const bsCollapseSameNeck = new bootstrap.Collapse(SameNeckDetails, {
-    toggle: false,
-  });
-  const bsCollapseOppositeNeck = new bootstrap.Collapse(OppositeNeckDetails, {
-    toggle: false,
-  });
-
-  const bsCollapseHistopathRow = new bootstrap.Collapse(HistopathRow, {
-    toggle: false,
-  });
-  const bsCollapseTNM = new bootstrap.Collapse(TNM, {
-    toggle: false,
-  });
-  const bsCollapsePrimaryHP = new bootstrap.Collapse(PrimaryHP, {
-    toggle: false,
-  });
-  const bsCollapseHPRNeck = new bootstrap.Collapse(RNeckHP, {
-    toggle: false,
-  });
-  const bsCollapseHPLNeck = new bootstrap.Collapse(LNeckHP, {
-    toggle: false,
-  });
-
-  if (!SxType && !NeckType) {
-    bsCollapsePrimary.hide();
-    bsCollapseSameNeck.hide();
-    bsCollapseOppositeNeck.hide();
-    bsCollapsePrimaryHP.hide();
-    bsCollapseHPRNeck.hide();
-    bsCollapseHPLNeck.hide();
-    bsCollapseTNM.hide();
-    bsCollapseHistopathRow.hide();
-  }
-
-  if (SxType) {
-    bsCollapsePrimary.show();
-    bsCollapsePrimaryHP.show();
-    bsCollapseTNM.show();
-    bsCollapseHistopathRow.show();
-  }
-
-  if (!SxType) {
-    bsCollapsePrimary.hide();
-    bsCollapsePrimaryHP.hide();
-  }
+  //Hide both necks first evertime and reset onchage()
+  SameNeckDetails.hidden = true;
+  OppositeNeckDetails.hidden = true;
+  NeckDetailsBtn.disabled = false;
+  RNeckLNBoxes.forEach((box) => (box.checked = false));
+  RNeckStructureBoxes.forEach((box) => (box.checked = false));
+  LNeckLNBoxes.forEach((box) => (box.checked = false));
+  LNeckStructureBoxes.forEach((box) => (box.checked = false));
+  //Hiding HP everytime onchange()
+  HistopathRow.hidden = true;
+  RNeckHP.hidden = true;
+  LNeckHP.hidden = true;
+  TNM.hidden = true;
 
   if (NeckType === "Ipsilateral") {
-    bsCollapseSameNeck.show();
-    bsCollapseOppositeNeck.hide();
-    bsCollapseHPRNeck.show();
-    bsCollapseHPLNeck.hide();
-    bsCollapseTNM.show();
-    bsCollapseHistopathRow.show();
-  }
-
-  if (NeckType === "Contralateral") {
-    bsCollapseSameNeck.hide();
-    bsCollapseOppositeNeck.show();
-    bsCollapseHPRNeck.hide();
-    bsCollapseHPLNeck.show();
-    bsCollapseTNM.show();
-    bsCollapseHistopathRow.show();
+    SameNeckDetails.hidden = false;
+    bsCollapseNeck.show();
+    HistopathRow.hidden = false;
+    RNeckHP.hidden = false;
+    TNM.hidden = false;
   }
 
   if (NeckType === "Bilateral") {
-    bsCollapseSameNeck.show();
-    bsCollapseOppositeNeck.show();
-    bsCollapseHPRNeck.show();
-    bsCollapseHPLNeck.show();
-    bsCollapseTNM.show();
-    bsCollapseHistopathRow.show();
+    SameNeckDetails.hidden = false;
+    OppositeNeckDetails.hidden = false;
+    bsCollapseNeck.show();
+    HistopathRow.hidden = false;
+    RNeckHP.hidden = false;
+    LNeckHP.hidden = false;
+    TNM.hidden = false;
   }
 
-  if (!NeckType) {
-    bsCollapseSameNeck.hide();
-    bsCollapseOppositeNeck.hide();
-    bsCollapseHPRNeck.hide();
-    bsCollapseHPLNeck.hide();
+  if (NeckType === "Contralateral") {
+    OppositeNeckDetails.hidden = false;
+    bsCollapseNeck.show();
+    HistopathRow.hidden = false;
+    LNeckHP.hidden = false;
+    TNM.hidden = false;
+  }
+
+  //We need the HP to persist if Primary done
+  if (SxType) {
+    HistopathRow.hidden = false;
+    TNM.hidden = false;
+  }
+}
+
+function NeckEnablerNoReset() {
+  const NeckType = document.getElementById("NeckType").value;
+  const SxType = document.getElementById("SxType").value;
+  const NeckDetails = document.getElementById("NeckDetails");
+  const NeckDetailsBtn = document.getElementById("NeckDetailsBtn");
+  const bsCollapseNeck = new bootstrap.Collapse(NeckDetails, {
+    toggle: false,
+  });
+
+  const SameNeckDetails = document.getElementById("SameNeckDetails");
+  const OppositeNeckDetails = document.getElementById("OppositeNeckDetails");
+  const RNeckLNBoxes = document
+    .getElementById("RNeckLNBoxes")
+    .querySelectorAll("input");
+  const RNeckStructureBoxes = document
+    .getElementById("RNeckStructureBoxes")
+    .querySelectorAll("input");
+  const LNeckLNBoxes = document
+    .getElementById("LNeckLNBoxes")
+    .querySelectorAll("input");
+  const LNeckStructureBoxes = document
+    .getElementById("LNeckStructureBoxes")
+    .querySelectorAll("input");
+
+  const HistopathRow = document.getElementById("HistopathRow");
+  const RNeckHP = document.getElementById("RNeckHP");
+  const LNeckHP = document.getElementById("LNeckHP");
+  const TNM = document.getElementById("TNM");
+
+  //Hide both necks first evertime and reset onchage()
+  SameNeckDetails.hidden = true;
+  OppositeNeckDetails.hidden = true;
+  NeckDetailsBtn.disabled = false;
+
+  //Hiding HP everytime onchange()
+  HistopathRow.hidden = true;
+  RNeckHP.hidden = true;
+  LNeckHP.hidden = true;
+  TNM.hidden = true;
+
+  if (NeckType === "Ipsilateral") {
+    SameNeckDetails.hidden = false;
+    bsCollapseNeck.show();
+    HistopathRow.hidden = false;
+    RNeckHP.hidden = false;
+    TNM.hidden = false;
+  }
+
+  if (NeckType === "Bilateral") {
+    SameNeckDetails.hidden = false;
+    OppositeNeckDetails.hidden = false;
+    bsCollapseNeck.show();
+    HistopathRow.hidden = false;
+    RNeckHP.hidden = false;
+    LNeckHP.hidden = false;
+    TNM.hidden = false;
+  }
+
+  if (NeckType === "Contralateral") {
+    OppositeNeckDetails.hidden = false;
+    bsCollapseNeck.show();
+    HistopathRow.hidden = false;
+    LNeckHP.hidden = false;
+    TNM.hidden = false;
+  }
+
+  //We need the HP to persist if Primary done
+  if (SxType) {
+    HistopathRow.hidden = false;
+    TNM.hidden = false;
   }
 }
 
@@ -386,31 +479,6 @@ window.onload = function () {
   };
 };
 
-////////////////////////// Load Patient List ///////////////////
-function GetPatientList() {
-  const PatientNameList = document.getElementById("PatientNameList");
-
-  //if statement used so that the list is Only populated once
-  if (PatientNameList.innerText === "") {
-    axios
-      .get("https://ptsummary-8945f270453f.herokuapp.com/patientlist")
-      .then((response) => {
-        const PatientList = response.data;
-        PatientList.forEach((patient) => {
-          li = document.createElement("li");
-          button = document.createElement("button");
-          button.className = "btn btn-link p-1";
-          button.textContent = patient.patientName;
-          button.onclick = () => PopulateForm(patient);
-
-          li.appendChild(button);
-          PatientNameList.appendChild(li);
-        });
-      })
-      .catch((err) => console.log(err));
-  }
-}
-
 ////////////////////////// Populate From from pt ///////////////////
 
 function PopulateForm(patient) {
@@ -418,6 +486,9 @@ function PopulateForm(patient) {
   form.reset();
 
   console.log(patient);
+
+  //Putting the ID for update and delete purposes 
+  document.getElementById("PatientID").value = patient._id
 
   //Inputting Traditionals
   for (const input in patient) {
@@ -445,16 +516,58 @@ function PopulateForm(patient) {
 
   //Inputting Tagifys
 
-  SxSideTagify.addTags(patient.SxSide)
-  SxSiteTagify.addTags(patient.SxSite)
-  IncisionsTagify.addTags(patient.Incisions)
-  AddlMucosalTagify.addTags(patient.AdditionalSitesMucosal)
-  AddlMandibleTagify.addTags(patient.AdditionalSitesMandible)
-  AddlMaxillaTagify.addTags(patient.AdditionalSitesMaxilla)
-  AddlDeeperTagify.addTags(patient.AdditionalSitesDeeper)
-  AddlSkinTagify.addTags(patient.AdditionalSitesSkin)
-  AddlProTagify.addTags(patient.AdditionalPro)
-  RNeckExtentTagify.addTags(patient.RNeckExtent)
-  LNeckExtentTagify.addTags(patient.LNeckExtent)
-  ReconTypeTagify.addTags(patient.ReconType)
+  SxSideTagify.addTags(patient.SxSide);
+  SxSiteTagify.addTags(patient.SxSite);
+  IncisionsTagify.addTags(patient.Incisions);
+  AddlMucosalTagify.addTags(patient.AdditionalSitesMucosal);
+  AddlMandibleTagify.addTags(patient.AdditionalSitesMandible);
+  AddlMaxillaTagify.addTags(patient.AdditionalSitesMaxilla);
+  AddlDeeperTagify.addTags(patient.AdditionalSitesDeeper);
+  AddlSkinTagify.addTags(patient.AdditionalSitesSkin);
+  AddlProTagify.addTags(patient.AdditionalPro);
+  RNeckExtentTagify.addTags(patient.RNeckExtent);
+  LNeckExtentTagify.addTags(patient.LNeckExtent);
+  ReconTypeTagify.addTags(patient.ReconType);
+
+  //Checking Boxes
+  patient.RNeckLNRemoved.forEach(checkbox => {
+    document.getElementById(`R${checkbox}`).checked = true
+  })
+  patient.RNeckStructureRemoved.forEach(checkbox => {
+    document.getElementById(`R${checkbox}`).checked = true
+  })
+  patient.LNeckStructureRemoved.forEach(checkbox => {
+    document.getElementById(`L${checkbox}`).checked = true
+  })
+  patient.LNeckLNRemoved.forEach(checkbox => {
+    document.getElementById(`L${checkbox}`).checked = true
+  })
+  patient.RInvolvedNodes.forEach(checkbox => {
+    document.getElementById(`RHP${checkbox}`).checked = true
+  })
+  patient.LInvolvedNodes.forEach(checkbox => {
+    document.getElementById(`LHP${checkbox}`).checked = true 
+  })
+
+  //Expanding inputs and enabling btns
+  FirstVisitEnabler()
+  RxEnabler()
+  
+  const bsCollapseInvAccordion = new bootstrap.Collapse(document.getElementById("flush-collapseOne"), {
+    toggle: false,
+  });
+  bsCollapseInvAccordion.show()
+  
+  const bsCollapseNotesAccordion = new bootstrap.Collapse(document.getElementById("flush-collapseTwo"), {
+    toggle: false,
+  });
+  bsCollapseNotesAccordion.show()
+
+  document.getElementById("PrimaryTumourDetailsBtn").disabled = false
+  document.getElementById("NeckDetailsBtn").disabled = false
+
+  PrimaryEnablerNoReset()
+  NeckEnablerNoReset()
+  NodeHPEnabler("R")
+  NodeHPEnabler("L")
 }

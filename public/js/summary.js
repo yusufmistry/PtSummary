@@ -167,9 +167,9 @@ function genSummary() {
 
   //Neck Checkboxes
   const RNeckLNRemovedStr = $("#RNeckLNBoxes input:checked").get().map(el => el.value).join(",")
-  const RNeckStructureRemovedStr = $("#RNeckStructureRemoved input:checked").get().map(el => el.value).join(",")
+  const RNeckStructureRemovedStr = $("#RNeckStructureBoxes input:checked").get().map(el => el.value).join(",")
   const LNeckLNRemovedStr = $("#LNeckLNBoxes input:checked").get().map(el => el.value).join(",")
-  const LNeckStructureRemovedStr = $("#LNeckStructureRemoved input:checked").get().map(el => el.value).join(",")
+  const LNeckStructureRemovedStr = $("#LNeckStructureBoxes input:checked").get().map(el => el.value).join(",")
 
   //NeckHPCheckBoxes
   const RInvolvedNodes = $("#RInvolvedNodes input:checked").get().map(el => el.value).join(",")
@@ -276,8 +276,8 @@ function genSummary() {
 
     if (SxType) {
       TreatmentSummaryDiv[0].innerHTML =
-        `${He} was advised ${RxType}. His other work-up was essentially normal. <br><br>
-      On ${RxDate} he underwent <b>` +
+        `${He} was advised ${RxType}. ${His} other work-up was essentially normal. <br><br>
+      On ${RxDate} ${he} underwent <b>` +
         (SxType === "Wide Excision"
           ? "Wide Excision of"
           : "Composite Resection (Wide Excision of") +

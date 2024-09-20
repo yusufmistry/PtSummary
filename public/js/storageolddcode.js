@@ -101,3 +101,154 @@
   const Nstage = $("#Nstage").val();
 
   const Subsequent = $("#Subsequent").val();
+
+
+  /////////////////////////// Content Enabler Function //////////////////////
+function ContentEnabler(inputId, contentdivID, btnId) {
+  const checkInput = document.getElementById(inputId).value;
+  const Btn = document.getElementById(btnId);
+  const ContentDiv = document.getElementById(contentdivID);
+  const bsCollapse = new bootstrap.Collapse(ContentDiv, {
+    toggle: false,
+  });
+
+  if (checkInput) {
+    if (Btn) {
+      Btn.disabled = false;
+    }
+
+    AllInputs = ContentDiv.querySelectorAll("input");
+    AllSelects = ContentDiv.querySelectorAll("select");
+    AllTextareas = ContentDiv.querySelectorAll("textarea");
+
+    if (AllInputs[0]) {
+      AllInputs.forEach((input) => (input.disabled = false));
+    }
+
+    if (AllTextareas[0]) {
+      AllTextareas.forEach((textarea) => (textarea.disabled = false));
+    }
+
+    if (AllSelects[0]) {
+      AllSelects.forEach((select) => (select.disabled = false));
+    }
+
+    bsCollapse.show();
+  } else {
+    if (Btn) {
+      Btn.disabled = true;
+    }
+    bsCollapse.hide();
+
+    if (AllInputs[0]) {
+      AllInputs.forEach((input) => (input.disabled = true));
+    }
+
+    if (AllTextareas[0]) {
+      AllTextareas.forEach((textarea) => (textarea.disabled = true));
+    }
+
+    if (AllSelects[0]) {
+      AllSelects.forEach((select) => (select.disabled = true));
+    }
+  }
+}
+
+
+///////////////////////////// Primary Enabler Function ///////////////////
+function PrimaryEnabler() {
+  const SxType = document.getElementById("SxType").value;
+  const NeckType = document.getElementById("NeckType").value;
+  const PrimaryTumourDetails = document.getElementById("PrimaryTumourDetails");
+  const SameNeckDetails = document.getElementById("SameNeckDetails");
+  const OppositeNeckDetails = document.getElementById("OppositeNeckDetails");
+
+  const HistopathRow = document.getElementById("HistopathRow");
+  const PrimaryHP = document.getElementById("PrimaryHP");
+  const RNeckHP = document.getElementById("RNeckHP");
+  const LNeckHP = document.getElementById("LNeckHP");
+  const TNM = document.getElementById("TNM");
+
+  const bsCollapsePrimary = new bootstrap.Collapse(PrimaryTumourDetails, {
+    toggle: false,
+  });
+  const bsCollapseSameNeck = new bootstrap.Collapse(SameNeckDetails, {
+    toggle: false,
+  });
+  const bsCollapseOppositeNeck = new bootstrap.Collapse(OppositeNeckDetails, {
+    toggle: false,
+  });
+
+  const bsCollapseHistopathRow = new bootstrap.Collapse(HistopathRow, {
+    toggle: false,
+  });
+  const bsCollapseTNM = new bootstrap.Collapse(TNM, {
+    toggle: false,
+  });
+  const bsCollapsePrimaryHP = new bootstrap.Collapse(PrimaryHP, {
+    toggle: false,
+  });
+  const bsCollapseHPRNeck = new bootstrap.Collapse(RNeckHP, {
+    toggle: false,
+  });
+  const bsCollapseHPLNeck = new bootstrap.Collapse(LNeckHP, {
+    toggle: false,
+  });
+
+  if (!SxType && !NeckType) {
+    bsCollapsePrimary.hide();
+    bsCollapseSameNeck.hide();
+    bsCollapseOppositeNeck.hide();
+    bsCollapsePrimaryHP.hide();
+    bsCollapseHPRNeck.hide();
+    bsCollapseHPLNeck.hide();
+    bsCollapseTNM.hide();
+    bsCollapseHistopathRow.hide();
+  }
+
+  if (SxType) {
+    bsCollapsePrimary.show();
+    bsCollapsePrimaryHP.show();
+    bsCollapseTNM.show();
+    bsCollapseHistopathRow.show();
+  }
+
+  if (!SxType) {
+    bsCollapsePrimary.hide();
+    bsCollapsePrimaryHP.hide();
+  }
+
+  if (NeckType === "Ipsilateral") {
+    bsCollapseSameNeck.show();
+    bsCollapseOppositeNeck.hide();
+    bsCollapseHPRNeck.show();
+    bsCollapseHPLNeck.hide();
+    bsCollapseTNM.show();
+    bsCollapseHistopathRow.show();
+  }
+
+  if (NeckType === "Contralateral") {
+    bsCollapseSameNeck.hide();
+    bsCollapseOppositeNeck.show();
+    bsCollapseHPRNeck.hide();
+    bsCollapseHPLNeck.show();
+    bsCollapseTNM.show();
+    bsCollapseHistopathRow.show();
+  }
+
+  if (NeckType === "Bilateral") {
+    bsCollapseSameNeck.show();
+    bsCollapseOppositeNeck.show();
+    bsCollapseHPRNeck.show();
+    bsCollapseHPLNeck.show();
+    bsCollapseTNM.show();
+    bsCollapseHistopathRow.show();
+  }
+
+  if (!NeckType) {
+    bsCollapseSameNeck.hide();
+    bsCollapseOppositeNeck.hide();
+    bsCollapseHPRNeck.hide();
+    bsCollapseHPLNeck.hide();
+  }
+}

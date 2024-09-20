@@ -84,6 +84,13 @@ const PatientSchema = new mongoose.Schema({
     PostopNotes: String,
     Subsequent: String,
     InvTableRows: String,
+    RNeckLNRemoved: [String],
+    RNeckStructureRemoved: [String],
+    LNeckLNRemoved: [String],
+    LNeckStructureRemoved: [String],
+    RInvolvedNodes: [String],
+    LInvolvedNodes: [String],
+    Diagnosis: String
 })
 
 const Patient = mongoose.model('Patient', PatientSchema)
