@@ -470,7 +470,7 @@ window.onload = function () {
   const source = video.querySelector("source");
 
   // Set the video source and start loading it
-  source.src = "bgvideos/aurora.mp4";
+  source.src = "bgvideos/autumn forest.mp4";
   video.load();
 
   // Show the video once it's ready to play

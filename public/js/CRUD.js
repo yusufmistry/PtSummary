@@ -5,7 +5,7 @@ function GetPatientList() {
   //if statement used so that the list is Only populated once
   if (PatientNameList.innerText === "") {
     axios
-      .get("http://localhost:5000/patientlist")
+      .get("https://ptsummary-8945f270453f.herokuapp.com/patientlist")
       .then((response) => {
         const PatientList = response.data;
         const tableBody = document.getElementById("InvTable");
@@ -157,7 +157,7 @@ function SaveToDB() {
   UserInputsObj["PatientID"] = document.getElementById("PatientID").value;
 
   axios
-    .post("http://localhost:5000/", UserInputsObj)
+    .post("https://ptsummary-8945f270453f.herokuapp.com/", UserInputsObj)
     .then((res) => {
       SuccessToastMsg = document.getElementById("SuccessToastMsg").innerText =
         res.data;
@@ -181,7 +181,7 @@ function SaveToDB() {
 //////////////////////// Delete Patient  //////////////////////////////////////
 function DeletePatient(id, name) {
   axios
-    .post("http://localhost:5000/deletepatient", { id })
+    .post("https://ptsummary-8945f270453f.herokuapp.com/deletepatient", { id })
     .then((res) => {
       DeleteSuccessToastMsg = document.getElementById(
         "DeleteSuccessToastMsg"
