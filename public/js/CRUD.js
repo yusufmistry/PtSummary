@@ -1,9 +1,12 @@
 ////////////////////////// Get Patient List ///////////////////
 function GetPatientList() {
   const PatientNameList = document.getElementById("PatientNameList");
-
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  const spinner = document.getElementById("spinner")
+  
   //if statement used so that the list is Only populated once
   if (PatientNameList.innerText === "") {
+    spinner.hidden = false
     axios
       .get("https://ptsummary-8945f270453f.herokuapp.com/patientlist")
       .then((response) => {
@@ -19,19 +22,23 @@ function GetPatientList() {
           NameCell.appendChild(NameBtn);
 
           const AgeCell = document.createElement("td");
+          AgeCell.className = "text-center"
           AgeCell.innerText = patient.age;
 
           const DxCell = document.createElement("td");
+          DxCell.className = "text-center"
           patient.Diagnosis
             ? (DxCell.innerText = patient.Diagnosis)
             : (DxCell.innerText = "");
 
           const IPDNoCell = document.createElement("td");
+          IPDNoCell.className = "text-center"
           patient.IPDNo
             ? (IPDNoCell.innerText = patient.IPDNo)
             : (IPDNoCell.innerText = "");
 
           const deleteCell = document.createElement("td");
+          deleteCell.className = "d-flex justify-content-center align-items-center"
           const deleteButton = document.createElement("button");
           deleteButton.textContent = "X";
           deleteButton.className = "btn btn-danger btn-sm";
@@ -55,10 +62,13 @@ function GetPatientList() {
           row.appendChild(IPDNoCell);
           row.appendChild(deleteCell);
           PatientNameList.appendChild(row);
+          spinner.hidden = true
+          
         });
       })
       .catch((err) => console.log(err));
   }
+
 }
 
 //////////////////////// Save Patient  //////////////////////////////////////

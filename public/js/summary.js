@@ -1,7 +1,5 @@
 ///////////////// Generate Summary Function ////////////////////////////////
 function genSummary() {
-
-
   // Generating const list
   const AllInputList = document
     .getElementById("primaryInfo")
@@ -13,7 +11,11 @@ function genSummary() {
     .getElementById("primaryInfo")
     .querySelectorAll("textarea");
 
-  const AllUserInputsList = [...AllInputList, ...AllSelectList, ...AllTextareaList];
+  const AllUserInputsList = [
+    ...AllInputList,
+    ...AllSelectList,
+    ...AllTextareaList,
+  ];
 
   /* Since it is not possible to dynamically assign const names in JS, we:
   1. Create an Object with key:value pairs where each key = input.id and value = input.value (using forEach).
@@ -166,14 +168,32 @@ function genSummary() {
   const ReconType = ReconTypeTagify;
 
   //Neck Checkboxes
-  const RNeckLNRemovedStr = $("#RNeckLNBoxes input:checked").get().map(el => el.value).join(",")
-  const RNeckStructureRemovedStr = $("#RNeckStructureBoxes input:checked").get().map(el => el.value).join(",")
-  const LNeckLNRemovedStr = $("#LNeckLNBoxes input:checked").get().map(el => el.value).join(",")
-  const LNeckStructureRemovedStr = $("#LNeckStructureBoxes input:checked").get().map(el => el.value).join(",")
+  const RNeckLNRemovedStr = $("#RNeckLNBoxes input:checked")
+    .get()
+    .map((el) => el.value)
+    .join(",");
+  const RNeckStructureRemovedStr = $("#RNeckStructureBoxes input:checked")
+    .get()
+    .map((el) => el.value)
+    .join(",");
+  const LNeckLNRemovedStr = $("#LNeckLNBoxes input:checked")
+    .get()
+    .map((el) => el.value)
+    .join(",");
+  const LNeckStructureRemovedStr = $("#LNeckStructureBoxes input:checked")
+    .get()
+    .map((el) => el.value)
+    .join(",");
 
   //NeckHPCheckBoxes
-  const RInvolvedNodes = $("#RInvolvedNodes input:checked").get().map(el => el.value).join(",")
-  const LInvolvedNodes = $("#LInvolvedNodes input:checked").get().map(el => el.value).join(",")
+  const RInvolvedNodes = $("#RInvolvedNodes input:checked")
+    .get()
+    .map((el) => el.value)
+    .join(",");
+  const LInvolvedNodes = $("#LInvolvedNodes input:checked")
+    .get()
+    .map((el) => el.value)
+    .join(",");
 
   //Summary Divs
   const NotEnoughInfoDiv = $("#not-enough-info");
@@ -224,6 +244,16 @@ function genSummary() {
     !RxDate
   ) {
     NotEnoughInfoDiv.show();
+    NotEnoughInfoSumToastMsg = document.getElementById("NotEnoughInfoSumToastMsg").innerHTML = "Some essential info is Missing:<b>" + 
+    (!patientName ? " Pateint Name," : "") + 
+    (!age ? " Age," : "") + 
+    (!gender ? " Gender," : "") + 
+    (!FirstVisitDate ? " First Visit Date," : "") + 
+    (!Complaints ? " Chief Complaint," : "") + 
+    (!OnExam ? " Examination Details," : "") + 
+    (!RxDate ? " Treatment Date," : "") + " is required! </b>"
+
+    bootstrap.Toast.getOrCreateInstance(document.getElementById("NotEnoughInfoSum")).show();
   } else {
     NotEnoughInfoDiv.hide();
 
@@ -331,7 +361,25 @@ function genSummary() {
                 : "")
             : ""
           : "") +
-        (NeckType === "Bilateral"
+        (NeckType === "Bilateral" &&
+        RNeckExtent.value[0].value === LNeckExtent.value[0].value
+          ? "Bilateral " +
+            (RNeckExtent.value[0].value +
+              (RNeckLNRemovedStr
+                ? " (R Lymph Nodes: " + RNeckLNRemovedStr + ")"
+                : "") +
+              (RNeckStructureRemovedStr
+                ? " (R Structures Removed: " + RNeckStructureRemovedStr + ")"
+                : "") +
+              (LNeckLNRemovedStr
+                ? " (L Lymph Nodes: " + LNeckLNRemovedStr + ")"
+                : "") +
+              (LNeckStructureRemovedStr
+                ? " (L Structures Removed: " + LNeckStructureRemovedStr + ")"
+                : ""))
+          : "") +
+        (NeckType === "Bilateral" &&
+        RNeckExtent.value[0].value !== LNeckExtent.value[0].value
           ? (RNeckExtent.value[0]
               ? " Right " +
                 RNeckExtent.value[0].value +
@@ -362,7 +410,7 @@ function genSummary() {
             ReconType.value.map((obj) => obj.value).join(" + ") +
             ".</b> "
           : "") +
-        (IntraopNotes ? "Intra-operatively, " + IntraopNotes + ". ": "") +
+        (IntraopNotes ? "Intra-operatively, " + IntraopNotes + ". " : "") +
         (PostopNotes
           ? "Post-operatively, " + PostopNotes
           : His + " post-operative phase was uneventful. ") +
@@ -432,20 +480,51 @@ function genSummary() {
     if (Histology || RPositNodes || LPositNodes) {
       HistopathSummaryDiv[0].innerHTML =
         His +
-        " final HPE report showed " +
+        " final HPR showed " +
         (Histology ? "<b>" + Histology + "</b>" : "") +
-        (SxSide.value[0] ? " of the <b>" + SxSide.value[0].value + "</b>" : "") + 
-        (SxSite.value[0] ? " <b>" + SxSite.value[0].value + "</b>. " : "") + 
-        (TsizeAP ? ("[Size: <b>" + TsizeAP + (TsizeTrans ? "x" + TsizeTrans : "") + (TsizeVert ? "x" + TsizeVert : "") + "mm</b>]. ") : "") +
+        (SxSide.value[0]
+          ? " of the <b>" + SxSide.value[0].value + "</b>"
+          : "") +
+        (SxSite.value[0] ? " <b>" + SxSite.value[0].value + "</b>. " : "") +
+        (TsizeAP
+          ? "[Size: <b>" +
+            TsizeAP +
+            (TsizeTrans ? "x" + TsizeTrans : "") +
+            (TsizeVert ? "x" + TsizeVert : "") +
+            "mm</b>]. "
+          : "") +
         (TsizeDOI ? "[DOI: <b>" + TsizeDOI + "mm</b>] " : "") +
-        (PNI ? (PNI === "Absent" ? "PNI was absent" : "PNI was <b>" + PNI + ".</b> ") : "") +
-        (LVI ? (LVI === "Absent" ? "LVI was absent" : "LVI was <b>" + LVI + ".</b> ") : "") +
+        (PNI
+          ? PNI === "Absent"
+            ? "PNI was absent. "
+            : "PNI was <b>" + PNI + ".</b> "
+          : "") +
+        (LVI
+          ? LVI === "Absent"
+            ? "LVI was absent. "
+            : "LVI was <b>" + LVI + ".</b> "
+          : "") +
         (WPOI ? "WPOI was <b>" + WPOI + "</b>. " : "") +
-        (ClosestMargin ? "The closest margin was <b>" + ClosestMargin + "</b>" : "") +
+        (ClosestMargin
+          ? "The closest margin was <b>" + ClosestMargin + "</b>"
+          : "") +
         (MarginDistance ? " which was <b>" + MarginDistance + "mm</b>. " : "") +
-        (BoneInv ? (BoneInv === "Absent" ? "There was no bone invasion. " : "Bone invasion was <b>" + BoneInv + ".</b> ") : "") +
-        (MuscleInv ? (MuscleInv === "Absent" ? "There was no muscle invasion. " : "Muscle invasion was <b>" + MuscleInv + ".</b> ") : "") +
-        (SkinInv ? (SkinInv === "Absent" ? "There was no skin invasion. " : "Skin invasion was <b>" + SkinInv + ".</b> ") : "") + "<br>" +
+        (BoneInv
+          ? BoneInv === "Absent"
+            ? "There was no bone invasion. "
+            : "Bone invasion was <b>" + BoneInv + ".</b> "
+          : "") +
+        (MuscleInv
+          ? MuscleInv === "Absent"
+            ? "There was no muscle invasion. "
+            : "Muscle invasion was <b>" + MuscleInv + ".</b> "
+          : "") +
+        (SkinInv
+          ? SkinInv === "Absent"
+            ? "There was no skin invasion. "
+            : "Skin invasion was <b>" + SkinInv + ".</b> "
+          : "") +
+        "<br>" +
         //Neck HP //
         (RPositNodes
           ? "<b>" +
@@ -453,6 +532,7 @@ function genSummary() {
             (RNodalYeild ? "/" + RNodalYeild : "") +
             "</b> nodes were positive for metastasis in the<b>" +
             (NeckType === "Ipsilateral" ? " " + SxSide.value[0].value : "") +
+            (NeckType === "Bilateral" ? " Right" : "") +
             (RNeckExtent.value[0]
               ? " " + RNeckExtent.value[0].value + " </b>specimen. "
               : "") +
@@ -474,11 +554,15 @@ function genSummary() {
           ? "<b>" +
             LPositNodes +
             (LNodalYeild ? "/" + LNodalYeild : "") +
-            "</b> nodes were positive for metastasis in the " +
-            (NeckType === "Contralateral" ? (SxSide.value[0].value === "Right" ? "Left " : "Right ") : "") +
+            "</b> nodes were positive for metastasis in the <b>" +
+            (NeckType === "Contralateral"
+              ? SxSide.value[0].value === "Right"
+                ? "Left "
+                : "Right "
+              : "") +
             (NeckType === "Bilateral" ? " Left" : "") +
             (LNeckExtent.value[0]
-              ? " " + LNeckExtent.value[0].value + " specimen. "
+              ? " " + LNeckExtent.value[0].value + "</b> specimen. "
               : "") +
             (LInvolvedNodes
               ? " [Involved Level: <b>" + LInvolvedNodes + "</b>]. "
@@ -486,7 +570,7 @@ function genSummary() {
             (LNodeSize
               ? "[Size of largest node: <b>" + LNodeSize + "mm</b>]. "
               : "") +
-            (LMetSize ? "[Size of metastasis: " + LMetSize + "mm</b>]. " : "") +
+            (LMetSize ? "[Size of metastasis: <b>" + LMetSize + "mm</b>]. " : "") +
             (LECS ? "[ECS: <b>" + LECS + "</b>]. " : "") +
             (LECSDistance
               ? "[Distance(ECS): <b>" + LECSDistance + "mm</b>]. "
@@ -494,14 +578,20 @@ function genSummary() {
           : "") +
         (Tstage ? "<b>(pT" + Tstage + "N" + Nstage + ")</b>. " : "");
     } else {
-      HistopathSummaryDiv[0].innerHTML = ""
+      HistopathSummaryDiv[0].innerHTML = "";
     }
 
     // Subsequent Div
-    SubsequentSummaryDiv[0].innerHTML = Subsequent ? He + " is advised <b>" + Subsequent + "</b>": He + " is" + (Subsequent ? " also" : "") + " advised physiotherapy and regular follow up at this clinic." + `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.`
+    SubsequentSummaryDiv[0].innerHTML = Subsequent
+      ? He + " is advised <b>" + Subsequent + "</b> " + He + " is also advised physiotherapy and regular follow up at this clinic." +
+        `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.`
+      : He +
+        " is advised physiotherapy and regular follow up at this clinic." +
+        `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.`;
 
     // Sign Div
-    SignSummaryDiv[0].innerHTML = "<b>Dr. Yusuf A Mistry (MDS, FHNO) <br> Head and Neck Cancer Surgeon <br> Saifee Hospital <br> 8425029477 </b> <br> <a href='yusufmistry@ymail.com'>yusufmistry@ymail.com</a>"
+    SignSummaryDiv[0].innerHTML =
+      "<b>Dr. Yusuf A Mistry (MDS, FHNO) <br> Head and Neck Cancer Surgeon <br> Saifee Hospital <br> 8425029477 </b> <br> <a href='yusufmistry@ymail.com'>yusufmistry@ymail.com</a>";
   }
 
   // Show the Summary Div

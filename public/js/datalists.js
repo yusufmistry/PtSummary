@@ -167,3 +167,23 @@ const PNILVIArray = [
   "Present (Unifocal Extra-tumoral)",
   "Present (Multifocal Extra-tumoral)",
 ];
+
+const marginsArray = [
+  "Anterior",
+  "Posterior",
+  "Medial",
+  "Lateral",
+  "Base",
+  "Anterior Mucosal",
+  "Anterior Soft tissue",
+  "Posterior Mucosal",
+  "Posterior Soft tissue",
+  "Medial Mucosal",
+  "Medial Soft tissue",
+  "Lateral Mucosal",
+  "Lateral Soft tissue",
+  "Antero-Medial",
+  "Postero-Medial",
+  "Antero-Lateral",
+  "Postero-Lateral"
+]

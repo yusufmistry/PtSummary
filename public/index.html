@@ -161,8 +161,9 @@
       <div class="row border rounded-5 bg-light p-3">
         <div class="col-sm-12">
           <h4 class="text-center border-bottom pb-2">Patient List</h4>
-          <table class="table table-hover table-sm">
-            <thead>
+          <div class="spinner-border" id="spinner" role="status" hidden></div>
+          <table class="table table-hover table-sm table-bordered">
+            <thead class="text-center">
               <tr>
                 <th scope="col" width="30%">Name</th>
                 <th scope="col" width="15%">Age</th>
@@ -171,7 +172,7 @@
                 <th scope="col" width="5%"></th>
               </tr>
             </thead>
-            <tbody id="PatientNameList" style="font-size: smaller"></tbody>
+            <tbody id="PatientNameList"></tbody>
           </table>
         </div>
       </div>
@@ -550,12 +551,13 @@
                   id="Complaints"
                   class="form-control"
                   placeholder="Describe the patients compliants here"
-                  style="height: 10vh"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="He/She had a complaint of..."
+                  oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
                   required
                 ></textarea>
                 <label for="Complaints">Chief Complaints*</label>
                 <div class="form-text">
-                  <i>He/She had a complaint of...</i> <br />
                   Example:
                   <i
                     >Pain in the right side of the face since 2 weeks and
@@ -572,13 +574,14 @@
                 <textarea
                   id="OnExam"
                   class="form-control"
-                  style="height: 15vh"
+                  oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
                   placeholder="Describe the examination findings here"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="On examination there was..."
                   required
                 ></textarea>
                 <label for="OnExam">On Examination*</label>
                 <div class="form-text">
-                  <i>On examination there was...</i><br />
                   Example:
                   <i
                     >a 2x2cm ulcer seen in the right buccal mucosa and a single
@@ -595,14 +598,15 @@
                 <textarea
                   id="MedicalHistory"
                   class="form-control"
-                  style="height: 10vh"
+                  data-bs-toggle="tooltip"
+                  data-bs-title="He/She has..."
+                  oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
                   placeholder="Relevant Medical History"
                 ></textarea>
                 <label for="MedicalHistory"
                   >Relevant Medical History, if any</label
                 >
                 <div class="form-text">
-                  <i>He/She has...</i> <br />
                   Eg:
                   <i
                     >Well controlled hypertension since 4 yrs. / On Ecosprin
@@ -632,11 +636,13 @@
             <textarea
               id="HOPI"
               class="form-control"
+              data-bs-toggle="tooltip"
+              data-bs-title="Previously, he/she has undergone..."
+              oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
               placeholder="History of presenting illness"
             ></textarea>
             <label for="HOPI">History of Presenting Illness, if any</label>
             <div class="form-text">
-              <i>Previously, he/she has undergone...</i><br />
               Example:
               <i
                 >3 cycles NACT (TPF) completed on 28/8/24. / Wide excision of R
@@ -714,30 +720,23 @@
                   </div>
 
                   <!-- Inv Findings -->
-                  <div class="col-8">
+                  <div class="col-12">
                     <div class="form-floating">
                       <textarea
                         id="InvFindings"
                         class="form-control"
                         placeholder="Findings or Report"
-                        style="height: 10vh"
+                        data-bs-toggle="tooltip"
+                        data-bs-title="Findings showed..."
+                        oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
                       ></textarea>
                       <label for="InvFindings">Findings*</label>
-                      <div class="form-text">
-                        <i>Findings showed...</i><br />
-                        Example:
-                        <i
-                          >Moderately Diff Squamous Cell Carcinoma. / a
-                          3.5x2.1cm heterogenously enhancing lesion in the right
-                          lower GBS.</i
-                        >
-                      </div>
                     </div>
                   </div>
 
                   <!-- Add Inv Btn -->
-                  <div class="col-4 justify-content-center align-self-end">
-                    <div class="d-grid col-8 mx-auto">
+                  <div class="col-12 justify-content-center align-self-end">
+                    <div class="d-grid col-6 mx-auto">
                       <button
                         type="button"
                         id="addInvestigationBtn"
@@ -1468,14 +1467,15 @@
                     <textarea
                       id="IntraopNotes"
                       class="form-control"
-                      style="height: 10vh"
+                      data-bs-toggle="tooltip"
+                        data-bs-title="Intra-operatively,..."
+                      oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
                       placeholder="Describe the patients compliants here"
                     ></textarea>
                     <label for="IntraopNotes"
                       >Intra-operative Notes, if any</label
                     >
                     <div class="form-text">
-                      <i>Intra-operatively,...</i><br />
                       Example:
                       <i
                         >all margins were free on frozen section. / patient
@@ -1492,14 +1492,15 @@
                     <textarea
                       id="PostopNotes"
                       class="form-control"
-                      style="height: 10vh"
+                      data-bs-toggle="tooltip"
+                      data-bs-title="In the post-operative phase..."
+                      oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
                       placeholder="Describe the patients compliants here"
                     ></textarea>
                     <label for="PostopNotes"
                       >Post-operative Notes, if any</label
                     >
                     <div class="form-text">
-                      <i>In the post-operative phase...</i><br />
                       Example:
                       <i
                         >patient developed a neck haematoma on POD1 and
@@ -1636,13 +1637,7 @@
                       class="form-control"
                       placeholder="Type to Search "
                     />
-                    <datalist id="margins">
-                      <option value="Anterior">Anterior</option>
-                      <option value="Posterior">Posterior</option>
-                      <option value="Medial">Medial</option>
-                      <option value="Lateral">Lateral</option>
-                      <option value="Base">Base</option>
-                    </datalist>
+                    <datalist id="margins"></datalist>
                   </div>
                 </div>
 
@@ -1704,7 +1699,7 @@
                       <option value="II">II</option>
                       <option value="III">III</option>
                       <option value="IV">IV</option>
-                      <option value="I-IV">I-IV</option>
+                      <option value="V">V</option>
                     </select>
                   </div>
                 </div>
@@ -2219,12 +2214,13 @@
           <textarea
             id="Subsequent"
             class="form-control"
-            style="height: 15vh"
+            data-bs-toggle="tooltip"
+            data-bs-title="He/She is advised..."
+            oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
             placeholder="Subsequent"
           ></textarea>
           <label for="Subsequent">Subsequent Advice and Follow-up</label>
           <div class="form-text">
-            <i>He/She is advised...</i><br />
             Example:
             <i
               >Adjuvant Radiotherapy/Chemotherapy and referred to
@@ -2372,6 +2368,20 @@
           ></button>
         </div>
       </div>
+
+      <!-- 4. Not enough info to make a summary -->
+      <div id="NotEnoughInfoSum" class="toast align-items-center">
+        <div class="d-flex bg-danger-subtle">
+          <div class="toast-body" id="NotEnoughInfoSumToastMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
     </div>
 
     <!-------------------------------------------------Scripts & CDN ------------------------------------------->

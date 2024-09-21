@@ -6,7 +6,7 @@ function validateForm() {
     form.classList.add("was-validated");
     FailedToastMsg = document.getElementById("FailedToastMsg").innerText = "Some essential data is missing"
     bootstrap.Toast.getOrCreateInstance(document.getElementById("SavedFailToast")).show() 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+     
   } else {
     SaveToDB();
   }
@@ -462,8 +462,9 @@ function populateDatalist(listname, optionsArray) {
 populateDatalist("inv-type", InvTypeArray);
 populateDatalist("inv-site", InvSiteArray);
 populateDatalist("PNILVIlist", PNILVIArray);
+populateDatalist("margins", marginsArray)
 
-////////////////////////// Lazy Load Background Videos ///////////////////
+////////////////////////// Lazy Load Background Videos & Init Tooltips ///////////////////
 window.onload = function () {
   const videoBackground = document.getElementById("video-background");
   const video = videoBackground.querySelector("video");
@@ -477,6 +478,9 @@ window.onload = function () {
   video.oncanplaythrough = function () {
     videoBackground.style.display = "block";
   };
+  // Init Tooltips
+  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 };
 
 ////////////////////////// Populate From from pt ///////////////////
@@ -570,4 +574,8 @@ function PopulateForm(patient) {
   NeckEnablerNoReset()
   NodeHPEnabler("R")
   NodeHPEnabler("L")
+
+  // Resizing the textareas
+  const Textareas = document.getElementById("primaryInfo").querySelectorAll("textarea")
+  Textareas.forEach(textarea => textarea.style.height = textarea.scrollHeight + 3 + "px")
 }
