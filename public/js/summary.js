@@ -206,6 +206,50 @@ function genSummary() {
   const SubsequentSummaryDiv = $("#SubsequentSummaryDiv");
   const SignSummaryDiv = $("#SignSummaryDiv");
 
+  //Date to String format.
+  function ToDateString (inputdt){
+    const date = new Date(inputdt)
+    const FormattedDate = date.getDate() +
+    "<sup>" +
+    getOrdinalSuffix(date.getDate()) +
+    "</sup> " +
+    date.toLocaleString("default", { month: "short" }) +
+    " " +
+    date.getFullYear();
+
+    return FormattedDate
+  }
+
+  // Helper function to get the ordinal suffix (st, nd, rd, th)
+  function getOrdinalSuffix(day) {
+    if (day > 3 && day < 21) return "th"; // Covers 11th, 12th, 13th, etc.
+    switch (day % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
+  }
+
+  //Last Updated Date
+  function TodaysDate(){
+    const date = new Date()
+    const FormattedDate = date.getDate() +
+    "<sup>" +
+    getOrdinalSuffix(date.getDate()) +
+    "</sup> " +
+    date.toLocaleString("default", { month: "short" }) +
+    " " +
+    date.getFullYear();
+
+    return FormattedDate
+  }
+
+
   // Reset the form everytime genSummary is run
   primaryInfoSummaryDiv.html("");
   FVSummaryDiv.html("");
@@ -244,16 +288,22 @@ function genSummary() {
     !RxDate
   ) {
     NotEnoughInfoDiv.show();
-    NotEnoughInfoSumToastMsg = document.getElementById("NotEnoughInfoSumToastMsg").innerHTML = "Some essential info is Missing:<b>" + 
-    (!patientName ? " Pateint Name," : "") + 
-    (!age ? " Age," : "") + 
-    (!gender ? " Gender," : "") + 
-    (!FirstVisitDate ? " First Visit Date," : "") + 
-    (!Complaints ? " Chief Complaint," : "") + 
-    (!OnExam ? " Examination Details," : "") + 
-    (!RxDate ? " Treatment Date," : "") + " is required! </b>"
+    NotEnoughInfoSumToastMsg = document.getElementById(
+      "NotEnoughInfoSumToastMsg"
+    ).innerHTML =
+      "Some essential info is Missing:<b>" +
+      (!patientName ? " Pateint Name," : "") +
+      (!age ? " Age," : "") +
+      (!gender ? " Gender," : "") +
+      (!FirstVisitDate ? " First Visit Date," : "") +
+      (!Complaints ? " Chief Complaint," : "") +
+      (!OnExam ? " Examination Details," : "") +
+      (!RxDate ? " Treatment Date," : "") +
+      " is required! </b>";
 
-    bootstrap.Toast.getOrCreateInstance(document.getElementById("NotEnoughInfoSum")).show();
+    bootstrap.Toast.getOrCreateInstance(
+      document.getElementById("NotEnoughInfoSum")
+    ).show();
   } else {
     NotEnoughInfoDiv.hide();
 
@@ -266,8 +316,8 @@ function genSummary() {
 
     //FV Div
     FVSummaryDiv.html(`
-      ${Mr} ${patientName}, was first seen by us on ${FirstVisitDate}. ${He} had complaint of ${Complaints} <br>
-      On examination, there was ${OnExam}. `);
+      ${Mr} ${patientName}, was first seen by us on <b>${ToDateString(FirstVisitDate)}</b>. ${He} had complaint of ${Complaints}
+      On examination, there was ${OnExam} `);
     if (MedicalHistory) {
       FVSummaryDiv.append(`${He} has ${MedicalHistory}`);
     }
@@ -293,10 +343,10 @@ function genSummary() {
           "</b><b>" +
           (row.cells[1].innerText ? " of " + row.cells[1].innerText : "") +
           "</b>" +
-          (row.cells[2].innerText ? " on " + row.cells[2].innerText : "") +
-          " showed <b>" +
+          (row.cells[2].innerText ? " on " + ToDateString(row.cells[2].innerText) : "") +
+          " showed " +
           row.cells[3].innerText +
-          "</b>. ";
+          " ";
       });
     } else {
       InvSummaryDiv[0].innerText = `${He} has not undergone any previous investigations`;
@@ -307,7 +357,7 @@ function genSummary() {
     if (SxType) {
       TreatmentSummaryDiv[0].innerHTML =
         `${He} was advised ${RxType}. ${His} other work-up was essentially normal. <br><br>
-      On ${RxDate} ${he} underwent <b>` +
+      On ${ToDateString(RxDate)} ${he} underwent <b>` +
         (SxType === "Wide Excision"
           ? "Wide Excision of"
           : "Composite Resection (Wide Excision of") +
@@ -414,11 +464,11 @@ function genSummary() {
         (PostopNotes
           ? "Post-operatively, " + PostopNotes
           : His + " post-operative phase was uneventful. ") +
-        (DischargeDate ? He + " was discharged on " + DischargeDate : "");
+        (DischargeDate ? He + " was discharged on " + ToDateString(DischargeDate) : "");
     } else if (!SxType && NeckType) {
       TreatmentSummaryDiv[0].innerHTML =
         `${He} was advised ${RxType}. ${His} other work-up was essentially normal. <br><br>
-      On ${RxDate} ${he} underwent <b>` +
+      On ${ToDateString(RxDate)} ${he} underwent <b>` +
         (NeckType === "Ipsilateral"
           ? (SxSide.value[0] ? " " + SxSide.value[0].value : "") +
             (RNeckExtent.value[0]
@@ -493,7 +543,7 @@ function genSummary() {
             (TsizeVert ? "x" + TsizeVert : "") +
             "mm</b>]. "
           : "") +
-        (TsizeDOI ? "[DOI: <b>" + TsizeDOI + "mm</b>] " : "") +
+        (TsizeDOI ? "[Depth of Invasion: <b>" + TsizeDOI + "mm</b>] " : "") +
         (PNI
           ? PNI === "Absent"
             ? "PNI was absent. "
@@ -570,7 +620,9 @@ function genSummary() {
             (LNodeSize
               ? "[Size of largest node: <b>" + LNodeSize + "mm</b>]. "
               : "") +
-            (LMetSize ? "[Size of metastasis: <b>" + LMetSize + "mm</b>]. " : "") +
+            (LMetSize
+              ? "[Size of metastasis: <b>" + LMetSize + "mm</b>]. "
+              : "") +
             (LECS ? "[ECS: <b>" + LECS + "</b>]. " : "") +
             (LECSDistance
               ? "[Distance(ECS): <b>" + LECSDistance + "mm</b>]. "
@@ -582,12 +634,12 @@ function genSummary() {
     }
 
     // Subsequent Div
-    SubsequentSummaryDiv[0].innerHTML = Subsequent
-      ? He + " is advised <b>" + Subsequent + "</b> " + He + " is also advised physiotherapy and regular follow up at this clinic." +
-        `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.`
-      : He +
-        " is advised physiotherapy and regular follow up at this clinic." +
-        `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.`;
+    SubsequentSummaryDiv[0].innerHTML = He +
+        " is advised " +
+        (Subsequent ? "<b>" + Subsequent + "</b>. " + He + " is also advised" : "") +
+        "physiotherapy and regular follow up at this clinic." +
+        `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.` +
+        `<br><br><b>Last Updated: ${TodaysDate()}</b>`
 
     // Sign Div
     SignSummaryDiv[0].innerHTML =

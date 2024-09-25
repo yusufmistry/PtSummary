@@ -743,7 +743,7 @@
                         class="btn btn-sm btn-primary"
                         onclick="addInvestigation()"
                       >
-                        Add Investigation
+                        Save Investigation
                       </button>
                     </div>
                   </div>
@@ -1131,6 +1131,7 @@
                             type="checkbox"
                             value="IA"
                             id="RIA"
+                            disabled
                           /><label>IA</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -1139,6 +1140,7 @@
                             type="checkbox"
                             value="IB"
                             id="RIB"
+                            disabled
                           /><label>IB</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -1147,6 +1149,7 @@
                             type="checkbox"
                             value="IIA"
                             id="RIIA"
+                            disabled
                           /><label>IIA</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -1155,6 +1158,7 @@
                             type="checkbox"
                             value="IIB"
                             id="RIIB"
+                            disabled
                           /><label>IIB</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -1163,6 +1167,7 @@
                             type="checkbox"
                             value="III"
                             id="RIII"
+                            disabled
                           /><label>III</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -1171,6 +1176,7 @@
                             type="checkbox"
                             value="IV"
                             id="RIV"
+                            disabled
                           /><label>IV</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -1179,6 +1185,7 @@
                             type="checkbox"
                             value="VA"
                             id="RVA"
+                            disabled
                           /><label>VA</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -1187,6 +1194,7 @@
                             type="checkbox"
                             value="VB"
                             id="RVB"
+                            disabled
                           /><label>VB</label>
                         </div>
                       </div>
@@ -1205,7 +1213,8 @@
                             type="checkbox"
                             value="SCM"
                             id="RSCM"
-                          /><label>SCM</label>
+                            disabled
+                          /><label data-bs-toggle="tooltip" data-bs-title="Sternocleidomastoid Muscle">SCM</label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1213,7 +1222,8 @@
                             type="checkbox"
                             value="SAN"
                             id="RSAN"
-                          /><label>SAN</label>
+                            disabled
+                          /><label data-bs-toggle="tooltip" data-bs-title="Spinal Accessory Nerve">SAN</label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1221,7 +1231,8 @@
                             type="checkbox"
                             value="IJV"
                             id="RIJV"
-                          /><label>IJV</label>
+                            disabled
+                          /><label data-bs-toggle="tooltip" data-bs-title="Internal Jugular Vein">IJV</label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1229,7 +1240,8 @@
                             type="checkbox"
                             value="SG"
                             id="RSG"
-                          /><label>SG</label>
+                            disabled
+                          /><label data-bs-toggle="tooltip" data-bs-title="Submandibular Gland">SG</label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1237,6 +1249,7 @@
                             type="checkbox"
                             value="Skin"
                             id="RSkin"
+                            disabled
                           /><label>Skin</label>
                         </div>
                         <div class="form-check form-check-inline">
@@ -1245,7 +1258,8 @@
                             type="checkbox"
                             value="HGN"
                             id="RHGN"
-                          /><label>HGN</label>
+                            disabled
+                          /><label data-bs-toggle="tooltip" data-bs-title="Hypoglossal Nerve">HGN</label>
                         </div>
                       </div>
                     </div>
@@ -1367,7 +1381,7 @@
                             type="checkbox"
                             value="SCM"
                             id="LSCM"
-                          /><label>SCM</label>
+                          /><label data-bs-toggle="tooltip" data-bs-title="Sternocleidomastoid Muscle">SCM</label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1375,7 +1389,7 @@
                             type="checkbox"
                             value="SAN"
                             id="LSAN"
-                          /><label>SAN</label>
+                          /><label data-bs-toggle="tooltip" data-bs-title="Spinal Accessory Nerve">SAN</label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1383,7 +1397,7 @@
                             type="checkbox"
                             value="IJV"
                             id="LIJV"
-                          /><label>IJV</label>
+                          /><label data-bs-toggle="tooltip" data-bs-title="Internal Jugular Vein">IJV</label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1391,7 +1405,7 @@
                             type="checkbox"
                             value="SG"
                             id="LSG"
-                          /><label>SG</label>
+                          /><label data-bs-toggle="tooltip" data-bs-title="Submandibular Gland">SG</label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1415,7 +1429,7 @@
                             type="checkbox"
                             value="HGN"
                             id="LHGN"
-                          /><label>HGN</label>
+                          /><label data-bs-toggle="tooltip" data-bs-title="Hypoglossal Nerve">HGN</label>
                         </div>
                       </div>
                     </div>
@@ -1468,7 +1482,7 @@
                       id="IntraopNotes"
                       class="form-control"
                       data-bs-toggle="tooltip"
-                        data-bs-title="Intra-operatively,..."
+                      data-bs-title="Intra-operatively,..."
                       oninput='this.style.height = "";this.style.height = this.scrollHeight + 3 + "px"'
                       placeholder="Describe the patients compliants here"
                     ></textarea>
@@ -1564,11 +1578,21 @@
                     >
                     <select id="Histology" class="form-control">
                       <option value="">Select</option>
-                      <option value="Well Differentiated SCC">WDSCC</option>
-                      <option value="Moderately Differentiated SCC">
+                      <option
+                        value="Well Differentiated Squamous Cell Carcinoma"
+                      >
+                        WDSCC
+                      </option>
+                      <option
+                        value="Moderately Differentiated Squamous Cell Carcinoma"
+                      >
                         MDSCC
                       </option>
-                      <option value="Poorly Differentiated SCC">PDSCC</option>
+                      <option
+                        value="Poorly Differentiated Squamous Cell Carcinoma"
+                      >
+                        PDSCC
+                      </option>
                       <option value="Carcinoma in-situ">
                         Carcinoma in-situ
                       </option>
@@ -2165,6 +2189,7 @@
                     name="Tstage"
                     id="Tstage"
                     value=""
+                    oninput=" AJCCTstage()"
                   />
                   <span class="input-group-text bg-body-secondary">N</span>
                   <input
@@ -2173,9 +2198,12 @@
                     name="Nstage"
                     id="Nstage"
                     value=""
+                    oninput=" AJCCNstage()"
                   />
                 </div>
-                <div class="form-text">According to AJCC 8th Edition</div>
+                <div class="form-text" style="font-size: small;" id="TNMTextTstage"></div>
+                <div class="form-text" style="font-size: small;" id="TNMTextNstage"></div>
+                <div class="form-text" style="font-size: small; text-align: end;"> <i>- According to AJCC 8th Edition </i></div>
               </div>
             </div>
 
@@ -2314,7 +2342,7 @@
           <div id="SubsequentSummaryDiv" class="mb-4"></div>
 
           <!-- 7. Contact Info and Signature Summary Div -->
-          <div id="SignSummaryDiv" class="text-end"></div>
+          <div id="SignSummaryDiv" style="text-align: right"></div>
         </div>
       </div>
     </div>
@@ -2381,7 +2409,6 @@
           ></button>
         </div>
       </div>
-
     </div>
 
     <!-------------------------------------------------Scripts & CDN ------------------------------------------->

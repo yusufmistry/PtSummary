@@ -142,9 +142,7 @@ function SaveToDB() {
   UserInputsObj["RNeckLNRemoved"] = $("#RNeckLNBoxes input:checked")
     .get()
     .map((el) => el.value);
-  UserInputsObj["RNeckStructureRemoved "] = $(
-    "#RNeckStructureBoxes input:checked"
-  )
+  UserInputsObj["RNeckStructureRemoved"] = $("#RNeckStructureBoxes input:checked")
     .get()
     .map((el) => el.value);
   UserInputsObj["LNeckLNRemoved"] = $("#LNeckLNBoxes input:checked")

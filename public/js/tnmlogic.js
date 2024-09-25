@@ -154,4 +154,6 @@ function CalcpTNM() {
         }
       }
     }
+    AJCCTstage()
+    AJCCNstage()
   }

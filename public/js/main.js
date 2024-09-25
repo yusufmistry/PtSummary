@@ -4,16 +4,18 @@ function validateForm() {
 
   if (!form.checkValidity()) {
     form.classList.add("was-validated");
-    FailedToastMsg = document.getElementById("FailedToastMsg").innerText = "Some essential data is missing"
-    bootstrap.Toast.getOrCreateInstance(document.getElementById("SavedFailToast")).show() 
-     
+    FailedToastMsg = document.getElementById("FailedToastMsg").innerText =
+      "Some essential data is missing";
+    bootstrap.Toast.getOrCreateInstance(
+      document.getElementById("SavedFailToast")
+    ).show();
   } else {
     SaveToDB();
   }
 }
 ///////////////////////////// First Visit Enabler/////////////////////////
-function FirstVisitEnabler(){
-  const FVExpanded = document.getElementById("FVExpanded")
+function FirstVisitEnabler() {
+  const FVExpanded = document.getElementById("FVExpanded");
   const bsCollapseFVExpanded = new bootstrap.Collapse(FVExpanded, {
     toggle: false,
   });
@@ -358,6 +360,46 @@ function NeckEnablerNoReset() {
   }
 }
 
+//////////////////////////// Neck Structures Enabler /////////////////////
+RNeckExtentTagify.on('change', RNeckStrEnabler)
+function RNeckStrEnabler(e){
+  const RNeckLNBoxes = document.getElementById("RNeckLNBoxes").querySelectorAll("input")
+  const RNeckStructureBoxes = document.getElementById("RNeckStructureBoxes").querySelectorAll("input")
+  if(e.detail.value){
+    RNeckLNBoxes.forEach(box => box.disabled = false)
+    RNeckStructureBoxes.forEach(box => box.disabled = false)
+  } else {
+    RNeckLNBoxes.forEach(box => {
+      box.checked = false
+      box.disabled = true
+    })
+    RNeckStructureBoxes.forEach(box => {
+      box.checked = false
+      box.disabled = true
+    })
+  }
+}
+
+LNeckExtentTagify.on('change', LNeckStrEnabler)
+function LNeckStrEnabler(e){
+  const LNeckLNBoxes = document.getElementById("LNeckLNBoxes").querySelectorAll("input")
+  const LNeckStructureBoxes = document.getElementById("LNeckStructureBoxes").querySelectorAll("input")
+  if(e.detail.value){
+    LNeckLNBoxes.forEach(box => box.disabled = false)
+    LNeckStructureBoxes.forEach(box => box.disabled = false)
+  } else {
+    LNeckLNBoxes.forEach(box => {
+      box.checked = false
+      box.disabled = true
+    })
+    LNeckStructureBoxes.forEach(box => {
+      box.checked = false
+      box.disabled = true
+    })
+  }
+}
+
+
 //////////////////////////// Node HP Enabler Function ////////////////////
 function NodeHPEnabler(side) {
   const PositNode = document.getElementById(`${side}PositNodes`);
@@ -427,6 +469,20 @@ function addInvestigation() {
     findingsCell.innerText = findings.value;
 
     const deleteCell = document.createElement("td");
+    deleteCell.className = "d-grid gap-1";
+    const editButton = document.createElement("button");
+    editButton.textContent = "✎";
+    editButton.className = "btn btn-warning btn-sm";
+    editButton.onclick = () => {
+      type.value = typeCell.innerText;
+      date.value = dateCell.innerText;
+      site.value = siteCell.innerText;
+      findings.value = findingsCell.innerText;
+      tableBody.removeChild(row);
+      document.getElementById("HOPI").scrollIntoView(); //As scrolling to Inv Date did not look good
+    };
+    deleteCell.appendChild(editButton);
+
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
     deleteButton.className = "btn btn-danger btn-sm";
@@ -462,7 +518,7 @@ function populateDatalist(listname, optionsArray) {
 populateDatalist("inv-type", InvTypeArray);
 populateDatalist("inv-site", InvSiteArray);
 populateDatalist("PNILVIlist", PNILVIArray);
-populateDatalist("margins", marginsArray)
+populateDatalist("margins", marginsArray);
 
 ////////////////////////// Lazy Load Background Videos & Init Tooltips ///////////////////
 window.onload = function () {
@@ -479,8 +535,12 @@ window.onload = function () {
     videoBackground.style.display = "block";
   };
   // Init Tooltips
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-  const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+  const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+  );
+  const tooltipList = [...tooltipTriggerList].map(
+    (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
+  );
 };
 
 ////////////////////////// Populate From from pt ///////////////////
@@ -491,8 +551,8 @@ function PopulateForm(patient) {
 
   console.log(patient);
 
-  //Putting the ID for update and delete purposes 
-  document.getElementById("PatientID").value = patient._id
+  //Putting the ID for update and delete purposes
+  document.getElementById("PatientID").value = patient._id;
 
   //Inputting Traditionals
   for (const input in patient) {
@@ -510,11 +570,31 @@ function PopulateForm(patient) {
   if (patient.InvTableRows) {
     const tableBody = document.getElementById("InvTable");
     tableBody.innerHTML = patient.InvTableRows;
+
+    const date = document.getElementById("InvDate");
+    const type = document.getElementById("InvType");
+    const site = document.getElementById("InvSite");
+    const findings = document.getElementById("InvFindings");
+
     const AlldeleteBtns = tableBody.querySelectorAll("button");
     AlldeleteBtns.forEach((btn) => {
       btn.type = "button";
-      btn.onclick = () =>
-        confirm("Delete Investigation?") ? btn.closest("tr").remove() : false;
+      if (btn.textContent === "X") {
+        btn.onclick = () =>
+          confirm("Delete Investigation?") ? btn.closest("tr").remove() : false;
+      } else {
+        btn.onclick = () => {
+          const row = btn.closest('tr').childNodes
+          
+          type.value = row[0].innerText;
+          date.value = row[2].innerText;
+          site.value = row[1].innerText;
+          findings.value = row[3].innerText;
+          btn.closest("tr").remove();
+          findings.style.height = findings.scrollHeight + 3 + "px"
+          document.getElementById("HOPI").scrollIntoView(); //As scrolling to Inv Date did not look good
+        };
+      }
     });
   }
 
@@ -534,48 +614,133 @@ function PopulateForm(patient) {
   ReconTypeTagify.addTags(patient.ReconType);
 
   //Checking Boxes
-  patient.RNeckLNRemoved.forEach(checkbox => {
-    document.getElementById(`R${checkbox}`).checked = true
-  })
-  patient.RNeckStructureRemoved.forEach(checkbox => {
-    document.getElementById(`R${checkbox}`).checked = true
-  })
-  patient.LNeckStructureRemoved.forEach(checkbox => {
-    document.getElementById(`L${checkbox}`).checked = true
-  })
-  patient.LNeckLNRemoved.forEach(checkbox => {
-    document.getElementById(`L${checkbox}`).checked = true
-  })
-  patient.RInvolvedNodes.forEach(checkbox => {
-    document.getElementById(`RHP${checkbox}`).checked = true
-  })
-  patient.LInvolvedNodes.forEach(checkbox => {
-    document.getElementById(`LHP${checkbox}`).checked = true 
-  })
+  patient.RNeckLNRemoved.forEach((checkbox) => {
+    document.getElementById(`R${checkbox}`).checked = true;
+  });
+  patient.RNeckStructureRemoved.forEach((checkbox) => {
+    document.getElementById(`R${checkbox}`).checked = true;
+  });
+  patient.LNeckStructureRemoved.forEach((checkbox) => {
+    document.getElementById(`L${checkbox}`).checked = true;
+  });
+  patient.LNeckLNRemoved.forEach((checkbox) => {
+    document.getElementById(`L${checkbox}`).checked = true;
+  });
+  patient.RInvolvedNodes.forEach((checkbox) => {
+    document.getElementById(`RHP${checkbox}`).checked = true;
+  });
+  patient.LInvolvedNodes.forEach((checkbox) => {
+    document.getElementById(`LHP${checkbox}`).checked = true;
+  });
 
   //Expanding inputs and enabling btns
-  FirstVisitEnabler()
-  RxEnabler()
-  
-  const bsCollapseInvAccordion = new bootstrap.Collapse(document.getElementById("flush-collapseOne"), {
-    toggle: false,
-  });
-  bsCollapseInvAccordion.show()
-  
-  const bsCollapseNotesAccordion = new bootstrap.Collapse(document.getElementById("flush-collapseTwo"), {
-    toggle: false,
-  });
-  bsCollapseNotesAccordion.show()
+  FirstVisitEnabler();
+  RxEnabler();
 
-  document.getElementById("PrimaryTumourDetailsBtn").disabled = false
-  document.getElementById("NeckDetailsBtn").disabled = false
+  const bsCollapseInvAccordion = new bootstrap.Collapse(
+    document.getElementById("flush-collapseOne"),
+    {
+      toggle: false,
+    }
+  );
+  bsCollapseInvAccordion.show();
 
-  PrimaryEnablerNoReset()
-  NeckEnablerNoReset()
-  NodeHPEnabler("R")
-  NodeHPEnabler("L")
+  const bsCollapseNotesAccordion = new bootstrap.Collapse(
+    document.getElementById("flush-collapseTwo"),
+    {
+      toggle: false,
+    }
+  );
+  bsCollapseNotesAccordion.show();
+
+  document.getElementById("PrimaryTumourDetailsBtn").disabled = false;
+  document.getElementById("NeckDetailsBtn").disabled = false;
+
+  PrimaryEnablerNoReset();
+  NeckEnablerNoReset();
+  NodeHPEnabler("R");
+  NodeHPEnabler("L");
 
   // Resizing the textareas
-  const Textareas = document.getElementById("primaryInfo").querySelectorAll("textarea")
-  Textareas.forEach(textarea => textarea.style.height = textarea.scrollHeight + 3 + "px")
+  const Textareas = document
+    .getElementById("primaryInfo")
+    .querySelectorAll("textarea");
+  Textareas.forEach(
+    (textarea) => (textarea.style.height = textarea.scrollHeight + 3 + "px")
+  );
+
+  //////Generating AJCC TNM Info ////////////
+  AJCCTstage()
+  AJCCNstage()
+}
+
+
+//////////////////////// TNM Info Generator ////////////////////
+
+function AJCCTstage(){
+  const Tstage = document.getElementById("Tstage").value
+  const TNMText = document.getElementById("TNMText")
+  let text;
+  switch (Tstage) {
+    case "is":
+      text = "Carcinoma <i>in situ</i>"
+      break
+    case "x":
+      text = "Primary tumor cannot be assessed"
+      break
+    case "1":
+      text = "Tumor ≤ 2cm and DOI ≤ 5mm"
+      break
+    case "2":
+      text = "T2: Tumor ≤ 2cm, DOI > 5mm and ≤ 10mm or tumor > 2cm and ≤ 4cm and DOI ≤10 mm"
+      break
+    case "3":
+      text = "T3: Tumor > 4cm or <i>any</i> tumor with DOI > 10mm"
+      break
+    case "4a":
+      text = "T4a: Tumor > 4cm <i>AND</i> DOI > 10mm <i>OR</i> Tumor invades adjacent structures only (e.g., through cortical bone of mandible or maxilla, or involves the maxillary sinus or skin of the face.) (<i>Note: Superficial erosion of bone by a gingival primary is sufficient to classify a tumour as T4</i>)"
+      break
+    case "4b":
+       text = "T4b: Tumor invades masticator space, pterygoid plates, or skull base and/or encases the internal carotid artery"
+       break
+    default:
+      text = "";
+  }
+
+  TNMTextTstage.innerHTML = text
+}
+
+function AJCCNstage(){
+  const Nstage = document.getElementById("Nstage")
+  const TNMTextNstage = document.getElementById("TNMTextNstage")
+  let text;
+  switch (Nstage) {
+    case "x":
+      text = "Nx: Regional lymph nodes cannot be assessed"
+      break
+    case "0":
+      text = "N0: regional lymph node metastasis"
+      break
+    case "1":
+      text = "N1: Metastasis in a single ipsilateral lymph node, ≤ 3cm and ENE-"
+      break
+    case "2a":
+      text = "N2a: Metastasis in a single ipsilateral lymph node, ≤ 3cm and ENE+; or metastasis in a single ipsilateral lymph node > 3cm and ≤ 6cm and ENE-"
+      break
+    case "2b":
+      text = "N2b: Metastases in multiple ipsilateral lymph nodes, ≤ 6 cm and ENE-"
+      break
+    case "2c":
+      text = "N2c: Metastases in bilateral or contralateral lymph nodes, ≤ 6 cm and ENE-"
+      break
+    case "3a":
+       text = "N3a: Metastasis in a lymph node > 6 cm and ENE-"
+       break
+    case "3b":
+       text = "N3b: Metastasis in a single ipsilateral node larger than 3 cm in greatest dimension and ENE+; or multiple ipsilateral, contralateral, or bilateral nodes, any with ENE+; or a single contralateral node of any size and ENE+"
+       break
+    default:
+      text = "";
+  }
+  TNMTextNstage.innerHTML = text
 }
