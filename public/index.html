@@ -31,7 +31,7 @@
     <!-- Override CSS -->
     <link rel="stylesheet" href="./css/style.css" />
   </head>
-  <body>
+  <body data-bs-spy="scroll" data-bs-target="#offcanvasNavbarLight" data-bs-smooth-scroll="true">
     <!---------------------------------------------- Background Div ------------------------------------------>
     <div class="video-background" id="video-background">
       <!-- Video -->
@@ -52,7 +52,7 @@
           <div class="row gx-1 gy-2">
             <!-- A. Summary Maker App Title -->
             <div class="col-6">
-              <a class="navbar-brand p-0 m-0" href="#">Summary Maker App  </a>
+              <a class="navbar-brand p-0 m-0" href="#">Summary Maker App </a>
               <span
                 class="bg-warning-subtle"
                 style="font-size: 0.7rem"
@@ -84,6 +84,7 @@
                 type="button"
                 data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasNavbarLight"
+                onclick="RefreshSpyScroll()"
               >
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -126,11 +127,13 @@
                         type="text"
                         class="form-control"
                         id="LoginMobileNo"
-                        placeholder="Please enter your 10-digit Mobile No."
+                        placeholder="10-digit Mobile No."
                         pattern="[789][0-9]{9}"
                         required
                       />
-                      <div class="invalid-feedback">This does not look like a valid 10-digit Mobile Number</div>
+                      <div class="invalid-feedback">
+                        This does not look like a valid 10-digit Mobile Number
+                      </div>
                     </div>
                   </div>
 
@@ -171,64 +174,158 @@
               </div>
 
               <!-- Offcanvas Nav Links -->
-              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <ul class="nav nav-pills flex-column mb-auto">
                 <!-- 1 Primary Info -->
                 <li class="nav-item">
-                  <a class="nav-link" href="#scrollspyHeading1">Primary Info</a>
+                  <a href="#PrimaryInfoHeading" class="nav-link active"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="21"
+                      height="21"
+                      fill="currentColor"
+                      class="bi bi-house-door"
+                    >
+                      <path
+                        d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4z"
+                      />
+                    </svg>
+                    Primary Info
+                  </a>
                 </li>
                 <!-- 2 First Visit -->
                 <li class="nav-item">
-                  <a class="nav-link" href="#scrollspyHeading2">First Visit</a>
+                  <a class="nav-link" href="#FirstVisitHeading"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="21"
+                      height="21"
+                      fill="currentColor"
+                      class="bi bi-1-square"
+                    >
+                      <path
+                        d="M9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383z"
+                      />
+                      <path
+                        d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"
+                      />
+                    </svg>
+                    First Visit
+                  </a>
                 </li>
-                <!-- 3 HOPI -->
+                <!-- 3 HOPI & Investigation -->
                 <li class="nav-item">
-                  <a class="nav-link" href="#scrollspyHeading3">HOPI</a>
+                  <a class="nav-link" href="#HOPIandInvHeading"
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="21"
+                      height="21"
+                      fill="currentColor"
+                      class="bi bi-file-earmark-medical"
+                    >
+                      <path
+                        d="M7.5 5.5a.5.5 0 0 0-1 0v.634l-.549-.317a.5.5 0 1 0-.5.866L6 7l-.549.317a.5.5 0 1 0 .5.866l.549-.317V8.5a.5.5 0 1 0 1 0v-.634l.549.317a.5.5 0 1 0 .5-.866L8 7l.549-.317a.5.5 0 1 0-.5-.866l-.549.317zm-2 4.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z"
+                      />
+                      <path
+                        d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"
+                      />
+                    </svg>
+                    HOPI & Investgations
+                  </a>
                 </li>
-                <!-- 4 Investigation -->
-                <li class="nav-item">
-                  <a class="nav-link" href="#scrollspyHeading4"
-                    >Investigations</a
-                  >
-                </li>
-                <!-- 5,6,7,8 Treatment -->
+                <!--  Treatment -->
                 <li class="nav-item dropdown">
                   <a
                     class="nav-link dropdown-toggle"
-                    href="#scrollspyHeading5"
+                    href="#"
                     role="button"
                     data-bs-toggle="dropdown"
-                  >
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="21"
+                      height="21"
+                      fill="currentColor"
+                      class="bi bi-prescription"
+                    >
+                      <path
+                        d="M5.5 6a.5.5 0 0 0-.5.5v4a.5.5 0 0 0 1 0V9h.293l2 2-1.147 1.146a.5.5 0 0 0 .708.708L9 11.707l1.146 1.147a.5.5 0 0 0 .708-.708L9.707 11l1.147-1.146a.5.5 0 0 0-.708-.708L9 10.293 7.695 8.987A1.5 1.5 0 0 0 7.5 6zM6 7h1.5a.5.5 0 0 1 0 1H6z"
+                      />
+                      <path
+                        d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v10.5a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 3 14.5V4a1 1 0 0 1-1-1zm2 3v10.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V4zM3 3h10V1H3z"
+                      />
+                    </svg>
                     Treatment
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="#scrollspyHeading6"
-                        >Primary</a
-                      >
+                      <a class="dropdown-item" href="#PrimaryHeading"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="21"
+                          height="21"
+                          fill="currentColor"
+                          class="bi bi-crosshair"
+                        >
+                          <path
+                            d="M8.5.5a.5.5 0 0 0-1 0v.518A7 7 0 0 0 1.018 7.5H.5a.5.5 0 0 0 0 1h.518A7 7 0 0 0 7.5 14.982v.518a.5.5 0 0 0 1 0v-.518A7 7 0 0 0 14.982 8.5h.518a.5.5 0 0 0 0-1h-.518A7 7 0 0 0 8.5 1.018zm-6.48 7A6 6 0 0 1 7.5 2.02v.48a.5.5 0 0 0 1 0v-.48a6 6 0 0 1 5.48 5.48h-.48a.5.5 0 0 0 0 1h.48a6 6 0 0 1-5.48 5.48v-.48a.5.5 0 0 0-1 0v.48A6 6 0 0 1 2.02 8.5h.48a.5.5 0 0 0 0-1zM8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4"
+                          />
+                        </svg>
+                        Primary
+                      </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#scrollspyHeading7"
-                        >Neck</a
-                      >
+                      <a class="dropdown-item" href="#NeckHeading"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="21"
+                          height="21"
+                          fill="currentColor"
+                          class="bi bi-cookie"
+                        >
+                          <path
+                            d="M6 7.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m4.5.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m-.5 3.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"
+                          />
+                          <path
+                            d="M8 0a7.96 7.96 0 0 0-4.075 1.114q-.245.102-.437.28A8 8 0 1 0 8 0m3.25 14.201a1.5 1.5 0 0 0-2.13.71A7 7 0 0 1 8 15a6.97 6.97 0 0 1-3.845-1.15 1.5 1.5 0 1 0-2.005-2.005A6.97 6.97 0 0 1 1 8c0-1.953.8-3.719 2.09-4.989a1.5 1.5 0 1 0 2.469-1.574A7 7 0 0 1 8 1c1.42 0 2.742.423 3.845 1.15a1.5 1.5 0 1 0 2.005 2.005A6.97 6.97 0 0 1 15 8c0 .596-.074 1.174-.214 1.727a1.5 1.5 0 1 0-1.025 2.25 7 7 0 0 1-2.51 2.224Z"
+                          />
+                        </svg>
+                        Neck
+                      </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#scrollspyHeading8"
-                        >Recon</a
-                      >
+                      <a class="dropdown-item" href="#ReconHeading"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="21"
+                          height="21"
+                          fill="currentColor"
+                          class="bi bi-wrench-adjustable-circle"
+                        >
+                          <path
+                            d="M12.496 8a4.5 4.5 0 0 1-1.703 3.526L9.497 8.5l2.959-1.11q.04.3.04.61"
+                          />
+                          <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-1 0a7 7 0 1 0-13.202 3.249l1.988-1.657a4.5 4.5 0 0 1 7.537-4.623L7.497 6.5l1 2.5 1.333 3.11c-.56.251-1.18.39-1.833.39a4.5 4.5 0 0 1-1.592-.29L4.747 14.2A7 7 0 0 0 15 8m-8.295.139a.25.25 0 0 0-.288-.376l-1.5.5.159.474.808-.27-.595.894a.25.25 0 0 0 .287.376l.808-.27-.595.894a.25.25 0 0 0 .287.376l1.5-.5-.159-.474-.808.27.596-.894a.25.25 0 0 0-.288-.376l-.808.27z"
+                          />
+                        </svg>
+                        Recon
+                      </a>
                     </li>
                   </ul>
                 </li>
-                <!-- 9 Histopath -->
+                <!--  Histopath -->
                 <li class="nav-item">
-                  <a class="nav-link" href="#scrollspyHeading9">Histopath</a>
+                  <a class="nav-link" href="#HistopathHeading"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-bricks">
+                    <path d="M0 .5A.5.5 0 0 1 .5 0h15a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H14v2h1.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H14v2h1.5a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5H.5a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5H2v-2H.5a.5.5 0 0 1-.5-.5v-3A.5.5 0 0 1 .5 6H2V4H.5a.5.5 0 0 1-.5-.5zM3 4v2h4.5V4zm5.5 0v2H13V4zM3 10v2h4.5v-2zm5.5 0v2H13v-2zM1 1v2h3.5V1zm4.5 0v2h5V1zm6 0v2H15V1zM1 7v2h3.5V7zm4.5 0v2h5V7zm6 0v2H15V7zM1 13v2h3.5v-2zm4.5 0v2h5v-2zm6 0v2H15v-2z"/>
+                  </svg> Histopath </a>
                 </li>
-                <!-- 10 Follow-up -->
+
+                <!-- Summary & Save -->
                 <li class="nav-item">
-                  <a class="nav-link" href="#scrollspyHeading10">Follow-up</a>
-                </li>
-                <!-- 11 Summary -->
-                <li class="nav-item">
-                  <a class="nav-link" href="#scrollspyHeading11">Summary</a>
+                  <a class="nav-link" href="#SummaryHeading"><svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="currentColor" class="bi bi-clipboard2-check">
+                    <path d="M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z"/>
+                    <path d="M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z"/>
+                  </svg> Summary & Save </a>
                 </li>
               </ul>
             </div>
@@ -246,7 +343,12 @@
       <div class="row border rounded-5 bg-light p-3">
         <div class="col-sm-12">
           <h4 class="text-center border-bottom pb-2">Patient List</h4>
-          <input type="text" id="UserID" value="66f98451e7c85d5b786bfd98" hidden />
+          <input
+            type="text"
+            id="UserID"
+            value="66f98451e7c85d5b786bfd98"
+            hidden
+          />
           <div class="spinner-border" id="spinner" role="status" hidden></div>
           <table class="table table-hover table-sm table-bordered">
             <thead class="text-center">
@@ -275,9 +377,15 @@
       <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-3">
         <!-- R0 - Title - Primary Info -->
         <div class="col-sm-12">
-          <h4 id="scrollspyHeading1" class="text-center border-bottom pb-2">
-            Primary Info <a class="btn btn-link" style="font-size: small; float: right;" onclick="if(confirm('Changes will be lost!')){FormReset()}">Reset Form</a>
-          </h4> 
+          <h4 id="PrimaryInfoHeading" class="text-center border-bottom pb-2">
+            Primary Info
+            <a
+              class="btn btn-link"
+              style="font-size: small; float: right"
+              onclick="if(confirm('Changes will be lost!')){FormReset()}"
+              >Reset Form</a
+            >
+          </h4>
           <input type="text" id="PatientID" hidden />
         </div>
 
@@ -555,7 +663,7 @@
       <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-3">
         <!-- R0 - Title - First Visit -->
         <div class="col-sm-12">
-          <h4 id="scrollspyHeading2" class="text-center border-bottom pb-2">
+          <h4 id="FirstVisitHeading" class="text-center border-bottom pb-2">
             First Visit
           </h4>
         </div>
@@ -710,7 +818,7 @@
       <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-3">
         <!-- R0 - Title - Hopi & Investgations -->
         <div class="col-sm-12">
-          <h4 id="scrollspyHeading3" class="text-center border-bottom pb-2">
+          <h4 id="HOPIandInvHeading" class="text-center border-bottom pb-2">
             HOPI & Investigations
           </h4>
         </div>
@@ -744,7 +852,7 @@
         <div class="col-sm-12">
           <div class="accordion accordion-flush" id="InvAccordion">
             <!-- Inv Header Btn -->
-            <h2 class="accordion-header" id="scrollspyHeading4">
+            <h2 class="accordion-header">
               <button
                 class="accordion-button collapsed"
                 type="button"
@@ -874,7 +982,7 @@
       <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-4">
         <!-- R0 - Title - Treatment -->
         <div class="col-sm-12">
-          <h4 id="scrollspyHeading5" class="text-center border-bottom pb-2">
+          <h4 id="TreatmentHeading" class="text-center border-bottom pb-2">
             Treatment
           </h4>
         </div>
@@ -951,7 +1059,7 @@
               <div class="row gx-2 align-items-center">
                 <!-- Primary Select Label -->
                 <div class="col-3 border-bottom">
-                  <label for="SxType" class="col-form-label"
+                  <label for="SxType" class="col-form-label" id="PrimaryHeading"
                     ><b>Primary Resection</b></label
                   >
                 </div>
@@ -1137,7 +1245,7 @@
               <div class="row gx-2 align-items-center">
                 <!-- Neck Select Label -->
                 <div class="col-3 border-bottom">
-                  <label for="NeckType" class="col-form-label"
+                  <label for="NeckType" class="col-form-label" id="NeckHeading"
                     ><b>Neck Dissection</b></label
                   >
                 </div>
@@ -1572,7 +1680,10 @@
               <div class="row gx-2 align-items-center">
                 <!-- Recon Select Label -->
                 <div class="col-3 border-bottom">
-                  <label for="ReconType" class="col-form-label"
+                  <label
+                    for="ReconType"
+                    class="col-form-label"
+                    id="ReconHeading"
                     ><b>Recon</b></label
                   >
                 </div>
@@ -1673,7 +1784,7 @@
       >
         <!-- R0 - Title - Histopathology -->
         <div class="col-sm-12">
-          <h4 id="scrollspyHeading9" class="text-center border-bottom pb-2">
+          <h4 id="HistopathHeading" class="text-center border-bottom pb-2">
             Histopathology
           </h4>
         </div>
@@ -2372,7 +2483,7 @@
       <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-3">
         <!-- R0 - Title - Subsequent Follow-up -->
         <div class="col-sm-12">
-          <h4 id="scrollspyHeading10" class="text-center border-bottom pb-2">
+          <h4 class="text-center border-bottom pb-2">
             Subsequent Follow-up
           </h4>
         </div>
@@ -2403,7 +2514,7 @@
       <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2">
         <!-- R0 - Title - Gensummary and Save Btn -->
         <div class="col-sm-12">
-          <h4 id="scrollspyHeading11" class="text-center border-bottom pb-2">
+          <h4 id="SummaryHeading" class="text-center border-bottom pb-2">
             Generate Summary and Save
           </h4>
         </div>
@@ -2447,7 +2558,7 @@
     >
       <!-- R0 - Title - Summary -->
       <div class="col-sm-12">
-        <h4 id="scrollspyHeading12" class="text-center border-bottom pb-2">
+        <h4 class="text-center border-bottom pb-2">
           Summary
         </h4>
       </div>
@@ -2669,7 +2780,9 @@
                     pattern="[789][0-9]{9}"
                     required
                   />
-                  <div class="invalid-feedback">This does not look like a valid 10-digit Mobile Number</div>
+                  <div class="invalid-feedback">
+                    This does not look like a valid 10-digit Mobile Number
+                  </div>
                 </div>
               </div>
             </form>

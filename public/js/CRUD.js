@@ -11,7 +11,7 @@ function GetPatientList() {
     const UserIDObj = { userid: UserID };
 
     axios
-      .post("http://localhost:5000/patientlist", UserIDObj)
+      .post("https://ptsummary-8945f270453f.herokuapp.com/patientlist", UserIDObj)
       .then((response) => {
         const PatientList = response.data;
 
@@ -184,7 +184,7 @@ function SaveToDB() {
   UserInputsObj["PatientID"] = document.getElementById("PatientID").value;
 
   axios
-    .post("http://localhost:5000/", UserInputsObj)
+    .post("https://ptsummary-8945f270453f.herokuapp.com/", UserInputsObj)
     .then((res) => {
       SuccessToastMsg = document.getElementById("SuccessToastMsg").innerText =
         res.data;
@@ -228,7 +228,7 @@ function DeletePatient(id, name) {
   }
 
   axios
-    .post("http://localhost:5000/deletepatient", { id })
+    .post("https://ptsummary-8945f270453f.herokuapp.com/deletepatient", { id })
     .then((res) => {
       DeleteSuccessToastMsg = document.getElementById(
         "DeleteSuccessToastMsg"
@@ -255,7 +255,7 @@ function Register() {
     };
 
     axios
-      .post("http://localhost:5000/register", UserObj)
+      .post("https://ptsummary-8945f270453f.herokuapp.com/register", UserObj)
       .then((response) => {
         if (response.data === "Already registered") {
           UserAlreadyRegisMsg = document.getElementById(
@@ -338,7 +338,7 @@ function Login() {
     const LoginObj = { MobileNo: LoginMobileNo };
 
     axios
-      .post("http://localhost:5000/userlogin", LoginObj)
+      .post("https://ptsummary-8945f270453f.herokuapp.com/userlogin", LoginObj)
       .then((response) => {
         if (response.data === "Not found") {
           LoginFailMsg = document.getElementById(

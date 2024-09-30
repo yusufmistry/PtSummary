@@ -752,3 +752,8 @@ function FormReset() {
   SignSummaryDiv.html("");
   console.log("Form has been reset!");
 }
+
+function RefreshSpyScroll(){
+  const SpyScrollEl = document.querySelector('[data-bs-spy="scroll"]')
+  bootstrap.ScrollSpy.getInstance(SpyScrollEl).refresh()
+}
