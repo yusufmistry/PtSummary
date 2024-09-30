@@ -80,11 +80,6 @@ function PrimaryEnabler() {
   ];
   const OtherArr = [];
 
-  // Histopath Part
-  const HistopathRow = document.getElementById("HistopathRow");
-  const PrimaryHP = document.getElementById("PrimaryHP");
-  const TNM = document.getElementById("TNM");
-
   //Resetting all tags everytime onchange()
   SxSiteTagify.removeAllTags();
   SxSideTagify.removeAllTags();
@@ -99,6 +94,22 @@ function PrimaryEnabler() {
   AllinputArray.forEach((col) => (col.hidden = true));
   PrimaryTumourDetailsBtn.disabled = false;
   PrimaryTumourDetails.hidden = false;
+
+
+
+  
+  // Histopath Part
+  const HistopathRow = document.getElementById("HistopathRow");
+  const PrimaryHP = document.getElementById("PrimaryHP");
+  const TNM = document.getElementById("TNM");
+  // Resetting all input feilds of HP
+  const AllPrimaryHPInputs = PrimaryHP.querySelectorAll("input")
+  const AllPrimaryHPSelects = PrimaryHP.querySelectorAll("select")
+  const AllPrimaryHPData = [...AllPrimaryHPInputs,...AllPrimaryHPSelects]
+  AllPrimaryHPData.forEach((data) => {
+    data.value = ""
+    data.disabled = true
+  })
   //Hiding HP everytime onchange()
   HistopathRow.hidden = true;
   PrimaryHP.hidden = true;
@@ -107,6 +118,7 @@ function PrimaryEnabler() {
   if (SxType === "Wide Excision") {
     WideExcArr.forEach((col) => (col.hidden = false));
     bsCollapsePrimary.show();
+    AllPrimaryHPData.forEach(data => data.disabled = false)
     HistopathRow.hidden = false;
     PrimaryHP.hidden = false;
     TNM.hidden = false;
@@ -115,6 +127,7 @@ function PrimaryEnabler() {
   if (SxType === "Composite Resection") {
     CompResArr.forEach((col) => (col.hidden = false));
     bsCollapsePrimary.show();
+    AllPrimaryHPData.forEach(data => data.disabled = false)
     HistopathRow.hidden = false;
     PrimaryHP.hidden = false;
     TNM.hidden = false;
@@ -235,11 +248,6 @@ function NeckEnabler() {
     .getElementById("LNeckStructureBoxes")
     .querySelectorAll("input");
 
-  const HistopathRow = document.getElementById("HistopathRow");
-  const RNeckHP = document.getElementById("RNeckHP");
-  const LNeckHP = document.getElementById("LNeckHP");
-  const TNM = document.getElementById("TNM");
-
   //Hide both necks first evertime and reset onchage()
   SameNeckDetails.hidden = true;
   OppositeNeckDetails.hidden = true;
@@ -248,6 +256,31 @@ function NeckEnabler() {
   RNeckStructureBoxes.forEach((box) => (box.checked = false));
   LNeckLNBoxes.forEach((box) => (box.checked = false));
   LNeckStructureBoxes.forEach((box) => (box.checked = false));
+  RNeckExtentTagify.removeAllTags()
+  LNeckExtentTagify.removeAllTags()
+
+  //Histopath Part
+  const HistopathRow = document.getElementById("HistopathRow");
+  const RNeckHP = document.getElementById("RNeckHP");
+  const LNeckHP = document.getElementById("LNeckHP");
+  const TNM = document.getElementById("TNM");
+
+  // Resetting HP
+  const RNodalYeild = document.getElementById("RNodalYeild")
+  const LNodalYeild = document.getElementById("LNodalYeild")
+  const RPositNodes = document.getElementById("RPositNodes")
+  const LPositNodes = document.getElementById("LPositNodes")
+  RNodalYeild.value = ""
+  LNodalYeild.value = ""
+  RPositNodes.value = ""
+  LPositNodes.value = ""
+  RNodalYeild.disabled = true
+  RPositNodes.disabled = true
+  LNodalYeild.disabled = true
+  LPositNodes.disabled = true
+  NodeHPEnabler("R")
+  NodeHPEnabler("L")
+
   //Hiding HP everytime onchange()
   HistopathRow.hidden = true;
   RNeckHP.hidden = true;
@@ -257,6 +290,8 @@ function NeckEnabler() {
   if (NeckType === "Ipsilateral") {
     SameNeckDetails.hidden = false;
     bsCollapseNeck.show();
+    RNodalYeild.disabled = false
+    RPositNodes.disabled = false
     HistopathRow.hidden = false;
     RNeckHP.hidden = false;
     TNM.hidden = false;
@@ -266,6 +301,10 @@ function NeckEnabler() {
     SameNeckDetails.hidden = false;
     OppositeNeckDetails.hidden = false;
     bsCollapseNeck.show();
+    RNodalYeild.disabled = false
+    RPositNodes.disabled = false
+    LNodalYeild.disabled = false
+    LPositNodes.disabled = false
     HistopathRow.hidden = false;
     RNeckHP.hidden = false;
     LNeckHP.hidden = false;
@@ -275,6 +314,8 @@ function NeckEnabler() {
   if (NeckType === "Contralateral") {
     OppositeNeckDetails.hidden = false;
     bsCollapseNeck.show();
+    LNodalYeild.disabled = false
+    LPositNodes.disabled = false
     HistopathRow.hidden = false;
     LNeckHP.hidden = false;
     TNM.hidden = false;
@@ -682,84 +723,6 @@ function PopulateForm(patient) {
 
   ///////////Re-generating Summary//////////
   genSummary();
-}
-
-//////////////////////// TNM Info Generator ////////////////////
-
-function AJCCTstage() {
-  const Tstage = document.getElementById("Tstage").value;
-  const TNMText = document.getElementById("TNMText");
-  let text;
-  switch (Tstage) {
-    case "is":
-      text = "Carcinoma <i>in situ</i>";
-      break;
-    case "x":
-      text = "Primary tumor cannot be assessed";
-      break;
-    case "1":
-      text = "Tumor ≤ 2cm and DOI ≤ 5mm";
-      break;
-    case "2":
-      text =
-        "T2: Tumor ≤ 2cm, DOI > 5mm and ≤ 10mm or tumor > 2cm and ≤ 4cm and DOI ≤10 mm";
-      break;
-    case "3":
-      text = "T3: Tumor > 4cm or <i>any</i> tumor with DOI > 10mm";
-      break;
-    case "4a":
-      text =
-        "T4a: Tumor > 4cm <i>AND</i> DOI > 10mm <i>OR</i> Tumor invades adjacent structures only (e.g., through cortical bone of mandible or maxilla, or involves the maxillary sinus or skin of the face.) (<i>Note: Superficial erosion of bone by a gingival primary is sufficient to classify a tumour as T4</i>)";
-      break;
-    case "4b":
-      text =
-        "T4b: Tumor invades masticator space, pterygoid plates, or skull base and/or encases the internal carotid artery";
-      break;
-    default:
-      text = "";
-  }
-
-  TNMTextTstage.innerHTML = text;
-}
-
-function AJCCNstage() {
-  const Nstage = document.getElementById("Nstage");
-  const TNMTextNstage = document.getElementById("TNMTextNstage");
-  let text;
-  switch (Nstage) {
-    case "x":
-      text = "Nx: Regional lymph nodes cannot be assessed";
-      break;
-    case "0":
-      text = "N0: regional lymph node metastasis";
-      break;
-    case "1":
-      text =
-        "N1: Metastasis in a single ipsilateral lymph node, ≤ 3cm and ENE-";
-      break;
-    case "2a":
-      text =
-        "N2a: Metastasis in a single ipsilateral lymph node, ≤ 3cm and ENE+; or metastasis in a single ipsilateral lymph node > 3cm and ≤ 6cm and ENE-";
-      break;
-    case "2b":
-      text =
-        "N2b: Metastases in multiple ipsilateral lymph nodes, ≤ 6 cm and ENE-";
-      break;
-    case "2c":
-      text =
-        "N2c: Metastases in bilateral or contralateral lymph nodes, ≤ 6 cm and ENE-";
-      break;
-    case "3a":
-      text = "N3a: Metastasis in a lymph node > 6 cm and ENE-";
-      break;
-    case "3b":
-      text =
-        "N3b: Metastasis in a single ipsilateral node larger than 3 cm in greatest dimension and ENE+; or multiple ipsilateral, contralateral, or bilateral nodes, any with ENE+; or a single contralateral node of any size and ENE+";
-      break;
-    default:
-      text = "";
-  }
-  TNMTextNstage.innerHTML = text;
 }
 
 /////////////////// Form Reset Fn ///////////////////////////

@@ -11,7 +11,7 @@ function GetPatientList() {
     const UserIDObj = { userid: UserID };
 
     axios
-      .post("https://ptsummary-8945f270453f.herokuapp.com/patientlist", UserIDObj)
+      .post("http://localhost:5000/patientlist", UserIDObj)
       .then((response) => {
         const PatientList = response.data;
 
@@ -90,8 +90,6 @@ function SaveToDB() {
     alert("You cannot save or edit patients as a demo user. Please Login to save your patients")
     return false
   }
-
-  console.log("It didnt worked")
 
   UserInputsObj["user"] = UserID;
 
@@ -186,7 +184,7 @@ function SaveToDB() {
   UserInputsObj["PatientID"] = document.getElementById("PatientID").value;
 
   axios
-    .post("https://ptsummary-8945f270453f.herokuapp.com/", UserInputsObj)
+    .post("http://localhost:5000/", UserInputsObj)
     .then((res) => {
       SuccessToastMsg = document.getElementById("SuccessToastMsg").innerText =
         res.data;
@@ -203,6 +201,7 @@ function SaveToDB() {
         toggle: false,
       });
       bsCollapsePatientList.hide();
+      FormReset()
     })
     .catch((err) => {
       FailedToastMsg = document.getElementById(
@@ -212,6 +211,7 @@ function SaveToDB() {
         document.getElementById("SavedFailedToast")
       ).show();
     });
+
 }
 
 //////////////////////// Update Patient //////////////////////////////////////
@@ -228,7 +228,7 @@ function DeletePatient(id, name) {
   }
 
   axios
-    .post("https://ptsummary-8945f270453f.herokuapp.com/deletepatient", { id })
+    .post("http://localhost:5000/deletepatient", { id })
     .then((res) => {
       DeleteSuccessToastMsg = document.getElementById(
         "DeleteSuccessToastMsg"
@@ -255,7 +255,7 @@ function Register() {
     };
 
     axios
-      .post("https://ptsummary-8945f270453f.herokuapp.com/register", UserObj)
+      .post("http://localhost:5000/register", UserObj)
       .then((response) => {
         if (response.data === "Already registered") {
           UserAlreadyRegisMsg = document.getElementById(
@@ -338,7 +338,7 @@ function Login() {
     const LoginObj = { MobileNo: LoginMobileNo };
 
     axios
-      .post("https://ptsummary-8945f270453f.herokuapp.com/userlogin", LoginObj)
+      .post("http://localhost:5000/userlogin", LoginObj)
       .then((response) => {
         if (response.data === "Not found") {
           LoginFailMsg = document.getElementById(

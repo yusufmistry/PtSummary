@@ -171,29 +171,29 @@ function genSummary() {
   const RNeckLNRemovedStr = $("#RNeckLNBoxes input:checked")
     .get()
     .map((el) => el.value)
-    .join(",");
+    .join(", ");
   const RNeckStructureRemovedStr = $("#RNeckStructureBoxes input:checked")
     .get()
     .map((el) => el.value)
-    .join(",");
+    .join(", ");
   const LNeckLNRemovedStr = $("#LNeckLNBoxes input:checked")
     .get()
     .map((el) => el.value)
-    .join(",");
+    .join(", ");
   const LNeckStructureRemovedStr = $("#LNeckStructureBoxes input:checked")
     .get()
     .map((el) => el.value)
-    .join(",");
+    .join(", ");
 
   //NeckHPCheckBoxes
   const RInvolvedNodes = $("#RInvolvedNodes input:checked")
     .get()
     .map((el) => el.value)
-    .join(",");
+    .join(", ");
   const LInvolvedNodes = $("#LInvolvedNodes input:checked")
     .get()
     .map((el) => el.value)
-    .join(",");
+    .join(", ");
 
   //Summary Divs
   const NotEnoughInfoDiv = $("#not-enough-info");
@@ -207,17 +207,18 @@ function genSummary() {
   const SignSummaryDiv = $("#SignSummaryDiv");
 
   //Date to String format.
-  function ToDateString (inputdt){
-    const date = new Date(inputdt)
-    const FormattedDate = date.getDate() +
-    "<sup>" +
-    getOrdinalSuffix(date.getDate()) +
-    "</sup> " +
-    date.toLocaleString("default", { month: "short" }) +
-    " " +
-    date.getFullYear();
+  function ToDateString(inputdt) {
+    const date = new Date(inputdt);
+    const FormattedDate =
+      date.getDate() +
+      "<sup>" +
+      getOrdinalSuffix(date.getDate()) +
+      "</sup> " +
+      date.toLocaleString("default", { month: "short" }) +
+      " " +
+      date.getFullYear();
 
-    return FormattedDate
+    return FormattedDate;
   }
 
   // Helper function to get the ordinal suffix (st, nd, rd, th)
@@ -236,19 +237,19 @@ function genSummary() {
   }
 
   //Last Updated Date
-  function TodaysDate(){
-    const date = new Date()
-    const FormattedDate = date.getDate() +
-    "<sup>" +
-    getOrdinalSuffix(date.getDate()) +
-    "</sup> " +
-    date.toLocaleString("default", { month: "short" }) +
-    " " +
-    date.getFullYear();
+  function TodaysDate() {
+    const date = new Date();
+    const FormattedDate =
+      date.getDate() +
+      "<sup>" +
+      getOrdinalSuffix(date.getDate()) +
+      "</sup> " +
+      date.toLocaleString("default", { month: "short" }) +
+      " " +
+      date.getFullYear();
 
-    return FormattedDate
+    return FormattedDate;
   }
-
 
   // Reset the form everytime genSummary is run
   primaryInfoSummaryDiv.html("");
@@ -316,7 +317,9 @@ function genSummary() {
 
     //FV Div
     FVSummaryDiv.html(`
-      ${Mr} ${patientName}, was first seen by us on <b>${ToDateString(FirstVisitDate)}</b>. ${He} had complaint of ${Complaints}
+      ${Mr} ${patientName}, was first seen by us on <b>${ToDateString(
+      FirstVisitDate
+    )}</b>. ${He} had complaint of ${Complaints}
       On examination, there was ${OnExam} `);
     if (MedicalHistory) {
       FVSummaryDiv.append(`${He} has ${MedicalHistory}`);
@@ -343,7 +346,9 @@ function genSummary() {
           "</b><b>" +
           (row.cells[1].innerText ? " of " + row.cells[1].innerText : "") +
           "</b>" +
-          (row.cells[2].innerText ? " on " + ToDateString(row.cells[2].innerText) : "") +
+          (row.cells[2].innerText
+            ? " on " + ToDateString(row.cells[2].innerText)
+            : "") +
           " showed " +
           row.cells[3].innerText +
           " ";
@@ -442,7 +447,7 @@ function genSummary() {
               : "") +
             (LNeckExtent.value[0]
               ? " + Left " +
-                RNeckExtent.value[0].value +
+                LNeckExtent.value[0].value +
                 (LNeckLNRemovedStr
                   ? " (Lymph Nodes: " + LNeckLNRemovedStr + ")"
                   : "") +
@@ -464,7 +469,9 @@ function genSummary() {
         (PostopNotes
           ? "Post-operatively, " + PostopNotes
           : His + " post-operative phase was uneventful. ") +
-        (DischargeDate ? He + " was discharged on " + ToDateString(DischargeDate) : "");
+        (DischargeDate
+          ? He + " was discharged on " + ToDateString(DischargeDate)
+          : "");
     } else if (!SxType && NeckType) {
       TreatmentSummaryDiv[0].innerHTML =
         `${He} was advised ${RxType}. ${His} other work-up was essentially normal. <br><br>
@@ -494,7 +501,25 @@ function genSummary() {
                 : "")
             : ""
           : "") +
-        (NeckType === "Bilateral"
+        (NeckType === "Bilateral" &&
+        RNeckExtent.value[0].value === LNeckExtent.value[0].value
+          ? "Bilateral " +
+            (RNeckExtent.value[0].value +
+              (RNeckLNRemovedStr
+                ? " (R Lymph Nodes: " + RNeckLNRemovedStr + ")"
+                : "") +
+              (RNeckStructureRemovedStr
+                ? " (R Structures Removed: " + RNeckStructureRemovedStr + ")"
+                : "") +
+              (LNeckLNRemovedStr
+                ? " (L Lymph Nodes: " + LNeckLNRemovedStr + ")"
+                : "") +
+              (LNeckStructureRemovedStr
+                ? " (L Structures Removed: " + LNeckStructureRemovedStr + ")"
+                : ""))
+          : "") +
+        (NeckType === "Bilateral" &&
+        RNeckExtent.value[0].value !== LNeckExtent.value[0].value
           ? (RNeckExtent.value[0]
               ? " Right " +
                 RNeckExtent.value[0].value +
@@ -515,11 +540,11 @@ function genSummary() {
                   ? " (Structures Removed: " + LNeckStructureRemovedStr + ")"
                   : "")
               : "")
-          : "");
-      ".</b> " +
-        (IntraopNotes ? "Intra-operatively, " + IntraopNotes : "") +
+          : "") +
+        ".</b> " +
+        (IntraopNotes ? "Intra-operatively, " + IntraopNotes + " " : "") +
         (PostopNotes
-          ? "In the post-operative phase " + PostopNotes
+          ? "In the post-operative phase " + PostopNotes + " "
           : His + " post-operative phase was uneventful. ") +
         (DischargeDate ? He + " was discharged on " + DischargeDate : "");
     } else {
@@ -581,7 +606,9 @@ function genSummary() {
             RPositNodes +
             (RNodalYeild ? "/" + RNodalYeild : "") +
             "</b> nodes were positive for metastasis in the<b>" +
-            (NeckType === "Ipsilateral" ? " " + (SxSide.value[0] ? SxSide.value[0].value : "" ) : "") +
+            (NeckType === "Ipsilateral"
+              ? " " + (SxSide.value[0] ? SxSide.value[0].value : "")
+              : "") +
             (NeckType === "Bilateral" ? " Right" : "") +
             (RNeckExtent.value[0]
               ? " " + RNeckExtent.value[0].value + " </b>specimen. "
@@ -606,9 +633,11 @@ function genSummary() {
             (LNodalYeild ? "/" + LNodalYeild : "") +
             "</b> nodes were positive for metastasis in the <b>" +
             (NeckType === "Contralateral"
-              ? (SxSide.value[0] ? (SxSide.value[0].value === "Right"
-                ? "Left "
-                : "Right ") : "")
+              ? SxSide.value[0]
+                ? SxSide.value[0].value === "Right"
+                  ? "Left "
+                  : "Right "
+                : ""
               : "") +
             (NeckType === "Bilateral" ? " Left" : "") +
             (LNeckExtent.value[0]
@@ -634,12 +663,15 @@ function genSummary() {
     }
 
     // Subsequent Div
-    SubsequentSummaryDiv[0].innerHTML = He +
-        " is advised " +
-        (Subsequent ? "<b>" + Subsequent + "</b>. " + He + " is also advised" : "") +
-        "physiotherapy and regular follow up at this clinic." +
-        `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.` +
-        `<br><br><b>Last Updated: ${TodaysDate()}</b>`
+    SubsequentSummaryDiv[0].innerHTML =
+      He +
+      " is advised " +
+      (Subsequent
+        ? "<b>" + Subsequent + "</b>. " + He + " is also advised "
+        : "") +
+      "physiotherapy and regular follow up at this clinic." +
+      `<br><br>We wish ${him} good health. Please do not hesitate to contact us for any further information.` +
+      `<br><br><b>Last Updated: ${TodaysDate()}</b>`;
 
     // Sign Div
     SignSummaryDiv[0].innerHTML =
