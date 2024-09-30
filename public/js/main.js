@@ -361,44 +361,51 @@ function NeckEnablerNoReset() {
 }
 
 //////////////////////////// Neck Structures Enabler /////////////////////
-RNeckExtentTagify.on('change', RNeckStrEnabler)
-function RNeckStrEnabler(e){
-  const RNeckLNBoxes = document.getElementById("RNeckLNBoxes").querySelectorAll("input")
-  const RNeckStructureBoxes = document.getElementById("RNeckStructureBoxes").querySelectorAll("input")
-  if(e.detail.value){
-    RNeckLNBoxes.forEach(box => box.disabled = false)
-    RNeckStructureBoxes.forEach(box => box.disabled = false)
+RNeckExtentTagify.on("change", RNeckStrEnabler);
+function RNeckStrEnabler(e) {
+  const RNeckLNBoxes = document
+    .getElementById("RNeckLNBoxes")
+    .querySelectorAll("input");
+  const RNeckStructureBoxes = document
+    .getElementById("RNeckStructureBoxes")
+    .querySelectorAll("input");
+  if (e.detail.value) {
+    RNeckLNBoxes.forEach((box) => (box.disabled = false));
+    RNeckStructureBoxes.forEach((box) => (box.disabled = false));
   } else {
-    RNeckLNBoxes.forEach(box => {
-      box.checked = false
-      box.disabled = true
-    })
-    RNeckStructureBoxes.forEach(box => {
-      box.checked = false
-      box.disabled = true
-    })
+    RNeckLNBoxes.forEach((box) => {
+      box.checked = false;
+      box.disabled = true;
+    });
+    RNeckStructureBoxes.forEach((box) => {
+      box.checked = false;
+      box.disabled = true;
+    });
   }
 }
 
-LNeckExtentTagify.on('change', LNeckStrEnabler)
-function LNeckStrEnabler(e){
-  const LNeckLNBoxes = document.getElementById("LNeckLNBoxes").querySelectorAll("input")
-  const LNeckStructureBoxes = document.getElementById("LNeckStructureBoxes").querySelectorAll("input")
-  if(e.detail.value){
-    LNeckLNBoxes.forEach(box => box.disabled = false)
-    LNeckStructureBoxes.forEach(box => box.disabled = false)
+LNeckExtentTagify.on("change", LNeckStrEnabler);
+function LNeckStrEnabler(e) {
+  const LNeckLNBoxes = document
+    .getElementById("LNeckLNBoxes")
+    .querySelectorAll("input");
+  const LNeckStructureBoxes = document
+    .getElementById("LNeckStructureBoxes")
+    .querySelectorAll("input");
+  if (e.detail.value) {
+    LNeckLNBoxes.forEach((box) => (box.disabled = false));
+    LNeckStructureBoxes.forEach((box) => (box.disabled = false));
   } else {
-    LNeckLNBoxes.forEach(box => {
-      box.checked = false
-      box.disabled = true
-    })
-    LNeckStructureBoxes.forEach(box => {
-      box.checked = false
-      box.disabled = true
-    })
+    LNeckLNBoxes.forEach((box) => {
+      box.checked = false;
+      box.disabled = true;
+    });
+    LNeckStructureBoxes.forEach((box) => {
+      box.checked = false;
+      box.disabled = true;
+    });
   }
 }
-
 
 //////////////////////////// Node HP Enabler Function ////////////////////
 function NodeHPEnabler(side) {
@@ -584,14 +591,14 @@ function PopulateForm(patient) {
           confirm("Delete Investigation?") ? btn.closest("tr").remove() : false;
       } else {
         btn.onclick = () => {
-          const row = btn.closest('tr').childNodes
-          
+          const row = btn.closest("tr").childNodes;
+
           type.value = row[0].innerText;
           date.value = row[2].innerText;
           site.value = row[1].innerText;
           findings.value = row[3].innerText;
           btn.closest("tr").remove();
-          findings.style.height = findings.scrollHeight + 3 + "px"
+          findings.style.height = findings.scrollHeight + 3 + "px";
           document.getElementById("HOPI").scrollIntoView(); //As scrolling to Inv Date did not look good
         };
       }
@@ -670,77 +677,115 @@ function PopulateForm(patient) {
   );
 
   //////Generating AJCC TNM Info ////////////
-  AJCCTstage()
-  AJCCNstage()
-}
+  AJCCTstage();
+  AJCCNstage();
 
+  ///////////Re-generating Summary//////////
+  genSummary();
+}
 
 //////////////////////// TNM Info Generator ////////////////////
 
-function AJCCTstage(){
-  const Tstage = document.getElementById("Tstage").value
-  const TNMText = document.getElementById("TNMText")
+function AJCCTstage() {
+  const Tstage = document.getElementById("Tstage").value;
+  const TNMText = document.getElementById("TNMText");
   let text;
   switch (Tstage) {
     case "is":
-      text = "Carcinoma <i>in situ</i>"
-      break
+      text = "Carcinoma <i>in situ</i>";
+      break;
     case "x":
-      text = "Primary tumor cannot be assessed"
-      break
+      text = "Primary tumor cannot be assessed";
+      break;
     case "1":
-      text = "Tumor ≤ 2cm and DOI ≤ 5mm"
-      break
+      text = "Tumor ≤ 2cm and DOI ≤ 5mm";
+      break;
     case "2":
-      text = "T2: Tumor ≤ 2cm, DOI > 5mm and ≤ 10mm or tumor > 2cm and ≤ 4cm and DOI ≤10 mm"
-      break
+      text =
+        "T2: Tumor ≤ 2cm, DOI > 5mm and ≤ 10mm or tumor > 2cm and ≤ 4cm and DOI ≤10 mm";
+      break;
     case "3":
-      text = "T3: Tumor > 4cm or <i>any</i> tumor with DOI > 10mm"
-      break
+      text = "T3: Tumor > 4cm or <i>any</i> tumor with DOI > 10mm";
+      break;
     case "4a":
-      text = "T4a: Tumor > 4cm <i>AND</i> DOI > 10mm <i>OR</i> Tumor invades adjacent structures only (e.g., through cortical bone of mandible or maxilla, or involves the maxillary sinus or skin of the face.) (<i>Note: Superficial erosion of bone by a gingival primary is sufficient to classify a tumour as T4</i>)"
-      break
+      text =
+        "T4a: Tumor > 4cm <i>AND</i> DOI > 10mm <i>OR</i> Tumor invades adjacent structures only (e.g., through cortical bone of mandible or maxilla, or involves the maxillary sinus or skin of the face.) (<i>Note: Superficial erosion of bone by a gingival primary is sufficient to classify a tumour as T4</i>)";
+      break;
     case "4b":
-       text = "T4b: Tumor invades masticator space, pterygoid plates, or skull base and/or encases the internal carotid artery"
-       break
+      text =
+        "T4b: Tumor invades masticator space, pterygoid plates, or skull base and/or encases the internal carotid artery";
+      break;
     default:
       text = "";
   }
 
-  TNMTextTstage.innerHTML = text
+  TNMTextTstage.innerHTML = text;
 }
 
-function AJCCNstage(){
-  const Nstage = document.getElementById("Nstage")
-  const TNMTextNstage = document.getElementById("TNMTextNstage")
+function AJCCNstage() {
+  const Nstage = document.getElementById("Nstage");
+  const TNMTextNstage = document.getElementById("TNMTextNstage");
   let text;
   switch (Nstage) {
     case "x":
-      text = "Nx: Regional lymph nodes cannot be assessed"
-      break
+      text = "Nx: Regional lymph nodes cannot be assessed";
+      break;
     case "0":
-      text = "N0: regional lymph node metastasis"
-      break
+      text = "N0: regional lymph node metastasis";
+      break;
     case "1":
-      text = "N1: Metastasis in a single ipsilateral lymph node, ≤ 3cm and ENE-"
-      break
+      text =
+        "N1: Metastasis in a single ipsilateral lymph node, ≤ 3cm and ENE-";
+      break;
     case "2a":
-      text = "N2a: Metastasis in a single ipsilateral lymph node, ≤ 3cm and ENE+; or metastasis in a single ipsilateral lymph node > 3cm and ≤ 6cm and ENE-"
-      break
+      text =
+        "N2a: Metastasis in a single ipsilateral lymph node, ≤ 3cm and ENE+; or metastasis in a single ipsilateral lymph node > 3cm and ≤ 6cm and ENE-";
+      break;
     case "2b":
-      text = "N2b: Metastases in multiple ipsilateral lymph nodes, ≤ 6 cm and ENE-"
-      break
+      text =
+        "N2b: Metastases in multiple ipsilateral lymph nodes, ≤ 6 cm and ENE-";
+      break;
     case "2c":
-      text = "N2c: Metastases in bilateral or contralateral lymph nodes, ≤ 6 cm and ENE-"
-      break
+      text =
+        "N2c: Metastases in bilateral or contralateral lymph nodes, ≤ 6 cm and ENE-";
+      break;
     case "3a":
-       text = "N3a: Metastasis in a lymph node > 6 cm and ENE-"
-       break
+      text = "N3a: Metastasis in a lymph node > 6 cm and ENE-";
+      break;
     case "3b":
-       text = "N3b: Metastasis in a single ipsilateral node larger than 3 cm in greatest dimension and ENE+; or multiple ipsilateral, contralateral, or bilateral nodes, any with ENE+; or a single contralateral node of any size and ENE+"
-       break
+      text =
+        "N3b: Metastasis in a single ipsilateral node larger than 3 cm in greatest dimension and ENE+; or multiple ipsilateral, contralateral, or bilateral nodes, any with ENE+; or a single contralateral node of any size and ENE+";
+      break;
     default:
       text = "";
   }
-  TNMTextNstage.innerHTML = text
+  TNMTextNstage.innerHTML = text;
+}
+
+/////////////////// Form Reset Fn ///////////////////////////
+function FormReset() {
+  const form = document.getElementById("primaryInfo");
+  form.reset();
+  const InvTable = document.getElementById("InvTable");
+  InvTable.innerHTML = "";
+
+  // Reset the Summary
+  const NotEnoughInfoDiv = $("#not-enough-info");
+  const primaryInfoSummaryDiv = $("#primaryInfoSummaryDiv");
+  const FVSummaryDiv = $("#FVSummaryDiv");
+  const HOPISummaryDiv = $("#HOPISummaryDiv");
+  const InvSummaryDiv = $("#InvSummaryDiv");
+  const TreatmentSummaryDiv = $("#TreatmentSummaryDiv");
+  const HistopathSummaryDiv = $("#HistopathSummaryDiv");
+  const SubsequentSummaryDiv = $("#SubsequentSummaryDiv");
+  const SignSummaryDiv = $("#SignSummaryDiv");
+  primaryInfoSummaryDiv.html("");
+  FVSummaryDiv.html("");
+  HOPISummaryDiv.html("");
+  InvSummaryDiv.html("");
+  TreatmentSummaryDiv.html("");
+  HistopathSummaryDiv.html("");
+  SubsequentSummaryDiv.html("");
+  SignSummaryDiv.html("");
+  console.log("Form has been reset!");
 }

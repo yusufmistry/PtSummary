@@ -47,106 +47,191 @@
     <!----------------------------------------------  Header Navbar ------------------------------------------->
     <nav class="navbar bg-body-tertiary sticky-top mb-1">
       <div class="container-fluid">
-        <!-- A. Summary Maker App Title -->
-        <a class="navbar-brand" href="#">Summary Maker App</a>
+        <!-- Title, MyPateint Btn, Offcanvas Toggler -->
+        <div class="col-sm-12">
+          <div class="row gx-1 gy-2">
+            <!-- A. Summary Maker App Title -->
+            <div class="col-6">
+              <a class="navbar-brand p-0 m-0" href="#">Summary Maker App  </a>
+              <span
+                class="bg-warning-subtle"
+                style="font-size: 0.7rem"
+                id="LoginStatus"
+                ><i>(Not Logged in - Demo User)</i></span
+              >
+            </div>
 
-        <!-- B. Patient List Retriver Button -->
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="collapse"
-          data-bs-target="#PatientList"
-          onclick="GetPatientList()"
-        >
-          My Patients
-        </button>
-
-        <!-- C. Offcanvas Toggler Btn  -->
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbarLight"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- D. Offcanvas -->
-        <div
-          class="offcanvas offcanvas-end"
-          tabindex="-1"
-          id="offcanvasNavbarLight"
-          data-bs-scroll="true"
-          style="max-width: 50vw"
-        >
-          <!-- Offcanvas Header -->
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLightLabel">
-              Jump to...
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <!-- Offcanvas Links -->
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <!-- 1 Primary Info -->
-              <li class="nav-item">
-                <a class="nav-link" href="#scrollspyHeading1">Primary Info</a>
-              </li>
-              <!-- 2 First Visit -->
-              <li class="nav-item">
-                <a class="nav-link" href="#scrollspyHeading2">First Visit</a>
-              </li>
-              <!-- 3 HOPI -->
-              <li class="nav-item">
-                <a class="nav-link" href="#scrollspyHeading3">HOPI</a>
-              </li>
-              <!-- 4 Investigation -->
-              <li class="nav-item">
-                <a class="nav-link" href="#scrollspyHeading4">Investigations</a>
-              </li>
-              <!-- 5,6,7,8 Treatment -->
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#scrollspyHeading5"
-                  role="button"
-                  data-bs-toggle="dropdown"
+            <!-- B. Patient List Retriver Button -->
+            <div class="col-4">
+              <div class="d-grid col-12 mx-auto">
+                <button
+                  type="button"
+                  class="col btn btn-primary"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#PatientList"
+                  onclick="GetPatientList()"
                 >
-                  Treatment
-                </a>
-                <ul class="dropdown-menu">
-                  <li>
-                    <a class="dropdown-item" href="#scrollspyHeading6"
-                      >Primary</a
+                  My Patients
+                </button>
+              </div>
+            </div>
+
+            <div class="col-2">
+              <!-- C. Offcanvas Toggler Btn  -->
+              <button
+                class="navbar-toggler"
+                style="float: right"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbarLight"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- D. Offcanvas -->
+          <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasNavbarLight"
+            data-bs-scroll="true"
+            style="max-width: 50vw"
+          >
+            <!-- Offcanvas Header -->
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasTitle">
+                Welcome Demo User
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <!-- Offcanvas Body -->
+            <div class="offcanvas-body">
+              <!-- Login Div -->
+              <div
+                id="loginlogout"
+                class="row d-flex d-flex justify-content-center align-items-center"
+              >
+                <form id="LoginForm">
+                  <!--  Mobile No. Input-->
+                  <div class="col-12 mb-2">
+                    <div class="form-group">
+                      <label for="LoginMobileNo"><b>Mobile No: </b></label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="LoginMobileNo"
+                        placeholder="Please enter your 10-digit Mobile No."
+                        pattern="[789][0-9]{9}"
+                        required
+                      />
+                      <div class="invalid-feedback">This does not look like a valid 10-digit Mobile Number</div>
+                    </div>
+                  </div>
+
+                  <!-- Login Btn  -->
+                  <div class="d-grid col-10 mx-auto">
+                    <button
+                      type="button"
+                      id="LoginUserBtn"
+                      class="btn btn-primary"
+                      onclick="Login()"
                     >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#scrollspyHeading7">Neck</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="#scrollspyHeading8">Recon</a>
-                  </li>
-                </ul>
-              </li>
-              <!-- 9 Histopath -->
-              <li class="nav-item">
-                <a class="nav-link" href="#scrollspyHeading9">Histopath</a>
-              </li>
-              <!-- 10 Follow-up -->
-              <li class="nav-item">
-                <a class="nav-link" href="#scrollspyHeading10">Follow-up</a>
-              </li>
-              <!-- 11 Summary -->
-              <li class="nav-item">
-                <a class="nav-link" href="#scrollspyHeading11">Summary</a>
-              </li>
-            </ul>
+                      Login
+                    </button>
+                  </div>
+
+                  <!--  Please login text -->
+                  <div class="col-12">
+                    <div class="form-text" style="font-size: small">
+                      <i>Please Login to save and retrieve patients</i>
+                    </div>
+                  </div>
+
+                  <!-- Register Link -->
+                  <div class="col-sm-12">
+                    <div class="form-text text-end">
+                      New User?
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-link p-0"
+                        data-bs-toggle="modal"
+                        data-bs-target="#RegisterModal"
+                      >
+                        Register
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Offcanvas Nav Links -->
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <!-- 1 Primary Info -->
+                <li class="nav-item">
+                  <a class="nav-link" href="#scrollspyHeading1">Primary Info</a>
+                </li>
+                <!-- 2 First Visit -->
+                <li class="nav-item">
+                  <a class="nav-link" href="#scrollspyHeading2">First Visit</a>
+                </li>
+                <!-- 3 HOPI -->
+                <li class="nav-item">
+                  <a class="nav-link" href="#scrollspyHeading3">HOPI</a>
+                </li>
+                <!-- 4 Investigation -->
+                <li class="nav-item">
+                  <a class="nav-link" href="#scrollspyHeading4"
+                    >Investigations</a
+                  >
+                </li>
+                <!-- 5,6,7,8 Treatment -->
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#scrollspyHeading5"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    Treatment
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="#scrollspyHeading6"
+                        >Primary</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#scrollspyHeading7"
+                        >Neck</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#scrollspyHeading8"
+                        >Recon</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <!-- 9 Histopath -->
+                <li class="nav-item">
+                  <a class="nav-link" href="#scrollspyHeading9">Histopath</a>
+                </li>
+                <!-- 10 Follow-up -->
+                <li class="nav-item">
+                  <a class="nav-link" href="#scrollspyHeading10">Follow-up</a>
+                </li>
+                <!-- 11 Summary -->
+                <li class="nav-item">
+                  <a class="nav-link" href="#scrollspyHeading11">Summary</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -161,6 +246,7 @@
       <div class="row border rounded-5 bg-light p-3">
         <div class="col-sm-12">
           <h4 class="text-center border-bottom pb-2">Patient List</h4>
+          <input type="text" id="UserID" value="66f98451e7c85d5b786bfd98" hidden />
           <div class="spinner-border" id="spinner" role="status" hidden></div>
           <table class="table table-hover table-sm table-bordered">
             <thead class="text-center">
@@ -190,8 +276,8 @@
         <!-- R0 - Title - Primary Info -->
         <div class="col-sm-12">
           <h4 id="scrollspyHeading1" class="text-center border-bottom pb-2">
-            Primary Info
-          </h4>
+            Primary Info <a class="btn btn-link" style="font-size: small; float: right;" onclick="if(confirm('Changes will be lost!')){FormReset()}">Reset Form</a>
+          </h4> 
           <input type="text" id="PatientID" hidden />
         </div>
 
@@ -1214,7 +1300,11 @@
                             value="SCM"
                             id="RSCM"
                             disabled
-                          /><label data-bs-toggle="tooltip" data-bs-title="Sternocleidomastoid Muscle">SCM</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Sternocleidomastoid Muscle"
+                            >SCM</label
+                          >
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1223,7 +1313,11 @@
                             value="SAN"
                             id="RSAN"
                             disabled
-                          /><label data-bs-toggle="tooltip" data-bs-title="Spinal Accessory Nerve">SAN</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Spinal Accessory Nerve"
+                            >SAN</label
+                          >
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1232,7 +1326,11 @@
                             value="IJV"
                             id="RIJV"
                             disabled
-                          /><label data-bs-toggle="tooltip" data-bs-title="Internal Jugular Vein">IJV</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Internal Jugular Vein"
+                            >IJV</label
+                          >
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1241,7 +1339,11 @@
                             value="SG"
                             id="RSG"
                             disabled
-                          /><label data-bs-toggle="tooltip" data-bs-title="Submandibular Gland">SG</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Submandibular Gland"
+                            >SG</label
+                          >
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1259,7 +1361,11 @@
                             value="HGN"
                             id="RHGN"
                             disabled
-                          /><label data-bs-toggle="tooltip" data-bs-title="Hypoglossal Nerve">HGN</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Hypoglossal Nerve"
+                            >HGN</label
+                          >
                         </div>
                       </div>
                     </div>
@@ -1381,7 +1487,11 @@
                             type="checkbox"
                             value="SCM"
                             id="LSCM"
-                          /><label data-bs-toggle="tooltip" data-bs-title="Sternocleidomastoid Muscle">SCM</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Sternocleidomastoid Muscle"
+                            >SCM</label
+                          >
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1389,7 +1499,11 @@
                             type="checkbox"
                             value="SAN"
                             id="LSAN"
-                          /><label data-bs-toggle="tooltip" data-bs-title="Spinal Accessory Nerve">SAN</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Spinal Accessory Nerve"
+                            >SAN</label
+                          >
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1397,7 +1511,11 @@
                             type="checkbox"
                             value="IJV"
                             id="LIJV"
-                          /><label data-bs-toggle="tooltip" data-bs-title="Internal Jugular Vein">IJV</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Internal Jugular Vein"
+                            >IJV</label
+                          >
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1405,7 +1523,11 @@
                             type="checkbox"
                             value="SG"
                             id="LSG"
-                          /><label data-bs-toggle="tooltip" data-bs-title="Submandibular Gland">SG</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Submandibular Gland"
+                            >SG</label
+                          >
                         </div>
                         <div class="form-check form-check-inline">
                           <input
@@ -1429,7 +1551,11 @@
                             type="checkbox"
                             value="HGN"
                             id="LHGN"
-                          /><label data-bs-toggle="tooltip" data-bs-title="Hypoglossal Nerve">HGN</label>
+                          /><label
+                            data-bs-toggle="tooltip"
+                            data-bs-title="Hypoglossal Nerve"
+                            >HGN</label
+                          >
                         </div>
                       </div>
                     </div>
@@ -2201,9 +2327,22 @@
                     oninput=" AJCCNstage()"
                   />
                 </div>
-                <div class="form-text" style="font-size: small;" id="TNMTextTstage"></div>
-                <div class="form-text" style="font-size: small;" id="TNMTextNstage"></div>
-                <div class="form-text" style="font-size: small; text-align: end;"> <i>- According to AJCC 8th Edition </i></div>
+                <div
+                  class="form-text"
+                  style="font-size: small"
+                  id="TNMTextTstage"
+                ></div>
+                <div
+                  class="form-text"
+                  style="font-size: small"
+                  id="TNMTextNstage"
+                ></div>
+                <div
+                  class="form-text"
+                  style="font-size: small; text-align: end"
+                >
+                  <i>- According to AJCC 8th Edition </i>
+                </div>
               </div>
             </div>
 
@@ -2261,7 +2400,7 @@
 
       <!-------------- VII. Generate Summary & Save Btn ----------->
       <div class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2">
-        <!-- R0 - Title - Subsequent Follow-up -->
+        <!-- R0 - Title - Gensummary and Save Btn -->
         <div class="col-sm-12">
           <h4 id="scrollspyHeading11" class="text-center border-bottom pb-2">
             Generate Summary and Save
@@ -2270,10 +2409,13 @@
 
         <!-- DR1 Incomplete Message Div, Submit Btn, Generate Summary Btn-->
         <div class="d-grid col-10 mx-auto">
+          <!-- Incomplete msg Div -->
           <div
             class="form-text text-danger text-center"
             id="IncompleteDataWarn"
           ></div>
+
+          <!-- Gen Summary Btn -->
           <button
             type="button"
             id="genSummaryBtn"
@@ -2282,6 +2424,8 @@
           >
             Generate Summary
           </button>
+
+          <!-- Save to DB Btn -->
           <button
             class="btn btn-success"
             type="button"
@@ -2407,6 +2551,140 @@
             data-bs-dismiss="toast"
             aria-label="Close"
           ></button>
+        </div>
+      </div>
+
+      <!-- 5. Already Registered Toast -->
+      <div id="AlreadyRegisToast" class="toast align-items-center">
+        <div class="d-flex bg-danger-subtle">
+          <div class="toast-body" id="UserAlreadyRegisMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 6. New User Registered Toast -->
+      <div id="NewRegisToast" class="toast align-items-center">
+        <div class="d-flex bg-success-subtle">
+          <div class="toast-body" id="NewRegisMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 7. Login Fail Toast -->
+      <div id="LoginFailToast" class="toast align-items-center">
+        <div class="d-flex bg-danger-subtle">
+          <div class="toast-body" id="LoginFailMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 8. Login Success Toast -->
+      <div id="LoginSuccessToast" class="toast align-items-center">
+        <div class="d-flex bg-success-subtle">
+          <div class="toast-body" id="LoginSuccessMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 9. Logout Success Toast -->
+      <div id="LogoutSuccessToast" class="toast align-items-center">
+        <div class="d-flex bg-success-subtle">
+          <div class="toast-body" id="LogoutSuccessMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <!------------------------------------------------ Register Modal ----------------------------------------->
+    <div
+      class="modal fade"
+      id="RegisterModal"
+      tabindex="-1"
+      aria-labelledby="registerModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog .modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Register New User</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="Register" class="row gx-1 gy-2">
+              <!--  User Name Input-->
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="username"><b>Name: </b></label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    placeholder="Please enter your user name"
+                    required
+                  />
+                  <div class="invalid-feedback">Name is required!</div>
+                </div>
+              </div>
+
+              <!--  User Name Input-->
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="RegisMobileNo"><b>Mobile No: </b></label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="RegisMobileNo"
+                    placeholder="Please enter your Mobile No."
+                    pattern="[789][0-9]{9}"
+                    required
+                  />
+                  <div class="invalid-feedback">This does not look like a valid 10-digit Mobile Number</div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" onclick="Register()">
+              Register
+            </button>
+          </div>
         </div>
       </div>
     </div>

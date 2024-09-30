@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 
 const Patient = require("./db/PatientSchema.js");
+const User = require("./db/UserSchema.js")
 
 const app = express();
 
@@ -12,14 +13,61 @@ app.use(cors()); // Enable CORS for requests from frontend
 app.use(express.json()); // Parse incoming JSON requests
 app.use(express.static("public"));
 
-// Main Form route
+
+
+////////////////////////////// Main route //////////////////////////////////////////
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+/////////////////////////// POST and Get Routes (axios) //////////////////////////////
+//Register
+app.post("/register", (req, res) => {
+  const UserObj = req.body
+  const {username, MobileNo} = UserObj
+  User.findOne({MobileNo: MobileNo})
+  .then(user => {
+    if(user){
+      res.send("Already registered")
+    } else {
+      const user1 = new User(UserObj)
+      user1.save()
+      .then(user => {
+        res.send(user)
+      })
+      .catch(err => res.send(err))
+    }
+  })
+  .catch(err => {
+    res.send("The following error occured" + err)
+  })
+})
+
+//User Login
+app.post("/userlogin", (req, res) => {
+  const LoginObj = req.body
+  const {MobileNo} = LoginObj
+
+  User.findOne({MobileNo: MobileNo})
+  .then(user => {
+    if(!user){
+      res.send("Not found")
+    } else {
+      res.send(user)
+    }
+  })
+  .catch(err => {
+    res.send("The following error occured" + err)
+  })
+})
+
 //Get Patient List
-app.get("/patientlist", (req, res) => {
-  Patient.find()
+app.post("/patientlist", (req, res) => {
+  const UserIDObj = req.body
+  const {userid} = UserIDObj
+  console.log(userid)
+
+  Patient.find({user: userid})
     .then((patients) => res.send(patients))
     .catch((err) => console.log(err));
 });
@@ -28,6 +76,7 @@ app.get("/patientlist", (req, res) => {
 app.post("/", (req, res) => {
   const PatientDetails = req.body;
   const PatientID = PatientDetails.PatientID;
+  const user = PatientDetails.UserID
 
   if (PatientID) {
     Patient.findByIdAndUpdate(PatientID, PatientDetails)
@@ -44,7 +93,7 @@ app.post("/", (req, res) => {
   }
 });
 
-
+//Delete Patient
 app.post("/deletepatient", (req, res) => {
     const PatientId = req.body.id
     Patient.findByIdAndDelete(PatientId)
@@ -52,7 +101,8 @@ app.post("/deletepatient", (req, res) => {
     .catch((err) => res.send(err))
 
 })
-// Mongoose MongoDB connection
+
+/////////////////////////////////// Mongoose MongoDB connection //////////////////////////////////////////////////
 mongoose
   .connect(
     "mongodb+srv://yamboygenius:Binduk%40123@cluster0.j5u1mcp.mongodb.net/PatientsDetails?retryWrites=true&w=majority"

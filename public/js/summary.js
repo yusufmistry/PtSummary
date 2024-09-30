@@ -581,7 +581,7 @@ function genSummary() {
             RPositNodes +
             (RNodalYeild ? "/" + RNodalYeild : "") +
             "</b> nodes were positive for metastasis in the<b>" +
-            (NeckType === "Ipsilateral" ? " " + SxSide.value[0].value : "") +
+            (NeckType === "Ipsilateral" ? " " + (SxSide.value[0] ? SxSide.value[0].value : "" ) : "") +
             (NeckType === "Bilateral" ? " Right" : "") +
             (RNeckExtent.value[0]
               ? " " + RNeckExtent.value[0].value + " </b>specimen. "
@@ -606,9 +606,9 @@ function genSummary() {
             (LNodalYeild ? "/" + LNodalYeild : "") +
             "</b> nodes were positive for metastasis in the <b>" +
             (NeckType === "Contralateral"
-              ? SxSide.value[0].value === "Right"
+              ? (SxSide.value[0] ? (SxSide.value[0].value === "Right"
                 ? "Left "
-                : "Right "
+                : "Right ") : "")
               : "") +
             (NeckType === "Bilateral" ? " Left" : "") +
             (LNeckExtent.value[0]
