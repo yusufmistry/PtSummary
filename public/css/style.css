@@ -55,3 +55,8 @@ tag {
   background: lightyellow;
   border-color: gold;
 }
+
+th, td {
+  word-wrap: break-word; /* Ensures text wraps to the next line */
+  white-space: normal; /* Allows text to wrap */
+}

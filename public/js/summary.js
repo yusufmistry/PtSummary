@@ -144,6 +144,7 @@ function genSummary() {
     InvFindings,
     IntraopNotes,
     PostopNotes,
+    RecoveryNotes,
     Subsequent,
   } = UserInputsObj;
 
@@ -470,8 +471,8 @@ function genSummary() {
           ? "Post-operatively, " + PostopNotes
           : His + " post-operative phase was uneventful. ") +
         (DischargeDate
-          ? He + " was discharged on " + ToDateString(DischargeDate)
-          : "");
+          ? He + " was discharged on " + ToDateString(DischargeDate) + ". "
+          : "") + (RecoveryNotes ? "In the recovery phase, " + RecoveryNotes : "")
     } else if (!SxType && NeckType) {
       TreatmentSummaryDiv[0].innerHTML =
         `${He} was advised ${RxType}. ${His} other work-up was essentially normal. <br><br>
@@ -546,7 +547,8 @@ function genSummary() {
         (PostopNotes
           ? "In the post-operative phase " + PostopNotes + " "
           : His + " post-operative phase was uneventful. ") +
-        (DischargeDate ? He + " was discharged on " + DischargeDate : "");
+        (DischargeDate ? He + " was discharged on " + DischargeDate : "") +
+        (RecoveryNotes ? "In the recovery phase, " + RecoveryNotes : "")
     } else {
       TreatmentSummaryDiv[0].innerHTML = "Patient was managed conservatively";
     }

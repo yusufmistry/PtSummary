@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointments App</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+
+    <!-- Override CSS -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!---------------------------------------------- Background Div ------------------------------------------>
+    <div class="video-background" id="video-background">
+      <!-- Video -->
+      <video autoplay muted loop>
+        <source type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <!-- Semi-transparent Overlay -->
+      <div class="overlay"></div>
+    </div>
+
+    <!----------------------------------------------  Header Navbar ------------------------------------------->
+    <nav class="navbar bg-body-tertiary sticky-top mb-1">
+      <div class="container-fluid">
+        <!-- Title, MyPateint Btn, Offcanvas Toggler -->
+        <div class="col-sm-12">
+          <div class="row gx-1 gy-2">
+            <!-- A. Summary Maker App Title -->
+            <div class="col-6">
+              <a class="navbar-brand p-0 m-0" href="#">Appointment App </a>
+              <span
+                class="bg-warning-subtle"
+                style="font-size: 0.7rem"
+                id="LoginStatus"
+                ><i>(Not Logged in - Demo User)</i></span
+              >
+            </div>
+
+            <!-- B. Patient List Retriver Button -->
+            <div class="col-4">
+              <div class="d-grid col-12 mx-auto">
+                <button
+                  type="button"
+                  class="col btn btn-primary"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#PatientList"
+                  onclick="GetApptList()"
+                >
+                  My Appointments
+                </button>
+              </div>
+            </div>
+
+            <div class="col-2">
+              <!-- C. Offcanvas Toggler Btn  -->
+              <button
+                class="navbar-toggler"
+                style="float: right"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbarLight"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- D. Offcanvas -->
+          <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasNavbarLight"
+            data-bs-scroll="true"
+            style="max-width: 50vw"
+          >
+            <!-- Offcanvas Header -->
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasTitle">
+                Welcome Demo User
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
+            </div>
+            <!-- Offcanvas Body -->
+            <div class="offcanvas-body">
+              <!-- Login Div -->
+              <div
+                id="loginlogout"
+                class="row d-flex d-flex justify-content-center align-items-center"
+              >
+                <form id="LoginForm">
+                  <!--  Mobile No. Input-->
+                  <div class="col-12 mb-2">
+                    <div class="form-group">
+                      <label for="LoginMobileNo"><b>Mobile No: </b></label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="LoginMobileNo"
+                        placeholder="10-digit Mobile No."
+                        pattern="[789][0-9]{9}"
+                        required
+                      />
+                      <div class="invalid-feedback">
+                        This does not look like a valid 10-digit Mobile Number
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Login Btn  -->
+                  <div class="d-grid col-10 mx-auto">
+                    <button
+                      type="button"
+                      id="LoginUserBtn"
+                      class="btn btn-primary"
+                      onclick="Login()"
+                    >
+                      Login
+                    </button>
+                  </div>
+
+                  <!--  Please login text -->
+                  <div class="col-12">
+                    <div class="form-text" style="font-size: small">
+                      <i>Please Login to save and retrieve patients</i>
+                    </div>
+                  </div>
+
+                  <!-- Register Link -->
+                  <div class="col-sm-12">
+                    <div class="form-text text-end">
+                      New User?
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-link p-0"
+                        data-bs-toggle="modal"
+                        data-bs-target="#RegisterModal"
+                      >
+                        Register
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!------------------------------------------------ Patient List ------------------------------------------->
+    <div
+      id="ApptList"
+      class="px-4 mx-auto collapse"
+      style="max-width: 800px"
+    >
+      <div class="row border rounded-5 bg-light p-3">
+        <div class="col-sm-12">
+          <h4 class="text-center border-bottom pb-2">Appointment List</h4>
+          <input
+            type="text"
+            id="UserID"
+            value="66f98451e7c85d5b786bfd98"
+            hidden
+          />
+          <div class="spinner-border" id="spinner" role="status" hidden></div>
+          <table class="table table-hover table-sm table-bordered">
+            <thead class="text-center">
+              <tr>
+                <th scope="col" width="30%">Name</th>
+                <th scope="col" width="15%">Age</th>
+                <th scope="col" width="30%">Diagnosis</th>
+                <th scope="col" width="20%">IPD No.</th>
+                <th scope="col" width="5%"></th>
+              </tr>
+            </thead>
+            <tbody id="ApptList"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!---------------------------------------------------- Appt Form ----------------------------------------------->
+    <form
+      id="ApptForm"
+      class="needs-validation p-3 mx-auto"
+      novalidate
+      style="max-width: 800px"
+    >
+      <!-------------- I. Appt Info ---------------------------->
+      <div
+        class="row border rounded-5 bg-light px-3 pb-4 gx-1 gy-2 mb-3"
+        id="ApptInfoHeading"
+      >
+        <!-- R0 - Title - Appointments -->
+        <div class="col-sm-12">
+          <h4 class="text-center border-bottom pb-2">
+            Appointments
+            <a
+              class="btn btn-link"
+              style="font-size: small; float: right"
+              onclick="FormReset()"
+              >Reset Form</a
+            >
+          </h4>
+          <input
+            type="text"
+            id="UserID"
+            value="66f98451e7c85d5b786bfd98"
+            hidden
+          />
+        </div>
+
+        <!-- R1 - Calender, Appointment Date -->
+        <div class="col-sm-12">
+          <div class="row gy-2">
+            <!-- Calender -->
+            <div class="col-12">
+              <div
+                class="d-flex align-items-center justify-content-center p-3 py-6"
+                style="font-size: 10em"
+                role="img"
+                aria-label="Calendar3 - large preview"
+              >
+                <svg width="0.8em" height="0.8em" viewBox="0 0 16 16">
+                  <path
+                    d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2M1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857z"
+                  ></path>
+                  <path
+                    d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Appt Date -->
+            <div class="col-12 mb-4">
+              <div class="d-flex align-items-center justify-content-center">
+                <div class="form-group">
+                  <label for="ApptDate">Appointment Date*</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="ApptDate"
+                    onchange="ApptDateSelect()"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- R2&3 - Place Div Row , Add Place Row -->
+        <div class="col-sm-12 border rounded-3 p-3">
+          <div class="row gx-1">
+            <!-- R2 - Place Div Row (Place Title, Patient Div Rows) -->
+            <div class="col-12 p-3 mb-2 collapse" id="PlaceRow" hidden></div>
+
+            <!-- R3 - Add Place Row (Add Place Input, Add Place Btn)-->
+            <div class="col-12 collapse" id="AddPlaceRow">
+              <div class="row gx-2">
+                <!-- Add Place Input -->
+                <div class="col-8">
+                  <div class="form-floating">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="PlaceName"
+                      placeholder="Please enter name"
+                      required
+                      list="OPDPlaces"
+                      disabled
+                    />
+                    <datalist id="OPDPlaces">
+                      <option value="Saifee OPD - Polyclinic"></option>
+                      <option value="Dad Cabin Saifee"></option>
+                      <option value="DH OPD"></option>
+                      <option value="Saifee ICU"></option>
+                      <option value="Saifee Casualty"></option>
+                      <option value="Saifee Dental"></option>
+                    </datalist>
+                    <label for="PlaceName">Place*</label>
+                  </div>
+                </div>
+                <!-- Add Place Button -->
+                <div
+                  class="d-flex col-4 justify-content-center align-items-center"
+                >
+                  <div class="d-grid col-10 mx-auto">
+                    <button
+                      type="button"
+                      id="AddPlaceBtn"
+                      class="btn btn-sm btn-primary"
+                      onclick="AddPlace()"
+                    >
+                      Add Place
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- R4 - Save Btn -->
+        <div class="d-grid col-10 mx-auto">
+          <!-- Incomplete msg Div -->
+          <div
+            class="form-text text-danger text-center"
+            id="IncompleteDataWarn"
+          ></div>
+
+          <!-- Save to DB Btn -->
+          <button
+            class="btn btn-success"
+            type="button"
+            id="SubmitBtn"
+            onclick="SaveApptToDB()"
+          >
+            Save Appointments to Database
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!---------------------------------------------------- Toasts --------------------------------------------->
+    <div class="toast-container position-fixed top-0 start-0 p-3">
+      <!-- 1. Saved Failed Toast -->
+      <div id="SavedFailToast" class="toast align-items-center">
+        <div class="d-flex bg-danger-subtle">
+          <div class="toast-body" id="FailedToastMsg">
+            Some Essential Data is missing or invalid.
+          </div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 2. Saved Successfully Toast -->
+      <div id="SavedSuccessToast" class="toast align-items-center">
+        <div class="d-flex bg-success-subtle">
+          <div class="toast-body" id="SuccessToastMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 3. Delete Successfully Toast -->
+      <div id="DeleteSuccessToast" class="toast align-items-center">
+        <div class="d-flex bg-danger-subtle">
+          <div class="toast-body" id="DeleteSuccessToastMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 5. Already Registered Toast -->
+      <div id="AlreadyRegisToast" class="toast align-items-center">
+        <div class="d-flex bg-danger-subtle">
+          <div class="toast-body" id="UserAlreadyRegisMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 6. New User Registered Toast -->
+      <div id="NewRegisToast" class="toast align-items-center">
+        <div class="d-flex bg-success-subtle">
+          <div class="toast-body" id="NewRegisMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 7. Login Fail Toast -->
+      <div id="LoginFailToast" class="toast align-items-center">
+        <div class="d-flex bg-danger-subtle">
+          <div class="toast-body" id="LoginFailMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 8. Login Success Toast -->
+      <div id="LoginSuccessToast" class="toast align-items-center">
+        <div class="d-flex bg-success-subtle">
+          <div class="toast-body" id="LoginSuccessMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+
+      <!-- 9. Logout Success Toast -->
+      <div id="LogoutSuccessToast" class="toast align-items-center">
+        <div class="d-flex bg-success-subtle">
+          <div class="toast-body" id="LogoutSuccessMsg"></div>
+          <button
+            type="button"
+            class="btn-close me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    <!------------------------------------------------ Register Modal ----------------------------------------->
+    <div
+      class="modal fade"
+      id="RegisterModal"
+      tabindex="-1"
+      aria-labelledby="registerModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog .modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Register New User</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="Register" class="row gx-1 gy-2">
+              <!--  User Name Input-->
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="username"><b>Name: </b></label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    placeholder="Please enter your user name"
+                    required
+                  />
+                  <div class="invalid-feedback">Name is required!</div>
+                </div>
+              </div>
+
+              <!--  User Name Input-->
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="RegisMobileNo"><b>Mobile No: </b></label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="RegisMobileNo"
+                    placeholder="Please enter your Mobile No."
+                    pattern="[789][0-9]{9}"
+                    required
+                  />
+                  <div class="invalid-feedback">
+                    This does not look like a valid 10-digit Mobile Number
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-primary" onclick="Register()">
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-------------------------------------------------Scripts & CDN ------------------------------------------->
+    <!-- MainAppt.js Script -->
+    <script src="js/mainappt.js"></script>
+
+    <!-- CRUDApptApp.js Script -->
+    <script src="js/CRUDAppt.js"></script>
+
+    <!-- PopulateSelectsAppt Script -->
+    <script src="./js/PopulateSelectsAppt.js"></script>
+
+    <!-- Bootstrap Script -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

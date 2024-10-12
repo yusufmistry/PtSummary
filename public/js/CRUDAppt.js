@@ -1,11 +1,11 @@
-////////////////////////// Get Patient List ///////////////////
-function GetPatientList() {
-  const PatientNameList = document.getElementById("PatientNameList");
+/////////////////////////// Get Patient List //////////////////////////////////////////////
+function GetApptList() {
+  const ApptList = document.getElementById("ApptList");
   window.scrollTo({ top: 0, behavior: "smooth" });
   const spinner = document.getElementById("spinner");
 
   //if statement used so that the list is Only populated once
-  if (PatientNameList.innerText === "") {
+  if (ApptList.innerText === "") {
     spinner.hidden = false;
     const UserID = document.getElementById("UserID").value;
     const UserIDObj = { userid: UserID };
@@ -78,172 +78,6 @@ function GetPatientList() {
   }
 }
 
-//////////////////////// Save Patient  //////////////////////////////////////
-function SaveToDB() {
-  // 0. Create a UserInputObject which will conatin details of all inputs
-  const UserInputsObj = {};
-
-  // 0. Pushing the user into the object
-  const UserID = document.getElementById("UserID").value;
-
-  if (UserID === "66f98451e7c85d5b786bfd98"){
-    window.alert("You cannot save or edit patients as a demo user. However you can change the inputs and generate Summaries. Please Login to save your patients")
-    return false
-  }
-
-  window.confirm("Save Changes to Database? (Cannot be undone!)")
-
-  UserInputsObj["user"] = UserID;
-
-  // 1. Pushing all traditional inputs into the UserInputObj
-  const AllInputList = document
-    .getElementById("primaryInfo")
-    .querySelectorAll("input");
-  const AllSelectList = document
-    .getElementById("primaryInfo")
-    .querySelectorAll("select");
-  const AllTextareaList = document
-    .getElementById("primaryInfo")
-    .querySelectorAll("textarea");
-
-  const AllUserInputsList = [
-    ...AllInputList,
-    ...AllSelectList,
-    ...AllTextareaList,
-  ];
-
-  AllUserInputsList.forEach(
-    (userinput) => (UserInputsObj[userinput.id] = userinput.value)
-  );
-
-  // 2. Pushing the InvTable into te UserInputObj
-  const InvTableRows = document.getElementById("InvTable").innerHTML;
-  UserInputsObj["InvTableRows"] = InvTableRows;
-
-  // 3. Pushing the Tagifys into UserInputObj
-  UserInputsObj.SxSite = SxSiteTagify.value[0]
-    ? SxSiteTagify.value[0].value
-    : "";
-  UserInputsObj.SxSide = SxSideTagify.value[0]
-    ? SxSideTagify.value[0].value
-    : "";
-  UserInputsObj.Incisions = IncisionsTagify.value[0]
-    ? IncisionsTagify.value[0].value
-    : "";
-  UserInputsObj.AdditionalSitesMucosal = AddlMucosalTagify.value.map(
-    (obj) => obj.value
-  );
-  UserInputsObj.AdditionalSitesMandible = AddlMandibleTagify.value.map(
-    (obj) => obj.value
-  );
-  UserInputsObj.AdditionalSitesMaxilla = AddlMaxillaTagify.value.map(
-    (obj) => obj.value
-  );
-  UserInputsObj.AdditionalSitesDeeper = AddlDeeperTagify.value.map(
-    (obj) => obj.value
-  );
-  UserInputsObj.AdditionalSitesSkin = AddlSkinTagify.value.map(
-    (obj) => obj.value
-  );
-  UserInputsObj.AdditionalPro = AddlProTagify.value.map((obj) => obj.value);
-  UserInputsObj.RNeckExtent = RNeckExtentTagify.value[0]
-    ? RNeckExtentTagify.value[0].value
-    : "";
-  UserInputsObj.LNeckExtent = LNeckExtentTagify.value[0]
-    ? LNeckExtentTagify.value[0].value
-    : "";
-  UserInputsObj.ReconType = ReconTypeTagify.value[0]
-    ? ReconTypeTagify.value[0].value
-    : "";
-
-  // 4. Pushing the checkboxes into UserInputObj
-  //Neck Checkboxes
-  UserInputsObj["RNeckLNRemoved"] = $("#RNeckLNBoxes input:checked")
-    .get()
-    .map((el) => el.value);
-  UserInputsObj["RNeckStructureRemoved"] = $(
-    "#RNeckStructureBoxes input:checked"
-  )
-    .get()
-    .map((el) => el.value);
-  UserInputsObj["LNeckLNRemoved"] = $("#LNeckLNBoxes input:checked")
-    .get()
-    .map((el) => el.value);
-  UserInputsObj["LNeckStructureRemoved"] = $(
-    "#LNeckStructureBoxes input:checked"
-  )
-    .get()
-    .map((el) => el.value);
-  //NeckHPCheckBoxes
-  UserInputsObj["RInvolvedNodes"] = $("#RInvolvedNodes input:checked")
-    .get()
-    .map((el) => el.value);
-  UserInputsObj["LInvolvedNodes"] = $("#LInvolvedNodes input:checked")
-    .get()
-    .map((el) => el.value);
-
-  //5. Post req using axios (Note: Check for user and update is handled by server)
-  UserInputsObj["PatientID"] = document.getElementById("PatientID").value;
-
-  axios
-    .post("http://localhost:5000/", UserInputsObj)
-    .then((res) => {
-      SuccessToastMsg = document.getElementById("SuccessToastMsg").innerText =
-        res.data;
-      bootstrap.Toast.getOrCreateInstance(
-        document.getElementById("SavedSuccessToast")
-      ).show();
-
-      // Reset Patient Name List
-      const PatientNameList = document.getElementById("PatientNameList");
-      PatientNameList.innerHTML = "";
-
-      const PatientList = document.getElementById("PatientList");
-      const bsCollapsePatientList = new bootstrap.Collapse(PatientList, {
-        toggle: false,
-      });
-      bsCollapsePatientList.hide();
-      FormReset()
-      GetPatientList()
-    })
-    .catch((err) => {
-      FailedToastMsg = document.getElementById(
-        "FailedToastMsg"
-      ).innerText = `Failed to save due to: ${err}`;
-      bootstrap.Toast.getOrCreateInstance(
-        document.getElementById("SavedFailedToast")
-      ).show();
-    });
-
-}
-
-//////////////////////// Update Patient //////////////////////////////////////
-//Update is handled by server through Save to DB()
-
-//////////////////////// Delete Patient  //////////////////////////////////////
-function DeletePatient(id, name) {
-
-  const UserID = document.getElementById("UserID").value;
-
-  if (UserID === "66f98451e7c85d5b786bfd98"){
-    alert("As a demo user your changes will not be saved. Please Login to save your data")
-    return false
-  }
-
-  axios
-    .post("http://localhost:5000/deletepatient", { id })
-    .then((res) => {
-      DeleteSuccessToastMsg = document.getElementById(
-        "DeleteSuccessToastMsg"
-      ).innerText = `${name} ${res.data}`;
-      bootstrap.Toast.getOrCreateInstance(
-        document.getElementById("DeleteSuccessToast")
-      ).show();
-      FormReset()
-    })
-    .catch((err) => console.log(err));
-}
-
 /////////////////////////// Register User Fn /////////////////////////////////////////////////
 function Register() {
   const registerform = document.getElementById("Register");
@@ -307,15 +141,18 @@ function Register() {
             "PatientNameList"
           ).innerHTML = "");
           const PatientList = document.getElementById("PatientList");
-          const bsCollapsePatientList = bootstrap.Collapse.getOrCreateInstance(PatientList, {
-            toggle: false,
-          });
+          const bsCollapsePatientList = bootstrap.Collapse.getOrCreateInstance(
+            PatientList,
+            {
+              toggle: false,
+            }
+          );
           bsCollapsePatientList.hide();
 
           //7. Update Login Status
           const LoginStatus = document.getElementById("LoginStatus");
           LoginStatus.innerHTML = `<i>Logged in as - ${User1.username}</i>`;
-          LoginStatus.classList = "bg-success-subtle"
+          LoginStatus.classList = "bg-success-subtle";
 
           //8. Close offcanvas
           const offcanvasNavbarLight = bootstrap.Offcanvas.getInstance(
@@ -324,7 +161,7 @@ function Register() {
           offcanvasNavbarLight.hide();
 
           //9. Form Reset
-          FormReset()
+          FormReset();
         }
       })
       .catch((err) => console.log(err));
@@ -385,15 +222,18 @@ function Login() {
             "PatientNameList"
           ).innerHTML = "");
           const PatientList = document.getElementById("PatientList");
-          const bsCollapsePatientList = bootstrap.Collapse.getOrCreateInstance(PatientList, {
-            toggle: false,
-          });
+          const bsCollapsePatientList = bootstrap.Collapse.getOrCreateInstance(
+            PatientList,
+            {
+              toggle: false,
+            }
+          );
           bsCollapsePatientList.hide();
 
           //7. Update Login Status
           const LoginStatus = document.getElementById("LoginStatus");
-          LoginStatus.innerHTML = `<i>Logged in as - ${User1.username}</i>`
-          LoginStatus.classList = "bg-success-subtle"
+          LoginStatus.innerHTML = `<i>Logged in as - ${User1.username}</i>`;
+          LoginStatus.classList = "bg-success-subtle";
 
           //8. Close offcanvas
           const offcanvasNavbarLight = bootstrap.Offcanvas.getInstance(
@@ -402,7 +242,7 @@ function Login() {
           offcanvasNavbarLight.hide();
 
           //9. Form Reset
-          FormReset()
+          FormReset();
         }
       })
       .catch((err) => console.log(err));
@@ -419,4 +259,99 @@ function Logout() {
   ).show();
 
   setTimeout(() => window.location.reload(true), 2000);
+}
+
+function SaveApptToDB() {
+  const ApptDate = document.getElementById("ApptDate").value;
+  const UserID = document.getElementById("UserID").value;
+  const PlaceRows = document.getElementById("PlaceRow");
+  const PlacesTables = PlaceRows.querySelectorAll("tbody");
+  const PlacesNames = PlaceRows.querySelectorAll("u");
+
+  //////////////////// Validation ///////////////////////////
+  // 1. Check for Login
+  if (UserID === "66f98451e7c85d5b786bfd98") {
+    window.alert(
+      "You cannot save appointments as a Demo User. Please Login to save your appointments"
+    );
+    return;
+  }
+
+  // 2. Check for Date
+  if (!ApptDate) {
+    FailedToastMsg = document.getElementById("FailedToastMsg").innerHTML =
+      "Please Enter a Date!";
+    bootstrap.Toast.getOrCreateInstance(
+      document.getElementById("SavedFailToast")
+    ).show();
+    return;
+  }
+
+  // 3. Check for Empty Places
+  if (!PlacesTables.length) {
+    FailedToastMsg = document.getElementById("FailedToastMsg").innerHTML =
+      "There is nothing to Save!";
+    bootstrap.Toast.getOrCreateInstance(
+      document.getElementById("SavedFailToast")
+    ).show();
+    return;
+  }
+
+  // 4. Check for empty Patient Rows
+  if (PlacesTables.length) {
+    var EmptyRows = [];
+    PlacesTables.forEach((table, i) => {
+      const PatientRows = table.querySelectorAll("tr");
+      if (PatientRows.length < 2) {
+        EmptyRows.push(PlacesNames[i].innerText);
+      }
+    });
+    if (EmptyRows.length) {
+      FailedToastMsg = document.getElementById(
+        "FailedToastMsg"
+      ).innerHTML = `There are no Appointments in <b>${EmptyRows.join(
+        " & "
+      )} </b>. Please Add Appointments or delete the place(s)`;
+      bootstrap.Toast.getOrCreateInstance(
+        document.getElementById("SavedFailToast")
+      ).show();
+      return;
+    }
+  }
+
+  ///////////////// Validation passed //////////////////////////
+
+  PlacesTables.forEach((table, i) => {
+    Place = PlacesNames[i].innerText;
+    const PatientRows = table.querySelectorAll("tr");
+
+    PatientRows.forEach((row) => {
+      if (row.cells[7].innerText !== "Add") {
+        const ApptObj = {};
+        ApptObj["user"] = UserID;
+        ApptObj["ApptDate"] = ApptDate;
+        ApptObj["Place"] = Place;
+        ApptObj["Patient"] = row.cells[0].innerText;
+        ApptObj["ApptType"] = row.cells[2].innerText;
+        ApptObj["Details"] = row.cells[3].innerText;
+        ApptObj["Advice"] = row.cells[4].innerText;
+        ApptObj["Fees"] = row.cells[5].innerText;
+        ApptObj["Comment"] = row.cells[6].innerText;
+
+        axios
+          .post("http://localhost:5000/saveAppt", ApptObj)
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((err) => console.log(err));
+      }
+    });
+  });
+
+  FormReset();
+  SuccessToastMsg = document.getElementById("SuccessToastMsg").innerHTML =
+    "Appointments saved Successfully";
+  bootstrap.Toast.getOrCreateInstance(
+    document.getElementById("SavedSuccessToast")
+  ).show();
 }

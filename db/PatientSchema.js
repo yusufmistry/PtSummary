@@ -85,6 +85,7 @@ const PatientSchema = new mongoose.Schema({
     MedicalHistory: String,
     IntraopNotes: String,
     PostopNotes: String,
+    RecoveryNotes: String,
     Subsequent: String,
     InvTableRows: String,
     RNeckLNRemoved: [String],
